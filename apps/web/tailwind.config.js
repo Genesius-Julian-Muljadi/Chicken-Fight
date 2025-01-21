@@ -1,62 +1,46 @@
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  mode: 'jit',
+  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: false,
   theme: {
-    screens: {
-      sm: "576px",
-      md: "768px",
-      lg: "992px",
-      xl: "1280px",
+    fontSize: {
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
     },
-    fontFamily: {
-      sans: [
-        "Jost",
-        "ui-sans-serif",
-        "system-ui",
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        '"Noto Sans"',
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
-      ],
-    },
-    colors: {
-      transparent: "transparent",
-      current: "currentColor",
-
-      white: "#FFFFFF",
-
-      gray100: "#EEEEEE",
-      gray200: "#ECECEC",
-      gray300: "#C1C1C1",
-      gray400: "#686868",
-      gray500: "#282828",
-
-      red: "#F05454",
-      yellow: "#F5B461",
-      green: "#9BDEAC",
-      blue: "#66BFBF",
-      lightgreen: "#F2FDFB",
-    },
-    extend: {},
-  },
-  variants: {
     extend: {
-      transform: ["group-hover"],
-      scale: ["group-hover"],
-      transitionDuration: ["group-hover"],
-      letterSpacing: ["group-hover"],
-      width: ["group-hover"],
-      borderColor: ["group-hover"],
+      colors: {
+        primary: '#ec4755',
+        secondary: '#a12c34',
+        tertiary: '#99a0a3',
+        border: '#1a2e35',
+        background: '#ffffff',
+      },
+      animation: {
+        vote: 'vote 1s ease-in-out',
+      },
+      keyframes: {
+        vote: {
+          '0%, 100%': {
+            transform: 'rotate(0deg)',
+          },
+          '25%': {
+            transform: 'rotate(-30deg)',
+          },
+          '75%': {
+            transform: 'rotate(30deg)',
+          },
+        },
+      },
     },
-    // divideColor: ['group-hover'],
   },
+  variants: {},
   plugins: [],
 };

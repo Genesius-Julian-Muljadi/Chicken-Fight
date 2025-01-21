@@ -1,23 +1,14 @@
-const withPWA = require("next-pwa");
+/* eslint-disable import/no-extraneous-dependencies */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
-module.exports = withPWA({
-  // module.exports = {
-  i18n: {
-    locales: ["en", "my"],
-    defaultLocale: "en",
-  },
+module.exports = withBundleAnalyzer({
+  poweredByHeader: false,
+  trailingSlash: true,
+  basePath: '',
+  // The starter code load resources from `public` folder with `router.basePath` in React components.
+  // So, the source code is "basePath-ready".
+  // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
-  // swcMinify: true,
-  compiler: {
-    removeConsole: true,
-  },
-  images: {
-    domains: ["robohash.org", "res.cloudinary.com"],
-  },
-  pwa: {
-    dest: "public",
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === "development",
-  },
-  // };
 });
