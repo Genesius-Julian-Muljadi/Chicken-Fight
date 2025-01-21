@@ -1,95 +1,94 @@
-# React.js landing page template v2
+# [NextJS Tailwind App Presentation Page](http://demos.creative-tim.com/nextjs-tailwind-app-presentation-page?ref=readme-ntapp) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https://www.creative-tim.com/product/nextjs-tailwind-app-presentation-page&text=Check%20Material%20Tailwind%202%20Template%20made%20by%20@CreativeTim%20#webdesign%20#template%20#materialdesign%20#react%20https://www.creative-tim.com/product/nextjs-tailwind-app-presentation-page)
 
-## <a href="https://react-landing-page-template-2021.vercel.app/"> LIVE DEMO</a>
+![version](https://img.shields.io/badge/version-1.0.0-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/nextjs-tailwind-app-presentation-page.svg)](https://github.com/creativetimofficial/nextjs-tailwind-app-presentation-page/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/nextjs-tailwind-app-presentation-page.svg)](https://github.com/creativetimofficial/nextjs-tailwind-app-presentation-page/issues?q=is%3Aissue+is%3Aclosed)
 
-<img src="public/assets/gifs/demo.gif" width="100%" height="auto" />
+![Image](https://s3.amazonaws.com/creativetim_bucket/products/741/original/material-tailwind-react-application-template-thumbnail.jpg?1697629129)
 
-### Description
+Introducing Tailwind App Presentation Page, a sleek and feature-rich app presentation template built on the foundation of Tailwind CSS and Material Tailwind.
 
-This is a React.js/Next.js based landing page plug-n-play template, ideal for startups/companies/service providers wanting to showcase their vision in a single page sleek and modern landing page.
+Are you in search of a professionally designed and highly customizable app presentation template tailored for app developers, startups, and businesses to showcase your mobile or web application in a captivating way? Look no further! We are excited to present to you our Free App Presentation Page Template, meticulously crafted to cater to the needs of app developers like you.
 
-### Features
+This template, designed with Tailwind CSS and Material Tailwind, offers effortless customization to align perfectly with your app's unique branding. The free app presentation template includes essential features such as hero, features, FAQ, stats, and testimonial sections.
 
-- 📱  Responsive design
-- 🔥 [Next.js](https://nextjs.org) for Static Site Generator
+**Documentation built by Developers**
 
-- 🎨 Integrate with [Tailwind CSS](https://tailwindcss.com) (w/ JIT mode)
+Each element is well presented in very complex documentation.
 
-- 💅 PostCSS for processing Tailwind CSS and integrated to `styled-jsx`
+You can read more about the [documentation here](https://www.material-tailwind.com/docs/react/installation).
 
-- 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
+**HELPFUL LINKS**
 
-- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier, TypeScript
+- View [Github Repository](https://github.com/creativetimofficial/nextjs-tailwind-app-presentation-page)
+- Check [FAQ Page](https://www.creative-tim.com/faq)
 
-- 🤖 SEO metadata, JSON-LD and Open Graph tags with Next SEO
+## [Demo](https://creative-tim.com/product/nextjs-tailwind-app-presentation-page)
 
-- 🖱️ One click deployment with Vercel or Netlify (or manual deployment to any hosting services)
+## Quick start
 
-Built-in feature from Next.js:
+Quick start options:
 
-- ☕ Minify HTML & CSS
-- 💨 Live reload
-- ✅ Cache busting
+- Download from [Creative Tim](https://www.creative-tim.com/product/nextjs-tailwind-app-presentation-page?ref=readme-ntapp).
 
-### Make it your own
+## Terminal Commands
 
-#### 1. Clone repo
+1. Download and Install NodeJs LTS version from [NodeJs Official Page](https://nodejs.org/en/download/).
+2. Navigate to the root ./ directory of the product and run `npm install` to install our local dependencies.
 
-```
-git clone https://github.com/issaafalkattan/react-landing-page-template-2021.git
-cd react-landing-page-template-2021
-yarn
-```
+## Documentation
 
-Then, you can run locally in development mode with live reload:
+The documentation for the Material Dashboard is hosted at our [website](https://www.material-tailwind.com/docs/react/installation?ref=readme-ntapp).
 
-```
-yarn dev
-```
+## Browser Support
 
-Open <http://localhost:3000> with your favorite browser to see your project.
+At present, we officially aim to support the last two versions of the following browsers:
 
-#### 2. Add your own content
+<img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/chrome.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/firefox.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/edge.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/safari.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/opera.png" width="64" height="64">
 
- 1. **Content**: change the configuration in the ```src/config/index.json``` file to change the content of the landing page to match your use ```src/config/index.json```  folder and .
- 2. **Images**:  add any images/icons..etc to the ```public/assets/images```  folder and update their reference source in ```src/config/index.json```.
- 3. **Theme**:  to change the theme, update the ```tailwind.config.js```  file to match the theme of your branding. [Tutorial](https://tailwindcss.com/docs/configuration).
+## Resources
 
-#### 3. Deploy to production
+- [Live Preview](https://demos.creative-tim.com/nextjs-tailwind-app-presentation-page?ref=readme-ntapp)
+- [Download Page](https://www.creative-tim.com/product/nextjs-tailwind-app-presentation-page?ref=readme-ntapp)
+- Documentation is [here](https://www.material-tailwind.com/docs/react/installation?ref=readme-ntapp)
+- [License Agreement](https://www.creative-tim.com/license?ref=readme-ntapp)
+- [Support](https://www.creative-tim.com/contact-us?ref=readme-ntapp)
+- Issues: [Github Issues Page](https://github.com/creativetimofficial/nextjs-tailwind-app-presentation-page/issues)
+- [Nepcha Analytics](https://nepcha.com?ref=readme) - Analytics tool for your website
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fissaafalkattan%2Freact-landing-page-template-2021)
+## Reporting Issues
 
-##### Deploy manually
+We use GitHub Issues as the official bug tracker for the NextJS Tailwind App Presentation Page. Here are some advices for our users that want to report an issue:
 
-You can see the results locally in production mode with:
+1. Make sure that you are using the latest version of the NextJS Tailwind App Presentation Page. Check the CHANGELOG from your dashboard on our [website](https://www.creative-tim.com/product/nextjs-tailwind-app-presentation-page?ref=readme-ntapp).
+2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
+3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
 
-  ```
-yarn build
-yarn start
-```
+## Technical Support or Questions
 
-The generated HTML and CSS files are minified (built-in feature from Next js). It will also removed unused CSS from [Tailwind CSS](https://tailwindcss.com).
+If you have questions or need help integrating the product please [contact us](https://www.creative-tim.com/contact-us?ref=readme-ntapp) instead of opening an issue.
 
-You can create an optimised production build with:
+## Licensing
 
-```
-yarn build-prod
-```
+- Copyright 2023 [Creative Tim](https://www.creative-tim.com?ref=readme-ntapp)
+- Creative Tim [license](https://www.creative-tim.com/license?ref=readme-ntapp)
 
-### Contributions
+## Useful Links
 
-Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
+- [More products](https://www.creative-tim.com/templates?ref=readme-ntapp) from Creative Tim
 
-### License
+- [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w)
 
-Licensed under the MIT License, Copyright © 2021
-  
+- [Freebies](https://www.creative-tim.com/bootstrap-themes/free?ref=readme-ntapp) from Creative Tim
 
-## Liked this template? <a href="https://www.buymeacoffee.com/issaaf">Buy me a coffee ☕️</a>
+- [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=readme-ntapp) (earn money)
 
+##### Social Media
 
+Twitter: <https://twitter.com/CreativeTim>
 
+Facebook: <https://www.facebook.com/CreativeTim>
 
----
+Dribbble: <https://dribbble.com/creativetim>
 
-### Looking for v1? <a href="https://github.com/issaafalkattan/React-Landing-Page-Template">V1</a>
+Google+: <https://plus.google.com/+CreativetimPage>
+
+Instagram: <https://instagram.com/creativetimofficial>
