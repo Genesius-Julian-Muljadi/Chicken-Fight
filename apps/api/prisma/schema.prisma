@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Users {
+  id          Int            @id @default(autoincrement())
+  name        String         @db.VarChar(30)
+  email       String         @unique
+  password    String
+  quizzes     Quizzes[]
+  history     Quiz_History[]
+  dateCreated DateTime       @default(now())
+  updated     DateTime       @updatedAt
+}
+
+model Quizzes {
+  id          Int            @id @default(autoincrement())
+  userID      Int
+  user        Users          @relation(fields: [userID], references: [id], onDelete: Cascade)
+  title       String         @db.VarChar(30)
+  qCount      Int
+  qnas        Quiz_QnA[]
+  history     Quiz_History[]
+  dateCreated DateTime       @default(now())
+  updated     DateTime       @updatedAt
+}
+
+model Quiz_QnA {
+  id       Int            @id @default(autoincrement())
+  quizID   Int
+  quiz     Quizzes        @relation(fields: [quizID], references: [id], onDelete: Cascade)
+  question String
+  multiple Boolean        @default(false) // true if multiple answers allowed/required
+  answers  Quiz_Answers[]
+}
+
+model Quiz_Answers {
+  id      Int      @id @default(autoincrement())
+  qnaID   Int
+  qna     Quiz_QnA @relation(fields: [qnaID], references: [id], onDelete: Cascade)
+  answer  String   @db.VarChar(50)
+  correct Boolean
+}
+
+model Quiz_History {
+  id          Int      @id @default(autoincrement())
+  userID      Int // Who took the quiz?
+  user        Users    @relation(fields: [userID], references: [id], onDelete: Cascade)
+  quizID      Int
+  quiz        Quizzes  @relation(fields: [quizID], references: [id], onDelete: Cascade)
+  score       Int // How many questions they got correct. Partial correctness counts as wrong
+  submission  String   @db.Text() // stringified JSON object
+  dateCreated DateTime @default(now())
+}
