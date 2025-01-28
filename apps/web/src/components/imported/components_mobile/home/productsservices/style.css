@@ -1,0 +1,98 @@
+#homepscontainerdivmobile {
+    height: auto;
+    width: 100vw;
+    /* aspect-ratio: 20/11; */
+}
+
+#homegolddivmobile {
+    background-image: url("../../../assets/products/IMG_3791.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homediamonddivmobile {
+    background-image: url("../../../assets/products/IMG_6710.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homeringimgmobile {
+    background-image: url("../../../assets/products/IMG_3796.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homependantimgmobile {
+    background-image: url("../../../assets/products/IMG_3799.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homeearringsimgmobile {
+    background-image: url("../../../assets/products/IMG_3793.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homenecklaceimgmobile {
+    background-image: url("../../../assets/products/IMG_3802.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homebraceletimgmobile {
+    background-image: url("../../../assets/products/IMG_3795.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homebroochimgmobile {
+    background-image: url("../../../assets/products/IMG_3792.jpeg");
+    background-size: 100% 100%;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+#homegolddiamondsizedivmobile {
+    height: 15rem;
+}
+
+#homejewelrytypesdivmobile {
+    margin-top: -0.27em;
+}
+
+#homegolddivmobile:hover {
+    box-shadow: 0px 0px 4px 2px #c9c9c9;
+}
+
+#homegolddivmobile:active {
+    box-shadow: 0px 0px 4px 4px #aeaeae;
+}
+
+#homediamonddivmobile:hover {
+    box-shadow: 0px 0px 4px 2px #c9c9c9;
+}
+
+#homediamonddivmobile:active {
+    box-shadow: 0px 0px 4px 4px #aeaeae;
+}
+
+#homejewelrytypesdivmobile button:hover {
+    box-shadow: 0px 0px 4px 2px #c9c9c9;
+}
+
+#homejewelrytypesdivmobile button:active {
+    box-shadow: 0px 0px 4px 4px #aeaeae;
+}
+
+#homecataloguedivmobile {
+    box-shadow: 0px 1px 1px 0px rgb(104, 104, 104);
+    background: linear-gradient(90deg, #fcfafd, #fefcff, #f3f1ff, #f1effc);
+}
+
+#homecataloguedivmobile:hover {
+    box-shadow: 0px 2px 2px 0px rgb(146, 146, 146);
+}
+
+#homecataloguedivmobile:active {
+    box-shadow: 0px 1px 1px 2px rgb(161, 161, 161);
+}

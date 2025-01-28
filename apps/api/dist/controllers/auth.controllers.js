@@ -15,25 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const services_1 = __importDefault(require("../services/auth.services/services"));
 const COOKIE_EXPIRATION_MINUTES = 40;
 class AuthControllers {
-    registerUser(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const user = yield services_1.default.registerUser(req);
-                if (!user)
-                    throw new Error("Register failed");
-                res.status(200).send({
-                    message: "Registration successful!",
-                    data: user,
-                });
-            }
-            catch (err) {
-                res.status(401).send({
-                    message: String(err),
-                });
-                next(err);
-            }
-        });
-    }
     loginUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

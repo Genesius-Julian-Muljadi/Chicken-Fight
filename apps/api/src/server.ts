@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
-import { PORT, BASE_WEB_URL } from "./config";
+import { PORT } from "./config";
 import helmet from "helmet";
 import AuthRoutes from "./routes/auth.routes";
 

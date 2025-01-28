@@ -1,0 +1,65 @@
+#cataloguegolddivmobile, #cataloguediamonddivmobile  {
+    background: linear-gradient(90deg, #f9f6fd, #ebeaf0, #ebeaf0, #ebe9f7);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-left: 0.85rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+.cataloguejewelrytypedivsmobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.cataloguejewelrytypedivsmobile > div:first-child {
+    background: linear-gradient(90deg, #fcfafd, #fefcff, #fefcff);
+    width: 97%;
+    padding-left: 0.65rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border: 0.8px solid rgb(73, 73, 73);
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    box-shadow: 0px 1px 1px 0px rgb(104, 104, 104);
+    font-weight: 600;
+}
+
+.cataloguejewelrytypedivsmobile > div:last-child {
+    gap: 0.5rem;
+}
+
+.cataloguejewelrytypedivsmobile > div > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 9rem;
+    border-top-left-radius: 1.2rem;
+    border-top-right-radius: 1.2rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    box-shadow: 0px 1px 2px 0px rgb(80, 80, 80);
+}
+
+.cataloguejewelryimagesmobile {
+    height: 9rem;
+    width: 9rem;
+}
+
+.cataloguejewelryimagesmobile img {
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 1.2rem;
+    border-top-right-radius: 1.2rem;
+}
+
+.cataloguejewelrytypedivsmobile > div > div > div {
+    font-size: 10pt;
+}

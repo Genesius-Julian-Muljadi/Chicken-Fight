@@ -1,0 +1,7 @@
+#idollalogofooter {
+    height: 44px;
+    width: 140px;
+    margin-top: 0.5%;
+    background-image: url("../../assets/idollalogofooter.png");
+    background-size: cover;
+}

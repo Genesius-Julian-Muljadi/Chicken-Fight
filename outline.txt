@@ -1,0 +1,18 @@
+Site will follow company website template from CC2.
+All website data should be replaced with easily-rewritable data.
+Advise user on how to update site metadata in-order to manage page load speed.
+Separate chicken data to database.
+
+Create admin login to allow chicken data updating.
+
+Catalogue should be splittable into males & females (pejantan/indukan)
+Basic sorts should also apply. (name, date creation)
+
+Chicken data:
+Image
+Chicken name/title
+Description text
+Date created
+Update date
+
+(NO PRICES ON WEBSITE)

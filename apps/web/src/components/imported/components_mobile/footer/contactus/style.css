@@ -1,0 +1,96 @@
+#emaillinkmobile {
+    /* background: linear-gradient(0deg, #d4d4d4, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff); */
+    background-image: url("../../../assets/yahoo.png");
+    box-shadow: 2px 2px 2px 0px #312e84;
+    background-size: cover;
+}
+
+#email2linkmobile {
+    background: linear-gradient(0deg, #d4d4d4, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+    box-shadow: 2px 2px 2px 0px #414141;
+}
+
+#whatsappiconmobile  {
+    background: linear-gradient(0deg, #099127, #0fc136, #22d649, #47e068, #49e66e, #51e579, #52e775, #52e775);
+    /* background: linear-gradient(0deg, #084d17, #52e775); */
+    box-shadow: 2px 2px 2px 0px #084d17;
+  }
+
+#whatsappiconimagemobile {
+    width: 1.40rem;
+    height: 1.40rem;
+}
+
+#facebooklinkmobile {
+    background-image: url("../../../assets/facebook.png");
+    box-shadow: 2px 2px 2px 0px #192b5b;
+    background-size: cover;
+}
+
+#tiktoklinkmobile {
+    background-image: url("../../../assets/tiktok.png");
+    background-size: cover;
+    box-shadow: 2px 2px 2px 0px #2b2b2b;
+}
+
+#instagramlinkmobile {
+    background-image: url("../../../assets/instagram.webp");
+    box-shadow: 2px 2px 2px 0px #7f1d1d;
+    background-size: cover;
+}
+
+#shopeelinkmobile {
+    background-color: white;
+    background-image: url("../../../assets/shopee.png");
+    box-shadow: 2px 2px 2px 0px #414141;
+    background-size: cover;
+}
+
+#googlemapslinkmobile {
+    background-image: url("../../../assets/googlemaps.png");
+    box-shadow: 2px 2px 2px 0px #414141;
+    background-size: cover;
+}
+
+#tokopedialinkmobile {
+    background-color: white;
+    background-image: url("../../../assets/tokopedia.png");
+    box-shadow: 2px 2px 2px 0px #414141;
+    background-size: contain;
+}
+
+#emailtextdivmobile {
+    margin-left: -7rem;
+}
+
+#email2textdivmobile {
+    margin-left: -7.5rem;
+}
+
+#whatsapptextdivmobile {
+    margin-left: -4.3rem;
+}
+
+#emailtextmobile {
+    background: linear-gradient(315deg, #350c63, #4b2a8d, #4b2a8d, #523194, #5a3a9c, #5b3d99, #593f8d, #5f4794, #6f599c);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+}
+
+#email2textmobile {
+    background: linear-gradient(0deg, #d4d4d4, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+}
+
+#whatsappphonenumbermobile {
+    background: linear-gradient(0deg, #0da62e, #72f08f);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.4);
+}
+
+#socialmediagridmobile {
+    row-gap: 2.4rem;
+}
+
+#coveringdivmobile {
+    margin-left: -8rem;
+    width: 21rem;
+}

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AuthServices from "../services/auth.services/services";
 
-const COOKIE_EXPIRATION_MINUTES = 40;
+const COOKIE_EXPIRATION_MINUTES = 120;
 
 export default class AuthControllers {
   public async loginUser(req: Request, res: Response, next: NextFunction) {

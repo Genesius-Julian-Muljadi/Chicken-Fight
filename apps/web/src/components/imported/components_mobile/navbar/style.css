@@ -1,0 +1,54 @@
+#navbarcontainermobile {
+    background: linear-gradient(90deg, #741f1f, #741f1f, #741f1f, #521515);
+    width: 100vw;
+    /* padding-left: 3px; */
+}
+
+#idollalogomobile {
+    height: 44px;
+    width: 140px;
+    margin-top: 0.5%;
+    background-image: url("../../assets/idollalogo.png");
+    background-size: cover;
+}
+
+#identitlemobile {
+    width: 70%
+}
+
+#idflagmobile {
+    height: 1.4rem;
+    width: 2rem;
+    box-shadow: 1px 1px 1px 0px #1a1a1a;
+}
+
+#usflagmobile {
+    height: 1.4rem;
+    width: 2rem;
+    box-shadow: 1px 1px 1px 0px #1a1a1a;
+}
+
+#navbarmenumobile {
+    height: 18em;
+    width: 40vw;
+    top: 0px;
+    background: linear-gradient(30deg, #8492a4, #94a3b8, #9fafc6, #9fafc6, #9fafc6);
+    box-shadow: 0px 0px 4px 2px #484f59;
+    display: none;
+}
+
+/* #navbarmenubuttonmobile:focus#navbarmenumobile {
+    animation: slideInLeft 0.3s ease 0s 1 normal both;
+} */
+@keyframes slideInLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(-250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+

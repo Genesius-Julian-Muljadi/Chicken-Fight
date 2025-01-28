@@ -6,15 +6,13 @@ import AuthUtils from "./utils";
 export default class AuthServices {
   static async loginUser(req: Request) {
     try {
-      const { email, password } = req.body;
-      const findUser = await AuthUtils.findUserByEmail(email);
+      const { key, password } = req.body;
+      const findUser = await AuthUtils.findUserByKey(key);
 
       await AuthUtils.verifyCredentials(findUser, password);
 
       const payload = {
-        id: findUser!.id,
-        email: email,
-        name: findUser!.name,
+        role: "admin",
       };
       const token = sign(payload, String(SECRET_KEY));
 

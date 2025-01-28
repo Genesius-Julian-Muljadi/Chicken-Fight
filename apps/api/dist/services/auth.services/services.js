@@ -12,34 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const prisma_1 = __importDefault(require("../../lib/prisma"));
 const jsonwebtoken_1 = require("jsonwebtoken");
 const config_1 = require("../../config");
 const utils_1 = __importDefault(require("./utils"));
 class AuthServices {
-    static registerUser(req) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { name, email, password } = req.body;
-                const findUser = yield utils_1.default.findUserByEmail(email);
-                if (findUser) {
-                    throw new Error("Duplicate email");
-                }
-                const hashedPassword = yield utils_1.default.bcryptHash(password);
-                const newUser = yield prisma_1.default.users.create({
-                    data: {
-                        name: name,
-                        email: email,
-                        password: hashedPassword,
-                    },
-                });
-                return newUser;
-            }
-            catch (err) {
-                throw err;
-            }
-        });
-    }
     static loginUser(req) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
