@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { FixedPlugin, Layout } from "@/components";
+import { Layout } from "@/components";
 import { ThemeProviders } from "./theme-providers";
 import siteMetadata from "@/data/siteMetadata";
 
@@ -37,7 +37,6 @@ export default function RootLayout({
         <ThemeProviders>
           <Layout>
             {children}
-            {/* <FixedPlugin /> */}
           </Layout>
         </ThemeProviders>
       </body>
