@@ -7,6 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import ThemeSwitch from "./imported/ThemeSwitch";
 
 interface NavItemProps {
   children: React.ReactNode;
@@ -21,10 +22,6 @@ function NavItem({ children, href }: NavItemProps) {
         target={href ? "_blank" : "_self"}
         variant="small"
         className="font-medium"
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-        suppressHydrationWarning={true}
       >
         {children}
       </Typography>
@@ -67,10 +64,9 @@ export function Navbar() {
       shadow={false}
       blurred={false}
       color={isScrolling ? "white" : "transparent"}
-      className="fixed top-0 z-50 border-0"
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
+      className={`fixed top-0 z-50 border-0${
+        isScrolling ? " dark:bg-gray-950" : ""
+      }`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <Typography
@@ -79,15 +75,13 @@ export function Navbar() {
           target="_blank"
           variant="h6"
           color={isScrolling ? "gray" : "white"}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
+          className="dark:text-white"
         >
           Material Tailwind
         </Typography>
         <ul
           className={`ml-10 hidden items-center gap-6 lg:flex ${
-            isScrolling ? "text-gray-900" : "text-white"
+            isScrolling ? "text-gray-900 dark:text-white" : "text-white"
           }`}
         >
           <NavItem>Home</NavItem>
@@ -102,59 +96,39 @@ export function Navbar() {
             variant="text"
             color={isScrolling ? "gray" : "white"}
             size="sm"
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           >
-            <i className="fa-brands fa-twitter text-base" />
+            <i className="fa-brands fa-twitter text-base dark:text-white" />
           </IconButton>
           <IconButton
             variant="text"
             color={isScrolling ? "gray" : "white"}
             size="sm"
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           >
-            <i className="fa-brands fa-facebook text-base" />
+            <i className="fa-brands fa-facebook text-base dark:text-white" />
           </IconButton>
           <IconButton
             variant="text"
             color={isScrolling ? "gray" : "white"}
             size="sm"
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           >
-            <i className="fa-brands fa-instagram text-base" />
+            <i className="fa-brands fa-instagram text-base dark:text-white" />
           </IconButton>
-          <a href="https://www.material-tailwind.com/blocks" target="_blank">
-            <Button
-              color={isScrolling ? "gray" : "white"}
-              size="sm"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
-              Blocks
-            </Button>
-          </a>
+          <ThemeSwitch scrolling={isScrolling} />
         </div>
-        <IconButton
-          variant="text"
-          color={isScrolling ? "gray" : "white"}
-          onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6" />
-          )}
-        </IconButton>
+        <div className="ml-auto md:hidden flex flex-row">
+          <ThemeSwitch scrolling={isScrolling} />
+          <IconButton
+            variant="text"
+            color={isScrolling ? "gray" : "white"}
+            onClick={handleOpen}
+          >
+            {open ? (
+              <XMarkIcon strokeWidth={2} className="h-6 w-6" />
+            ) : (
+              <Bars3Icon strokeWidth={2} className="h-6 w-6" />
+            )}
+          </IconButton>
+        </div>
       </div>
       <Collapse open={open}>
         <div className="container mx-auto mt-4 rounded-lg border-t border-blue-gray-50 bg-white px-6 py-5">
@@ -167,45 +141,17 @@ export function Navbar() {
             </NavItem>
           </ul>
           <div className="mt-4 flex items-center gap-2">
-            <IconButton
-              variant="text"
-              color="gray"
-              size="sm"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
+            <IconButton variant="text" color="gray" size="sm">
               <i className="fa-brands fa-twitter text-base" />
             </IconButton>
-            <IconButton
-              variant="text"
-              color="gray"
-              size="sm"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
+            <IconButton variant="text" color="gray" size="sm">
               <i className="fa-brands fa-facebook text-base" />
             </IconButton>
-            <IconButton
-              variant="text"
-              color="gray"
-              size="sm"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            >
+            <IconButton variant="text" color="gray" size="sm">
               <i className="fa-brands fa-instagram text-base" />
             </IconButton>
             <a href="https://www.material-tailwind.com/blocks" target="_blank">
-              <Button
-                color="gray"
-                size="sm"
-                className="ml-auto"
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
+              <Button color="gray" size="sm" className="ml-auto">
                 Blocks
               </Button>
             </a>

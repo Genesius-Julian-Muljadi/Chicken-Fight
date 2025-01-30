@@ -14,11 +14,18 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// Should only be filled by admin
 model Users {
-  id          Int            @id @default(autoincrement())
-  name        String         @db.VarChar(30)
-  key       String         @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(30)
+  key         String   @unique
   password    String
-  dateCreated DateTime       @default(now())
-  updated     DateTime       @updatedAt
+  dateCreated DateTime @default(now())
+  updated     DateTime @updatedAt
+}
+
+model Testimonials {
+  id        Int     @id @default(autoincrement())
+  testifier String? @db.VarChar(30)
+  testimony String  @db.Text
 }

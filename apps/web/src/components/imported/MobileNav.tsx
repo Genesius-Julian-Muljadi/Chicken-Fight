@@ -1,41 +1,57 @@
-'use client'
+"use client";
 
-import { Dialog, Transition } from '@headlessui/react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { Fragment, useState, useEffect, useRef } from 'react'
-import Link from './Link'
-import headerNavLinks from '@/data/headerNavLinks'
-import headerNavLinksLoggedIn from '@/data/headerNavLinksLoggedIn'
+import { Dialog, Transition } from "@headlessui/react";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock";
+import { Fragment, useState, useEffect, useRef } from "react";
+import Link from "./Link";
+import headerNavLinks from "@/data/headerNavLinks";
+import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
 // import LogoutButton from './LogoutButton'
 
-const MobileNav = ({ loggedIn }: { loggedIn: boolean }) => {
-  const [navShow, setNavShow] = useState(false)
-  const navRef = useRef(null)
+const MobileNav = ({
+  scrolling,
+  loggedIn,
+}: {
+  scrolling: boolean;
+  loggedIn: boolean;
+}) => {
+  const [navShow, setNavShow] = useState(false);
+  const navRef = useRef(null);
 
   const onToggleNav = () => {
     setNavShow((status) => {
       if (status) {
-        enableBodyScroll(navRef.current!)
+        enableBodyScroll(navRef.current!);
       } else {
         // Prevent scrolling
-        disableBodyScroll(navRef.current!)
+        disableBodyScroll(navRef.current!);
       }
-      return !status
-    })
-  }
+      return !status;
+    });
+  };
 
   useEffect(() => {
-    return clearAllBodyScrollLocks
-  })
+    return clearAllBodyScrollLocks;
+  });
 
   return (
     <>
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="sm:hidden">
+      <button
+        aria-label="Toggle Menu"
+        onClick={onToggleNav}
+        className="sm:hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="h-8 w-8 text-gray-900 hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700"
+          className={`h-8 w-8${
+            scrolling ? "text-gray-900" : " text-gray-100"
+          } hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700`}
         >
           <path
             fillRule="evenodd"
@@ -74,16 +90,18 @@ const MobileNav = ({ loggedIn }: { loggedIn: boolean }) => {
                 ref={navRef}
                 className="mt-8 flex h-full basis-0 flex-col items-start overflow-y-auto pl-12 pt-2 text-left"
               >
-                {(loggedIn ? headerNavLinksLoggedIn : headerNavLinks).map((link) => (
-                  <Link
-                    key={link.title}
-                    href={link.href}
-                    className="mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline outline-0 hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700"
-                    onClick={onToggleNav}
-                  >
-                    {link.title}
-                  </Link>
-                ))}
+                {(loggedIn ? headerNavLinksLoggedIn : headerNavLinks).map(
+                  (link) => (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className="mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline outline-0 hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700"
+                      onClick={onToggleNav}
+                    >
+                      {link.title}
+                    </Link>
+                  )
+                )}
                 {/* {loggedIn ? <LogoutButton mobile={true} /> : null} */}
               </nav>
 
@@ -92,7 +110,11 @@ const MobileNav = ({ loggedIn }: { loggedIn: boolean }) => {
                 aria-label="Toggle Menu"
                 onClick={onToggleNav}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
                   <path
                     fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -105,7 +127,7 @@ const MobileNav = ({ loggedIn }: { loggedIn: boolean }) => {
         </Dialog>
       </Transition>
     </>
-  )
-}
+  );
+};
 
-export default MobileNav
+export default MobileNav;
