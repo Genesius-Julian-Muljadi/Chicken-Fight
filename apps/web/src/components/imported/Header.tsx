@@ -11,23 +11,23 @@ import React from "react";
 // import LogoutButton from './LogoutButton'
 
 const Header = () => {
-  try {
-    const [isScrolling, setIsScrolling] = React.useState(false);
+  const [isScrolling, setIsScrolling] = React.useState(false);
 
-    React.useEffect(() => {
-      function handleScroll() {
-        if (window.scrollY > 600) {
-          setIsScrolling(true);
-        } else {
-          setIsScrolling(false);
-        }
+  React.useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 600) {
+        setIsScrolling(true);
+      } else {
+        setIsScrolling(false);
       }
+    }
 
-      window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  try {
     return (
       <header
         className={`w-full${
