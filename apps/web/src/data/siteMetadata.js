@@ -12,6 +12,7 @@ const siteMetadata = {
   testimonialHeader: '',
   testimonialDescription: '',
   language: 'en-us',
+  locale: 'id-ID',
   theme: 'system', // system, dark or light
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
   siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
@@ -29,7 +30,6 @@ const siteMetadata = {
   instagram: 'https://www.instagram.com',
   medium: 'https://medium.com',
   bluesky: 'https://bsky.app/',
-  locale: 'en-US',
   // set to true if you want a navbar fixed to the top
   stickyNav: true,
   analytics: {

@@ -9,8 +9,19 @@ import MobileConvenience from "./mobile-convenience";
 import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Header from "@/components/imported/Header";
+import axios from "axios";
 
-export default function Campaign() {
+export default async function Campaign() {
+  let testimonials = undefined;
+  try {
+    const testimonialsRaw = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_API_URL + "/data/testimonials"
+    );
+    testimonials = testimonialsRaw.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+
   return (
     <>
       {/* <Navbar /> */}
@@ -19,7 +30,7 @@ export default function Campaign() {
       <VideoIntro />
       {/* <Feature /> */}
       {/* <MobileConvenience /> */}
-      <Testimonials />
+      <Testimonials testimonials={testimonials} />
       <Faqs />
       <Footer />
     </>

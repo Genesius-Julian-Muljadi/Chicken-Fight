@@ -25,7 +25,8 @@ model Users {
 }
 
 model Testimonials {
-  id        Int     @id @default(autoincrement())
-  testifier String? @db.VarChar(30)
-  testimony String  @db.Text
+  id          Int      @id @default(autoincrement())
+  testifier   String?  @db.VarChar(30)
+  testimony   String   @db.Text
+  dateCreated DateTime @default(now())
 }

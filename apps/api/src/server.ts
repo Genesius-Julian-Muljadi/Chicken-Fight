@@ -3,6 +3,7 @@ import cors from "cors";
 import { PORT } from "./config";
 import helmet from "helmet";
 import AuthRoutes from "./routes/auth.routes";
+import DataRoutes from "./routes/data.routes";
 
 export default class Server {
   private app: Application;
@@ -29,6 +30,7 @@ export default class Server {
 
   private routes() {
     this.app.use("/auth", new AuthRoutes().getRoutes());
+    this.app.use("/data", new DataRoutes().getRoutes());
   }
 
   public start() {
