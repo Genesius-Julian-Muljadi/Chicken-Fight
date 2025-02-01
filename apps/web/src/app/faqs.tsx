@@ -36,6 +36,9 @@ export function Faqs() {
       <div className="container max-w-6xl mx-auto">
         <div className="text-center">
           <Typography variant="h1" color="blue-gray" className="mb-4">
+            Still work-in-progress from here to the bottom
+          </Typography>
+          <Typography variant="h1" color="blue-gray" className="mb-4">
             Frequently asked questions
           </Typography>
           <Typography

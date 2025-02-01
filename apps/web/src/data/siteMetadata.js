@@ -1,6 +1,5 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Quizzes',
   headerTitle: '',
   homeTitle: '',
   homeMetaDescription: '',

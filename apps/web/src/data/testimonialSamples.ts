@@ -4,11 +4,11 @@ const TestimonialSamples: Array<Testimonial> = [
   {
     testifier: "Rhode",
     testimony: "This is a sample testimony.",
-    dateCreated: new Date("2025-01-31T09:16:47.000Z"),
+    dateCreated: new Date("2024-07-01T09:16:47.000Z"),
   },
   {
     testimony: "This is a testimony without a testifier.",
-    dateCreated: new Date("2025-01-31T09:17:51.000Z"),
+    dateCreated: new Date("2024-12-25T09:17:51.000Z"),
   },
   {
     testifier: "Very long testifier name",

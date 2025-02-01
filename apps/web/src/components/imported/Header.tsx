@@ -41,7 +41,7 @@ const Header = () => {
         <div className="flex items-center justify-between mx-auto max-w-3xl xl:max-w-full">
           <Link href="/" aria-label={siteMetadata.headerTitle || "headerTitle"}>
             <div className="flex items-center justify-between">
-              <div className={`mr-3${isScrolling ? "" : " text-white"}`}>
+              <div className={`block sm:hidden md:block mr-3${isScrolling ? "" : " text-white"}`}>
                 {/* <Logo /> */}logo
               </div>
               {typeof siteMetadata.headerTitle === "string" ? (
