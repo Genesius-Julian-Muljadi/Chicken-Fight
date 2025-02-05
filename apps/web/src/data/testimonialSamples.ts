@@ -1,4 +1,5 @@
 import { Testimonial } from "@/interfaces/databaseTables";
+import siteMetadata from "./siteMetadata";
 
 const TestimonialSamples: Array<Testimonial> = [
   {
@@ -7,7 +8,7 @@ const TestimonialSamples: Array<Testimonial> = [
     dateCreated: new Date("2024-07-01T09:16:47.000Z"),
   },
   {
-    testimony: "This is a testimony without a testifier.",
+    testimony: "This is a testimony without a testifier. Date locale set to: " + siteMetadata.locale,
     dateCreated: new Date("2024-12-25T09:17:51.000Z"),
   },
   {

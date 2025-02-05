@@ -7,16 +7,16 @@ import siteMetadata from "@/data/siteMetadata";
 function Hero() {
   return (
     <div className="relative min-h-screen w-full">
-      <header className="grid !min-h-[49rem] bg-gray-900 px-8">
+      <header className="grid !min-h-[49rem] bg-backtheme-400 dark:bg-backtheme-900 px-8">
         <div className="container mx-auto mt-32 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
           <div className="col-span-1">
-            <Typography variant="h1" color="white" className="mb-4">
+            <Typography variant="h1" className="mb-4 text-black dark:text-white">
               {siteMetadata.homeHeader1 || "homeHeader1"} <br />{" "}
               {siteMetadata.homeHeader2 || "homeHeader2"}
             </Typography>
             <Typography
               variant="lead"
-              className="mb-7 !text-white md:pr-16 xl:pr-28"
+              className="mb-7 text-black dark:text-white md:pr-16 xl:pr-28"
             >
               {siteMetadata.homeHeaderDescription1 || "homeHeaderDescription1"}
             </Typography>
@@ -61,10 +61,10 @@ function Hero() {
             alt="team work"
             className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
           /> */}
-          <div className="text-white dark:text-white">insert home page image here</div>
+          <div className="text-black dark:text-white">insert home page image here</div>
         </div>
       </header>
-      <div className="mx-8 lg:mx-16 -mt-24 rounded-xl bg-white p-5 md:p-14 shadow-md dark:bg-gray-950">
+      <div className="mx-8 lg:mx-16 -mt-24 rounded-xl bg-white p-5 md:p-14 shadow-md dark:bg-gray-950 dark:shadow-blue-gray-900">
         <div>
           <Typography
             variant="h3"

@@ -33,7 +33,7 @@ const Header = () => {
         className={`w-full${
           isScrolling
             ? " bg-gradient-to-t from-white via-white to-95% to-[#fffcf0] dark:bg-gradient-to-t dark:from-gray-950 dark:to-gray-950 shadow-lg dark:shadow-md dark:shadow-gray-800"
-            : " bg-transparent"
+            : " bg-transparent hover:bg-gradient-to-t hover:from-white hover:via-white to-95% hover:to-[#fffcf0] hover:dark:bg-gradient-to-t hover:dark:from-gray-950 hover:dark:to-gray-950 hover:shadow-lg hover:dark:shadow-md hover:dark:shadow-gray-800"
         } py-4 px-4 sm:px-6 xl:px-8 rounded-b-lg mb-[-4rem]${
           siteMetadata.stickyNav ? " sticky top-0 z-50" : ""
         }`}
@@ -41,13 +41,17 @@ const Header = () => {
         <div className="flex items-center justify-between mx-auto max-w-3xl xl:max-w-full">
           <Link href="/" aria-label={siteMetadata.headerTitle || "headerTitle"}>
             <div className="flex items-center justify-between">
-              <div className={`block sm:hidden md:block mr-3${isScrolling ? "" : " text-white"}`}>
+              <div
+                className={`block sm:hidden md:block mr-3${
+                  isScrolling ? "" : " text-black dark:text-white"
+                }`}
+              >
                 {/* <Logo /> */}logo
               </div>
               {typeof siteMetadata.headerTitle === "string" ? (
                 <div
                   className={`hidden m-auto text-xl font-semibold sm:block${
-                    isScrolling ? "" : " text-white"
+                    isScrolling ? "" : " text-black dark:text-white"
                   }`}
                 >
                   {siteMetadata.headerTitle || "headerTitle"}
@@ -68,14 +72,14 @@ const Header = () => {
                       key={link.title}
                       href={link.href}
                       className={`block font-medium hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400${
-                        isScrolling ? " text-gray-900" : " text-white"
+                        isScrolling ? " text-gray-900" : " text-black dark:text-white"
                       }`}
                     >
                       {link.title}
                     </Link>
                   ))
               ) : (
-                <span className={`${isScrolling ? "" : "text-white"}`}>
+                <span className={`${isScrolling ? "" : "text-black dark:text-white"}`}>
                   headerNavLinks
                 </span>
               )}

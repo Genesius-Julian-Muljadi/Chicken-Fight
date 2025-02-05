@@ -29,7 +29,21 @@ const config: Config = withMT({
       },
       colors: {
         primary: colors.amber,
+        // backtheme: colors.orange,
         gray: colors.gray,
+        backtheme: {
+          "50": "#fff7f0",
+          "100": "#f5e4d3",
+          "200": "#f2d3b3",
+          "300": "#edc39f",
+          "400": "#db9960",
+          "500": "#c27e44",
+          "600": "#945b29",
+          "700": "#73441a",
+          "800": "#522f10",
+          "900": "#301b08",
+          "950": "#1f1105",
+        },
       },
       zIndex: {
         60: "60",

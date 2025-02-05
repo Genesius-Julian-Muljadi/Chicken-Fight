@@ -58,7 +58,7 @@ const ThemeSwitch = ({ scrolling }: { scrolling: boolean }) => {
       <Menu as="div" className="relative inline-block text-left">
         <div
           className={`flex items-center justify-center${
-            scrolling ? "" : " text-white"
+            scrolling ? "" : " text-black dark:text-white"
           } hover:text-primary-600 dark:hover:text-primary-600`}
         >
           <Menu.Button aria-label="Theme switcher">

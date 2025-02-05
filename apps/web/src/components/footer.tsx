@@ -1,101 +1,54 @@
 "use client";
 import Image from "next/image";
 import { Typography, IconButton, Button } from "@material-tailwind/react";
+import siteMetadata from "@/data/siteMetadata";
+import Link from "next/link";
 
 const LINKS = ["About Us", "Careers", "Press", "Blog", "Pricing"];
 const CURRENT_YEAR = new Date().getFullYear();
 
 export function Footer() {
   return (
-    <footer className="mt-10 bg-gray-900 px-8 pt-12">
-      <div className="container mx-auto">
-        <div className="flex flex-wrap justify-center gap-8 md:justify-between">
-          <div className="text-center md:text-left">
-            <Typography
-              as="a"
-              href="https://www.material-tailwind.com"
-              target="_blank"
-              variant="h5"
-              color="white"
-              className="mb-4"
-            >
-              Material Tailwind
-            </Typography>
-            <Typography color="white" className="mb-12 font-normal">
-              The reward for getting on the stage is fame.
-            </Typography>
-            <ul className="flex flex-wrap items-center justify-center md:justify-start">
-              {LINKS.map((link, idx) => (
-                <li key={link}>
-                  <Typography
-                    as="a"
-                    href="#"
-                    color="white"
-                    className={`py-1 font-medium transition-colors ${
-                      idx === 0 ? "pr-3" : "px-3"
-                    }`}
-                  >
-                    {link}
-                  </Typography>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-8 w-full md:mt-0 md:w-auto">
-            <Typography variant="h6" color="white" className="mb-3">
-              Get the app
-            </Typography>
-            <div className="flex flex-col gap-2">
-              <Button
-                color="white"
-                className="flex items-center justify-center"
-              >
-                <Image
-                  width={256}
-                  height={256}
-                  src="/logos/logo-apple.png"
-                  className="-mt-0.5 mr-2 h-6 w-6"
-                  alt="ios"
-                />
-                App Store
-              </Button>
-              <Button
-                color="white"
-                className="flex items-center justify-center"
-              >
-                <Image
-                  width={256}
-                  height={256}
-                  src="/logos/logo-google.png"
-                  className="-mt-0.5 mr-2 h-6 w-6"
-                  alt="ios"
-                />
-                Google Play
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-y-4 gap-x-8 border-t border-gray-700 py-7 md:justify-between">
-          <Typography
-            color="white"
-            className="text-center font-normal opacity-75"
+    <footer className="mt-10 bg-backtheme-400 dark:bg-backtheme-950 px-4 md:px-8">
+      <div className="container md:mx-auto">
+        <div className="flex flex-wrap items-center justify-between gap-y-4 gap-x-8 py-7 md:justify-between">
+          <a
+            href={siteMetadata.whatsapp ? "tel:" + siteMetadata.whatsapp : "/"}
+            className="flex flex-row gap-2 cursor-pointer"
           >
-            &copy; {CURRENT_YEAR} Made with{" "}
-            <a href="https://www.material-tailwind.com" target="_blank">
-              Material Tailwind
-            </a>{" "}
-            by{" "}
-            <a href="https://www.creative-tim.com" target="_blank">
-              Creative Tim
-            </a>
-            .
-          </Typography>
-
-          <div className="flex gap-2">
-            <IconButton variant="text" color="white">
-              <i className="fa-brands fa-twitter text-2xl not-italic opacity-75"></i>
+            <IconButton variant="text" className="text-[#62c076]">
+              <i className="fa-brands fa-whatsapp text-3xl not-italic opacity-75"></i>
             </IconButton>
-            <IconButton variant="text" color="white">
+            <Typography
+              color="blue-gray"
+              className="text-center font-semibold opacity-75 m-auto dark:text-white"
+            >
+              {siteMetadata.whatsapp || "whatsapp phone number"}
+            </Typography>
+          </a>
+
+          <div className="flex gap-6">
+            <Typography
+              color="blue-gray"
+              className="text-center font-semibold opacity-75 m-auto dark:text-white"
+            >
+              Links
+            </Typography>
+            <Link
+              href={siteMetadata.lynk || "/"}
+              className="bg-white cursor-pointer hover:opacity-85 active:opacity-75 w-24 rounded-md grid"
+            >
+              <Image
+                src={
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHaTIM-e-mqAp97U0YjwpPjyhjD-1LrVuRvg&s"
+                }
+                width={500}
+                height={500}
+                alt={"Lynk logo"}
+                className="size-14 m-auto"
+              ></Image>
+            </Link>
+            {/* <IconButton variant="text" color="white">
               <i className="fa-brands fa-linkedin text-2xl not-italic opacity-75"></i>
             </IconButton>
             <IconButton variant="text" color="white">
@@ -106,7 +59,7 @@ export function Footer() {
             </IconButton>
             <IconButton variant="text" color="white">
               <i className="fa-brands fa-dribbble text-2xl not-italic opacity-75"></i>
-            </IconButton>
+            </IconButton> */}
           </div>
         </div>
       </div>

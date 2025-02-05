@@ -10,6 +10,7 @@ import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Header from "@/components/imported/Header";
 import axios from "axios";
+import TestimonialForm from "@/components/testimonial-form";
 
 export default async function Campaign() {
   let testimonials = undefined;
@@ -31,7 +32,8 @@ export default async function Campaign() {
       {/* <Feature /> */}
       {/* <MobileConvenience /> */}
       <Testimonials testimonials={testimonials} />
-      <Faqs />
+      <TestimonialForm />
+      {/* <Faqs /> */}
       <Footer />
     </>
   );
