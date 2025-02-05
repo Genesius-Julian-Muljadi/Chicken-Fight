@@ -55,7 +55,11 @@ export default function TestimonialForm() {
       shadow={false}
       className="place-items-center mx-6 sm:mx-10 md:mx-14"
     >
-      <Typography variant="h4" color="blue-gray">
+      <Typography
+        variant="h4"
+        color="blue-gray"
+        className="dark:text-blue-gray-100"
+      >
         Add your testimony
       </Typography>
       <Formik
@@ -77,7 +81,11 @@ export default function TestimonialForm() {
             <Form className="mt-4 mb-2 w-full max-w-7xl lg:px-6 xl:px-12">
               <div className="mb-1 flex flex-col xl:flex-row gap-6 justify-between">
                 <div className="flex flex-col gap-6 w-full">
-                  <Typography variant="h6" color="blue-gray" className="-mb-3">
+                  <Typography
+                    variant="h6"
+                    color="blue-gray"
+                    className="-mb-3 dark:text-blue-gray-100"
+                  >
                     Testimony
                   </Typography>
                   <Field
@@ -103,7 +111,7 @@ export default function TestimonialForm() {
                     <Typography
                       variant="h6"
                       color="blue-gray"
-                      className="-mb-3"
+                      className="-mb-3 dark:text-blue-gray-100"
                     >
                       Testifier name (Optional)
                     </Typography>
@@ -164,11 +172,11 @@ export default function TestimonialForm() {
           /> */}
                 <Button
                   type="submit"
-                  className="mt-6 mx-auto w-full"
+                  className="mt-6 mx-auto w-full bg-blue-gray-800 dark:bg-blue-gray-200"
                   ripple={true}
                   disabled={submitted}
                 >
-                  <span className="relative">
+                  <span className="relative dark:text-blue-gray-900">
                     <span>Submit</span>
                     <span
                       className={`${
