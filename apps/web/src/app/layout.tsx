@@ -1,9 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { Layout } from "@/components";
+import { Footer, Layout } from "@/components";
 import { ThemeProviders } from "./theme-providers";
 import siteMetadata from "@/data/siteMetadata";
+import Header from "@/components/imported/Header";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -36,7 +37,9 @@ export default function RootLayout({
       <body className={roboto.className}>
         <ThemeProviders>
           <Layout>
-            {children}
+            <Header />
+            <div className="-mt-16">{children}</div>
+            <Footer />
           </Layout>
         </ThemeProviders>
       </body>

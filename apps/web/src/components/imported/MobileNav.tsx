@@ -50,7 +50,7 @@ const MobileNav = ({
           viewBox="0 0 20 20"
           fill="currentColor"
           className={`h-8 w-8${
-            scrolling ? "text-gray-900" : " text-gray-100"
+            scrolling ? " text-gray-900" : " text-gray-900"
           } hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700`}
         >
           <path

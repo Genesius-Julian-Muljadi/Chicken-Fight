@@ -11,10 +11,8 @@ export default class DataRoutes {
   }
 
   private routes() {
-    this.router.get(
-      "/testimonials",
-      this.controllers.getAllTestimonials
-    )
+    this.router.get("/testimonials", this.controllers.getAllTestimonials);
+    this.router.get("/products", this.controllers.getAllProducts);
   }
 
   public getRoutes() {

@@ -29,7 +29,7 @@ const config: Config = withMT({
       },
       colors: {
         primary: colors.amber,
-        // backtheme: colors.orange,
+        // backtheme: colors.sky,
         gray: colors.gray,
         backtheme: {
           "50": "#fff7f0",

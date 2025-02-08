@@ -7,7 +7,7 @@ import siteMetadata from "@/data/siteMetadata";
 function Hero() {
   return (
     <div className="relative min-h-screen w-full">
-      <header className="grid !min-h-[49rem] bg-backtheme-400 dark:bg-backtheme-900 px-8">
+      <header className="grid !min-h-[49rem] bg-gradient-to-r from-backtheme-400 via-backtheme-300 to-backtheme-200 dark:bg-gradient-to-r dark:from-backtheme-950 dark:via-backtheme-900 dark:to-backtheme-800 px-8">
         <div className="container mx-auto mt-32 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
           <div className="col-span-1">
             <Typography variant="h1" className="mb-4 text-black dark:text-white">

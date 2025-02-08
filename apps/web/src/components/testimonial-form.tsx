@@ -2,13 +2,7 @@
 
 import BasicSpinner from "@/assets/BasicSpinner/BasicSpinner";
 import { testimonialSchema } from "@/lib/validationSchemas/testimonialSchema";
-import {
-  Card,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { Field, Form, Formik, FormikProps } from "formik";
 import { useState } from "react";
 
@@ -60,7 +54,7 @@ export default function TestimonialForm() {
         color="blue-gray"
         className="dark:text-blue-gray-100"
       >
-        Add your testimony
+        Add your testimony (Console submission only)
       </Typography>
       <Formik
         initialValues={{

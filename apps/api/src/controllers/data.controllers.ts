@@ -11,8 +11,28 @@ export default class DataControllers {
       const testimonials = await DataServices.getAllTestimonials(req);
 
       res.status(200).send({
-        message: "Quizzes retrieved!",
+        message: "Testimonials retrieved!",
         data: testimonials,
+      });
+    } catch (err) {
+      res.status(401).send({
+        message: String(err),
+      });
+      next(err);
+    }
+  }
+  
+  public async getAllProducts(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const products = await DataServices.getAllProducts(req);
+
+      res.status(200).send({
+        message: "Products retrieved!",
+        data: products,
       });
     } catch (err) {
       res.status(401).send({

@@ -4,4 +4,16 @@ interface Testimonial {
   dateCreated: Date;
 }
 
-export type { Testimonial };
+interface Product {
+  id: number;
+  image: string;
+  promoted?: boolean;
+  name: string;
+  type: string;
+  overview?: string;
+  desc?: string;
+  dateCreated: Date;
+  updated: Date;
+}
+
+export type { Testimonial, Product };

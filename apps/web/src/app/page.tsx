@@ -12,7 +12,7 @@ import Header from "@/components/imported/Header";
 import axios from "axios";
 import TestimonialForm from "@/components/testimonial-form";
 
-export default async function Campaign() {
+export default async function Home() {
   let testimonials = undefined;
   try {
     const testimonialsRaw = await axios.get(
@@ -25,8 +25,6 @@ export default async function Campaign() {
 
   return (
     <>
-      {/* <Navbar /> */}
-      <Header />
       <Hero />
       <VideoIntro />
       {/* <Feature /> */}
@@ -34,7 +32,6 @@ export default async function Campaign() {
       <Testimonials testimonials={testimonials} />
       <TestimonialForm />
       {/* <Faqs /> */}
-      <Footer />
     </>
   );
 }

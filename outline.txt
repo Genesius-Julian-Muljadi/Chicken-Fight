@@ -11,6 +11,7 @@ Basic sorts should also apply. (name, date creation)
 Chicken data:
 Image
 Chicken name/title
+Promoted (Can be on main card?)
 Description text
 Date created
 Update date

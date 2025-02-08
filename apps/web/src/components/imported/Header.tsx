@@ -15,7 +15,7 @@ const Header = () => {
 
   React.useEffect(() => {
     function handleScroll() {
-      if (window.scrollY > 600) {
+      if (window.scrollY > 50) {
         setIsScrolling(true);
       } else {
         setIsScrolling(false);
@@ -34,7 +34,7 @@ const Header = () => {
           isScrolling
             ? " bg-gradient-to-t from-white via-white to-95% to-[#fffcf0] dark:bg-gradient-to-t dark:from-gray-950 dark:to-gray-950 shadow-lg dark:shadow-md dark:shadow-gray-800"
             : " bg-transparent hover:bg-gradient-to-t hover:from-white hover:via-white to-95% hover:to-[#fffcf0] hover:dark:bg-gradient-to-t hover:dark:from-gray-950 hover:dark:to-gray-950 hover:shadow-lg hover:dark:shadow-md hover:dark:shadow-gray-800"
-        } py-4 px-4 sm:px-6 xl:px-8 rounded-b-lg mb-[-4rem]${
+        } py-4 px-4 sm:px-6 xl:px-8 rounded-b-lg${
           siteMetadata.stickyNav ? " sticky top-0 z-50" : ""
         }`}
       >

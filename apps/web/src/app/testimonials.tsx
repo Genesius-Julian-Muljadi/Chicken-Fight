@@ -13,7 +13,7 @@ export function Testimonials({
 }: {
   testimonials?: Array<Testimonial>;
 }) {
-  const TESTIMONIALS = testimonials || TestimonialSamples;
+  const TESTIMONIALS: Array<Testimonial> = testimonials || TestimonialSamples;
 
   return (
     <section className="px-10 !py-20">
