@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const services_1 = __importDefault(require("../services/auth.services/services"));
-const COOKIE_EXPIRATION_MINUTES = 40;
+const COOKIE_EXPIRATION_MINUTES = 120;
 class AuthControllers {
     loginUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {

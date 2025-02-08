@@ -19,13 +19,11 @@ class AuthServices {
     static loginUser(req) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { email, password } = req.body;
-                const findUser = yield utils_1.default.findUserByEmail(email);
+                const { key, password } = req.body;
+                const findUser = yield utils_1.default.findUserByKey(key);
                 yield utils_1.default.verifyCredentials(findUser, password);
                 const payload = {
-                    id: findUser.id,
-                    email: email,
-                    name: findUser.name,
+                    role: "admin",
                 };
                 const token = (0, jsonwebtoken_1.sign)(payload, String(config_1.SECRET_KEY));
                 return token;

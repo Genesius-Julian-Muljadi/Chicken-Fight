@@ -15,12 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 const bcrypt_1 = require("bcrypt");
 class AuthUtils {
-    static findUserByEmail(email) {
+    static findUserByKey(key) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield prisma_1.default.users.findUnique({
                     where: {
-                        email: email,
+                        key: key,
                     },
                 });
                 return user;

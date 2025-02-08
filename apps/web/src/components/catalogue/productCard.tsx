@@ -11,6 +11,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import Image from "next/image";
 import React from "react";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -21,8 +22,10 @@ export function ProductCard({ product }: { product: Product }) {
         floated={false}
         className="m-auto w-full rounded-b-none"
       >
-        <img
+        <Image
           src={product.image}
+          width={500}
+          height={800}
           alt={product.name}
           className="h-full w-full object-cover"
         />

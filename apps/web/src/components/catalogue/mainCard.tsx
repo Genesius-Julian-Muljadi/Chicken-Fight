@@ -15,6 +15,7 @@ import { Product } from "@/interfaces/databaseTables";
 import siteMetadata from "@/data/siteMetadata";
 import { PhoneArrowUpRightIcon } from "@heroicons/react/24/solid";
 import React from "react";
+import Image from "next/image";
 
 export function MainCard({ product }: { product: Product }) {
   return (
@@ -24,8 +25,10 @@ export function MainCard({ product }: { product: Product }) {
         floated={false}
         className="m-0 md:w-[45%] lg:w-1/2 shrink-0 rounded-r-none"
       >
-        <img
+        <Image
           src={product.image}
+          width={500}
+          height={800}
           alt="main-product-image"
           className="h-full w-full object-cover"
         />

@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const services_1 = __importDefault(require("../services/data.services/services"));
 class DataControllers {
-    populateUser(req, res, next) {
+    getAllTestimonials(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const newUser = yield services_1.default.registerUser(req);
+                const testimonials = yield services_1.default.getAllTestimonials(req);
                 res.status(200).send({
-                    message: "User inserted",
-                    data: newUser,
+                    message: "Testimonials retrieved!",
+                    data: testimonials,
                 });
             }
             catch (err) {
@@ -31,46 +31,13 @@ class DataControllers {
             }
         });
     }
-    getAllUsers(req, res, next) {
+    getAllProducts(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const allUsers = yield services_1.default.getAllUsers(req);
+                const products = yield services_1.default.getAllProducts(req);
                 res.status(200).send({
-                    message: "Users fetched",
-                    data: allUsers,
-                });
-            }
-            catch (err) {
-                res.status(401).send({
-                    message: String(err),
-                });
-                next(err);
-            }
-        });
-    }
-    createQuiz(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const newQuiz = yield services_1.default.createQuiz(req);
-                res.status(201).send({
-                    message: "Quiz populated",
-                    data: newQuiz,
-                });
-            }
-            catch (err) {
-                res.status(401).send({
-                    message: String(err),
-                });
-                next(err);
-            }
-        });
-    }
-    deleteAll(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield services_1.default.deleteAll(req);
-                res.status(200).send({
-                    message: "All data deleted",
+                    message: "Products retrieved!",
+                    data: products,
                 });
             }
             catch (err) {
