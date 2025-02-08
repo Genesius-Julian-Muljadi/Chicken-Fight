@@ -5,16 +5,17 @@ import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 import { ArrowUpRightIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
 import { toggleProductType } from "@/redux/slices/toggleProductType";
+import productTypes from "../../data/productTypes"
 
 const typeData = [
   {
-    label: "Male",
-    value: "Male",
+    label: productTypes[0],
+    value: 1,
     icon: ArrowUpRightIcon,
   },
   {
-    label: "Female",
-    value: "Female",
+    label: productTypes[1],
+    value: 2,
     icon: ArrowDownIcon,
   },
 ];
@@ -23,7 +24,7 @@ export default function CatalogueHeaderTab() {
   const dispatch = useDispatch();
 
   return (
-    <Tabs value="Male">
+    <Tabs value={1}>
       <TabsHeader
         className="dark:bg-opacity-20"
         indicatorProps={{

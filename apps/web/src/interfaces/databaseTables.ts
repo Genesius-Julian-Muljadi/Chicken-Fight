@@ -9,7 +9,7 @@ interface Product {
   image: string;
   promoted?: boolean;
   name: string;
-  type: string;
+  type: number;
   overview?: string;
   desc?: string;
   dateCreated: Date;

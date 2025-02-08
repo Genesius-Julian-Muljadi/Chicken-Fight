@@ -1,5 +1,5 @@
 import { Testimonial } from "@/interfaces/databaseTables";
-import siteMetadata from "./siteMetadata";
+import siteMetadata from "../siteMetadata";
 
 const TestimonialSamples: Array<Testimonial> = [
   {
@@ -12,9 +12,9 @@ const TestimonialSamples: Array<Testimonial> = [
     dateCreated: new Date("2024-12-25T09:17:51.000Z"),
   },
   {
-    testifier: "Very long testifier name",
+    testifier: "Testifier character limit is 50",
     testimony:
-      "This sample will be replaced once there is at least one testimony in the database. Only the most recent 3 will be displayed",
+      "Testimony has no character limit. This sample will be replaced once there is at least one testimony in the database. Only the most recent 3 will be displayed",
     dateCreated: new Date("2025-01-31T09:18:14.000Z"),
   },
 ];

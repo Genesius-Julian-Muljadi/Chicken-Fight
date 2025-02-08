@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    type: "Male"
+    type: 1
 };
 
 const toggleProductTypeSlice = createSlice({
     name: "TPTSlice",
     initialState,
     reducers: {
-        toggleProductType: (state: {type: string | null}, input: {payload: string}) => {
-            if (input.payload === "Male" || "Female") {
+        toggleProductType: (state: {type: number | null}, input: {payload: number}) => {
+            if (input.payload === 1 || 2) {
                 state.type = input.payload;
-            } else if (input.payload === "reset") {
+            } else if (input.payload === 0) {
                 state.type = null;
             } else {
                 console.log("Invalid input: " + input.payload);

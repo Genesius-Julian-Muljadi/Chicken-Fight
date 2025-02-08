@@ -4,7 +4,7 @@ import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { UserIcon } from "@heroicons/react/24/solid";
 import siteMetadata from "@/data/siteMetadata";
-import { TestimonialSamples } from "@/data/testimonialSamples";
+import { TestimonialSamples } from "@/data/samples/testimonialSamples";
 import TestimonialTypography from "@/components/testimonial-typography";
 import { Testimonial } from "@/interfaces/databaseTables";
 

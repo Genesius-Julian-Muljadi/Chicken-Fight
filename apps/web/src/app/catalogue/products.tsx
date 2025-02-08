@@ -1,6 +1,6 @@
 import { MainCard } from "@/components/catalogue/mainCard";
 import { ProductCard } from "@/components/catalogue/productCard";
-import { ProductSamples } from "@/data/productSamples";
+import { ProductSamples } from "@/data/samples/productSamples";
 import { Product } from "@/interfaces/databaseTables";
 import { useSelector } from "react-redux";
 
@@ -10,7 +10,7 @@ export default function CatalogueProducts({
   products?: Array<Product> | undefined;
 }) {
   const currentType = useSelector(
-    (state: { TPTSlice: { type: string | null } }) => state.TPTSlice.type
+    (state: { TPTSlice: { type: number | null } }) => state.TPTSlice.type
   );
 
   const PRODUCTS: Array<Product> = (products || ProductSamples).filter(

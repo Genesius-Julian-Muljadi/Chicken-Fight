@@ -15,11 +15,6 @@ datasource db {
   // directUrl = env("DIRECT_URL")
 }
 
-enum Gender {
-  Male
-  Female
-}
-
 // Should only be filled by admin
 model Users {
   id          Int      @id @default(autoincrement())
@@ -32,7 +27,7 @@ model Users {
 
 model Testimonials {
   id          Int      @id @default(autoincrement())
-  testifier   String?  @db.VarChar(30)
+  testifier   String?  @db.VarChar(50)
   testimony   String   @db.Text
   dateCreated DateTime @default(now())
 }
@@ -42,8 +37,8 @@ model Products {
   image       String
   promoted    Boolean?
   name        String   @db.VarChar(30)
-  type        Gender
-  overview    String?  @db.VarChar(50)
+  type        Int
+  overview    String?  @db.VarChar(60)
   desc        String?  @db.Text
   dateCreated DateTime @default(now())
   updated     DateTime @updatedAt
