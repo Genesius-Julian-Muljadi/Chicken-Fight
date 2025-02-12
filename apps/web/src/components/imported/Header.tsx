@@ -5,15 +5,18 @@ import headerNavLinks from "@/data/headerNavLinks";
 import Link from "./Link";
 import MobileNav from "./MobileNav";
 import ThemeSwitch from "./ThemeSwitch";
-import React from "react";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import LogoutButton from "./LogoutButton";
 // import VerifyTokenServer from 'verifytoken/verifytokenserver'
 // import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
 // import LogoutButton from './LogoutButton'
 
 const Header = () => {
-  const [isScrolling, setIsScrolling] = React.useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 50) {
         setIsScrolling(true);
@@ -72,22 +75,28 @@ const Header = () => {
                       key={link.title}
                       href={link.href}
                       className={`block font-medium hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400${
-                        isScrolling ? " text-gray-900" : " text-black dark:text-white"
+                        isScrolling
+                          ? " text-gray-900"
+                          : " text-black dark:text-white"
                       }`}
                     >
                       {link.title}
                     </Link>
                   ))
               ) : (
-                <span className={`${isScrolling ? "" : "text-black dark:text-white"}`}>
+                <span
+                  className={`${
+                    isScrolling ? "" : "text-black dark:text-white"
+                  }`}
+                >
                   headerNavLinks
                 </span>
               )}
-              {/* {token ? <LogoutButton mobile={false} /> : null} */}
+              {cookies.access_token !== "undefined" && cookies.access_token ? <LogoutButton mobile={false} /> : null}
             </div>
             <ThemeSwitch scrolling={isScrolling} />
             {/* <MobileNav loggedIn={token ? true : false} /> */}
-            <MobileNav scrolling={isScrolling} loggedIn={false} />
+            <MobileNav scrolling={isScrolling} loggedIn={cookies.access_token !== "undefined" && cookies.access_token} />
           </div>
         </div>
       </header>

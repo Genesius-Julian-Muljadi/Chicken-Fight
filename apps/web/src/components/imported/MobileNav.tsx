@@ -9,7 +9,7 @@ import {
 import { Fragment, useState, useEffect, useRef } from "react";
 import Link from "./Link";
 import headerNavLinks from "@/data/headerNavLinks";
-import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
+import LogoutButton from "./LogoutButton";
 // import LogoutButton from './LogoutButton'
 
 const MobileNav = ({
@@ -90,7 +90,7 @@ const MobileNav = ({
                 ref={navRef}
                 className="mt-8 flex h-full basis-0 flex-col items-start overflow-y-auto pl-12 pt-2 text-left"
               >
-                {(loggedIn ? headerNavLinksLoggedIn : headerNavLinks).map(
+                {headerNavLinks.map(
                   (link) => (
                     <Link
                       key={link.title}
@@ -102,7 +102,7 @@ const MobileNav = ({
                     </Link>
                   )
                 )}
-                {/* {loggedIn ? <LogoutButton mobile={true} /> : null} */}
+                {loggedIn ? <LogoutButton mobile={true} /> : null}
               </nav>
 
               <button

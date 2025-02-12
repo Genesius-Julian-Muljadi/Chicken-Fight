@@ -1,0 +1,3 @@
+const COOKIE_EXPIRATION_MINUTES: number = 10;
+
+export default COOKIE_EXPIRATION_MINUTES;

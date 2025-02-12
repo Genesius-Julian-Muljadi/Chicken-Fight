@@ -2,11 +2,11 @@ import prisma from "../../lib/prisma";
 import { compare, genSalt, hash } from "bcrypt";
 
 export default class AuthUtils {
-  static async findUserByKey(key: string) {
+  static async findUserByKey(regkey: string) {
     try {
       const user = await prisma.users.findUnique({
         where: {
-          key: key,
+          regkey: regkey,
         },
       });
 

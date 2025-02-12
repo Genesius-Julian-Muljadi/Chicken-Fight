@@ -5,6 +5,7 @@ import { Footer, Layout } from "@/components";
 import { ThemeProviders } from "./theme-providers";
 import siteMetadata from "@/data/siteMetadata";
 import Header from "@/components/imported/Header";
+import CookieManager from "@/components/imported/cookieManager";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <ThemeProviders>
           <Layout>
+            <CookieManager />
             <Header />
             <div className="-mt-16">{children}</div>
             <Footer />

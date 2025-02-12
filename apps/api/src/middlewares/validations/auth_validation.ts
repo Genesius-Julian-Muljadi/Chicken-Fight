@@ -3,12 +3,10 @@ import { body, validationResult } from "express-validator";
 
 export default class AuthValidations {
   public loginValidationUser = [
-    body("email")
+    body("regkey")
       .trim()
       .notEmpty()
-      .withMessage("Email is required")
-      .isEmail()
-      .withMessage("Invalid email format"),
+      .withMessage("Registration key is required"),
     body("password")
       .trim()
       .notEmpty()
