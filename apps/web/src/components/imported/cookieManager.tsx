@@ -44,7 +44,6 @@ function CookieManager() {
 
   useEffect(() => {
     if (currentCookie) {
-      console.log("dispatch received: " + currentCookie);
       if (currentCookie === "undefined") {
         removeCookie("access_token", { path: "/" });
       } else {

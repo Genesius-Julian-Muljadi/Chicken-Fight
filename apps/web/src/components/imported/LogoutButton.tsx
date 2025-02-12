@@ -19,9 +19,7 @@ function LogoutButton({ mobile }: { mobile: boolean }) {
         onClick={() => {
           // window.removeEventListener()
           router.push("/");
-          console.log("starting dispatch");
           dispatch(updateCookie("undefined"));
-          console.log("ending dispatch");
           removeCookie("access_token", { path: "/" });
           // Vercel cookie issue fix
           document.cookie = `access_token=-; expires=${new Date(0)}`;
@@ -38,9 +36,7 @@ function LogoutButton({ mobile }: { mobile: boolean }) {
         id="LogoutButton"
         onClick={() => {
           router.push("/");
-          console.log("starting dispatch");
           dispatch(updateCookie("undefined"));
-          console.log("ending dispatch");
           removeCookie("access_token", {
             path: "/",
           });
