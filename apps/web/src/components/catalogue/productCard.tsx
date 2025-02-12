@@ -13,10 +13,22 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import React from "react";
+import DashboardSpeedDial from "../dashboard/SpeedDial";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  dashboard,
+}: {
+  product: Product;
+  dashboard?: boolean;
+}) {
   return (
     <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+      {dashboard ? (
+        <div className="absolute bottom-4 right-4 rounded-full">
+          <DashboardSpeedDial />
+        </div>
+      ) : null}
       <CardHeader
         shadow={false}
         floated={false}

@@ -26,9 +26,9 @@ export default function CatalogueHeaderTab() {
   return (
     <Tabs value={1}>
       <TabsHeader
-        className="dark:bg-opacity-20"
+        className="dark:bg-opacity-20 border border-gray-700/10"
         indicatorProps={{
-          className: "bg-white dark:bg-black/40 text-gray-900 dark:text-white",
+          className: "bg-white dark:bg-black/40 text-gray-900 dark:text-white shadow-sm shadow-gray-400 dark:shadow-gray-700/40",
         }}
       >
         {typeData.map(({ label, value, icon }) => (

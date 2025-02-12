@@ -76,7 +76,7 @@ const ProductSamples: Array<Product> = [
     promoted: true,
     name: "Main product name. Max char: 30",
     type: 2,
-    overview: "Sample product overview. This field is optional. Max char: 50",
+    overview: "Sample product overview. This field is optional. Max char: 60",
     desc: "This is a sample of the female main product. This field is optional. This text can be as long as you want. This product has been set to promoted and can be displayed on the main card. Please only have 1 promoted product: multiple will not work.",
     dateCreated: new Date("2023-01-11T09:18:14.000Z"),
     updated: new Date("2025-01-31T09:18:14.000Z"),

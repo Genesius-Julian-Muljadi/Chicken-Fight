@@ -16,14 +16,26 @@ import siteMetadata from "@/data/siteMetadata";
 import { PhoneArrowUpRightIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import Image from "next/image";
+import DashboardSpeedDial from "../dashboard/SpeedDial";
 
-export function MainCard({ product }: { product: Product }) {
+export function MainCard({
+  product,
+  dashboard,
+}: {
+  product: Product;
+  dashboard?: boolean;
+}) {
   return (
-    <Card className="w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+    <Card className="relative w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+      {dashboard ? (
+        <div className="absolute bottom-4 right-4 rounded-full">
+          <DashboardSpeedDial />
+        </div>
+      ) : null}
       <CardHeader
         shadow={false}
         floated={false}
-        className="m-0 md:w-[45%] lg:w-1/2 shrink-0 rounded-r-none"
+        className="m-0 md:w-[45%] lg:w-1/2 shrink-0 rounded-r-xl md:rounded-r-none"
       >
         <Image
           src={product.image}
