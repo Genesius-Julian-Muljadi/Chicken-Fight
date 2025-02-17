@@ -5,7 +5,7 @@ import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
 import { ArrowUpRightIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
 import { toggleProductType } from "@/redux/slices/toggleProductType";
-import productTypes from "../../data/productTypes"
+import productTypes from "../../data/productTypes";
 
 const typeData = [
   {
@@ -20,7 +20,12 @@ const typeData = [
   },
 ];
 
-export default function CatalogueHeaderTab() {
+export default function CatalogueHeaderTab({
+  props,
+}: {
+  // Array of counts for each product type
+  props?: Array<number>;
+}) {
   const dispatch = useDispatch();
 
   return (
@@ -28,7 +33,8 @@ export default function CatalogueHeaderTab() {
       <TabsHeader
         className="dark:bg-opacity-20 border border-gray-700/10"
         indicatorProps={{
-          className: "bg-white dark:bg-black/40 text-gray-900 dark:text-white shadow-sm shadow-gray-400 dark:shadow-gray-700/40",
+          className:
+            "bg-white dark:bg-black/40 text-gray-900 dark:text-white shadow-sm shadow-gray-400 dark:shadow-gray-700/40",
         }}
       >
         {typeData.map(({ label, value, icon }) => (
@@ -39,9 +45,9 @@ export default function CatalogueHeaderTab() {
               dispatch(toggleProductType(value));
             }}
           >
-            <div className="flex items-center gap-2 px-8 dark:text-white">
+            <div className="flex items-center gap-2 px-8 dark:text-white font-medium text-nowrap">
               {React.createElement(icon, { className: "w-5 h-5" })}
-              {label}
+              {`${label}${props ? ` (${props[value - 1]})` : ""}`}
             </div>
           </Tab>
         ))}

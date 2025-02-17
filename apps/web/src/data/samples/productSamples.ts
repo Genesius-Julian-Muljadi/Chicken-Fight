@@ -9,7 +9,7 @@ const ProductSamples: Array<Product> = [
     name: "Main product name. Max char: 30",
     type: 1,
     overview: "Sample product overview. This field is optional. Max char: 60",
-    desc: "This is a sample of the male main product. This field is optional. Product description has no character limit. This product has been set to promoted and can be displayed on the main card. Please only have 1 promoted product at a time. If you need more, contact site creator.",
+    desc: "This is a sample of the male main product. This field is optional. Product description has no character limit. This product has been set to promoted and can be displayed on the main card. Please only have 1 promoted product at a time. If you need more, contact the site creator.",
     dateCreated: new Date("2023-01-11T09:18:14.000Z"),
     updated: new Date("2025-01-31T09:18:14.000Z"),
   },

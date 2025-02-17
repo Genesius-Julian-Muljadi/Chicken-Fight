@@ -2,31 +2,33 @@
 
 import siteMetadata from "@/data/siteMetadata";
 import { Product } from "@/interfaces/databaseTables";
-import { PhoneArrowUpRightIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Typography,
-  Button,
 } from "@material-tailwind/react";
 import Image from "next/image";
 import React from "react";
 import DashboardSpeedDial from "../dashboard/SpeedDial";
+import speedDialContent from "../dashboard/speedDialContent";
+import ContactToPurchase from "./contactToPurchase";
 
 export function ProductCard({
   product,
   dashboard,
+  edit,
 }: {
   product: Product;
   dashboard?: boolean;
+  edit?: boolean;
 }) {
   return (
     <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
       {dashboard ? (
         <div className="absolute bottom-4 right-4 rounded-full">
-          <DashboardSpeedDial />
+          <DashboardSpeedDial contents={speedDialContent(product)} />
         </div>
       ) : null}
       <CardHeader
@@ -64,7 +66,7 @@ export function ProductCard({
         <Typography
           variant="small"
           color="blue-gray"
-          className="font-medium dark:text-blue-gray-50 uppercase"
+          className="font-medium dark:text-blue-gray-50 normal-case"
         >
           {product.overview || ""}
         </Typography>
@@ -77,25 +79,7 @@ export function ProductCard({
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <a
-          href={
-            siteMetadata.whatsapp
-              ? "tel:" + siteMetadata.whatsapp
-              : "/catalogue"
-          }
-          className="inline-block mt-0"
-        >
-          <Button
-            variant="text"
-            className="flex items-center gap-2 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-md dark:shadow-backtheme-800 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
-            ripple={true}
-          >
-            {React.createElement(PhoneArrowUpRightIcon, {
-              className: "w-5 h-5 -ml-1",
-            })}
-            Contact to purchase
-          </Button>
-        </a>
+        <ContactToPurchase dashboard={dashboard || false} />
       </CardFooter>
     </Card>
   );

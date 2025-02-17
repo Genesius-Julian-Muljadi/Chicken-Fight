@@ -21,12 +21,12 @@ export default function ProviderAdminDashboard({
   return (
     <Provider store={store}>
       <div className="flex flex-row justify-between mt-20 mb-4 mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 text-center dark:text-white text-xl sm:text-2xl md:text-3xl font-bold">
-        <span>Admin Dashboard</span>
-        <div className="flex flex-row gap-2">
+        <span className="my-auto md:my-0">Admin Dashboard</span>
+        <div className="flex flex-row gap-2 my-auto md:my-0">
           <IconButton
             variant="text"
             ripple={false}
-            className="text-[#62c076] hover:bg-inherit dark:hover:bg-inherit active:bg-inherit dark:active:bg-inherit cursor-default"
+            className="my-auto text-[#62c076] hover:bg-inherit dark:hover:bg-inherit active:bg-inherit dark:active:bg-inherit cursor-default"
           >
             <i className="fa-brands fa-whatsapp text-3xl not-italic opacity-75"></i>
           </IconButton>
@@ -38,10 +38,12 @@ export default function ProviderAdminDashboard({
               ? "WhatsApp: " + siteMetadata.whatsapp
               : "whatsapp phone number"}
           </Typography>
-          <DashboardSpeedDial />
+          <div className="my-auto md:my-0">
+            <DashboardSpeedDial />
+          </div>
         </div>
       </div>
-      <DashboardHeader />
+      <DashboardHeader products={props.products} />
       <DashboardProducts products={props.products} />
     </Provider>
   );

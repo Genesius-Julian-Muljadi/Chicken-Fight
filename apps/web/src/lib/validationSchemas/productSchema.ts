@@ -1,0 +1,15 @@
+import productTypes from "@/data/productTypes";
+import { object, string } from "yup";
+
+const productSchema = object({
+  image: string().required(),
+  promoted: string().oneOf(["true", "false"]).required(),
+  name: string().max(30, "Max. char 30").required(),
+  type: string()
+    .oneOf(productTypes.map((type: string, index: number) => String(index + 1)))
+    .required(),
+  overview: string().max(60, "Max. char 60").notRequired(),
+  desc: string().notRequired(),
+});
+
+export { productSchema };

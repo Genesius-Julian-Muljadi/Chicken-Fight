@@ -25,7 +25,7 @@ export function Footer() {
             >
               {siteMetadata.whatsapp
                 ? "WhatsApp: " + siteMetadata.whatsapp
-                : "whatsapp phone number"}
+                : "WhatsApp phone number"}
             </Typography>
           </a>
 
