@@ -5,7 +5,7 @@ import { Footer, Layout } from "@/components";
 import { ThemeProviders } from "./theme-providers";
 import siteMetadata from "@/data/siteMetadata";
 import Header from "@/components/imported/Header";
-import CookieManager from "@/components/imported/cookieManager";
+import CookieManager from "@/cookies/cookieManager";
 
 const roboto = Roboto({
   subsets: ["latin"],

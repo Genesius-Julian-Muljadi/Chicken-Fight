@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import COOKIE_EXPIRATION_MINUTES from "../../../../cookieExpiration";
+import COOKIE_EXPIRATION_MINUTES from "../../../cookieExpiration";
 import { Provider, useSelector } from "react-redux";
 import { store } from "@/redux/store";
 
