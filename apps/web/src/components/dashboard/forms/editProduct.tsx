@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
@@ -26,12 +26,9 @@ import ContactToPurchase from "@/components/catalogue/contactToPurchase";
 import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 
-export default function AddProduct() {
+export default function EditProduct() {
   const currentType = useSelector(
     (state: { TPTSlice: { type: number | null } }) => state.TPTSlice.type
-  );
-  const formActive = useSelector(
-    (state: { TAPSlice: { formActive: boolean } }) => state.TAPSlice.formActive
   );
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -60,18 +57,10 @@ export default function AddProduct() {
 
       router.push("/admin/dashboard");
       router.refresh();
-
-      dispatch(updateDashboardProduct({ product: output.data.data }));
     } catch (err) {
       setSubmitted(false);
     }
   };
-
-  useEffect(() => {
-    if (!formActive) {
-      setSubmitted(false);
-    }
-  }, [formActive]);
 
   return (
     <Formik
@@ -94,9 +83,12 @@ export default function AddProduct() {
       {(props: FormikProps<ProductForm>) => {
         const {
           values,
+          errors,
+          touched,
+          handleChange,
+          submitCount,
           setFieldValue,
           submitForm,
-          resetForm,
         } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
@@ -119,16 +111,7 @@ export default function AddProduct() {
             ),
             action: async () => {
               await setFieldValue("type", String(currentType));
-              await submitForm();
-              resetForm();
-              ["name", "overview", "desc"].forEach((inputField: string) => {
-                ["light", "dark"].forEach((theme: string) => {
-                  const input = document.getElementById(
-                    inputField + "-input-" + theme
-                  ) as HTMLInputElement;
-                  input.value = "";
-                });
-              });
+              submitForm();
             },
           },
         ];
@@ -161,7 +144,7 @@ export default function AddProduct() {
                 />
               </CardHeader>
               <CardBody>
-                <div className="flex items-center gap-2">
+                <div className="mb-9 flex items-center gap-2">
                   <div className="w-full relative">
                     <div className="grid grid-cols-1 grid-rows-1 -mt-2">
                       <div className="col-start-1 row-start-1 block dark:hidden">
@@ -223,16 +206,6 @@ export default function AddProduct() {
                       </svg>
                       <span>Max. characters 30</span>
                     </Typography>
-                    <ErrorMessage name="name">
-                      {(err) => (
-                        <div
-                          aria-label={`Error message: ${err}`}
-                          className="absolute top-[50%] right-4 translate-x-full translate-y-full mt-[0.1rem] flex flex-col text-right text-sm text-red-600"
-                        >
-                          <span>{err}</span>
-                        </div>
-                      )}
-                    </ErrorMessage>
                   </div>
                   <Typography
                     color="blue-gray"
@@ -245,7 +218,7 @@ export default function AddProduct() {
                     }).format(new Date())}
                   </Typography>
                 </div>
-                <div className="mt-9 w-full relative">
+                <div className="mb-7 w-full relative">
                   <div className="grid grid-cols-1 grid-rows-1">
                     <div className="col-start-1 row-start-1 block dark:hidden">
                       <Textarea
@@ -303,7 +276,7 @@ export default function AddProduct() {
                     <span>Max. characters 60</span>
                   </Typography>
                 </div>
-                <div className="mt-7 w-full">
+                <div className="w-full">
                   <div className="grid grid-cols-1 grid-rows-1">
                     <div className="col-start-1 row-start-1 block dark:hidden">
                       <Textarea

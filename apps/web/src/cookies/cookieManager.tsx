@@ -53,7 +53,6 @@ function CookieManager() {
             new Date().valueOf() + COOKIE_EXPIRATION_MINUTES * 60000
           ),
         });
-        console.log(cookies);
       }
     }
 

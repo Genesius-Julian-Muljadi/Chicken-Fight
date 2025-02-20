@@ -7,17 +7,24 @@ import DashboardHeader from "./header";
 import DashboardProducts from "./products";
 import siteMetadata from "@/data/siteMetadata";
 import { IconButton, Typography } from "@material-tailwind/react";
-import DashboardSpeedDial from "@/components/dashboard/SpeedDial";
-
-interface CatalogueProps {
-  products: Array<Product> | undefined;
-}
+import DashboardSpeedDial, {
+  SpeedDialContent,
+} from "@/components/dashboard/SpeedDial";
+import { PhoneIcon } from "@heroicons/react/24/solid";
 
 export default function ProviderAdminDashboard({
-  props,
+  products,
 }: {
-  props: CatalogueProps;
+  products: Array<Product> | undefined;
 }) {
+  const speedDialContent: Array<SpeedDialContent> = [
+    {
+      title: "Edit phone number",
+      icon: PhoneIcon,
+      action: () => console.log("edit phone number action!"),
+    },
+  ];
+
   return (
     <Provider store={store}>
       <div className="flex flex-row justify-between mt-20 mb-4 mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 text-center dark:text-white text-xl sm:text-2xl md:text-3xl font-bold">
@@ -39,12 +46,15 @@ export default function ProviderAdminDashboard({
               : "whatsapp phone number"}
           </Typography>
           <div className="my-auto md:my-0">
-            <DashboardSpeedDial />
+            <DashboardSpeedDial
+              contents={speedDialContent}
+              placement="bottom"
+            />
           </div>
         </div>
       </div>
-      <DashboardHeader products={props.products} />
-      <DashboardProducts products={props.products} />
+      <DashboardHeader products={products} />
+      <DashboardProducts products={products} />
     </Provider>
   );
 }

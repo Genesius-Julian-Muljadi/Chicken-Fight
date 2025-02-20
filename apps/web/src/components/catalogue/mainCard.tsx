@@ -13,6 +13,7 @@ import Image from "next/image";
 import DashboardSpeedDial from "../dashboard/SpeedDial";
 import speedDialContent from "../dashboard/speedDialContent";
 import ContactToPurchase from "./contactToPurchase";
+import noImages from "@/assets/noImage";
 
 export function MainCard({
   product,
@@ -24,26 +25,32 @@ export function MainCard({
   edit?: boolean;
 }) {
   return (
-    <Card className="relative w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+    <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
       {dashboard ? (
-        <div className="absolute bottom-4 right-4 rounded-full">
+        <div className="absolute bottom-4 right-4 rounded-full z-40">
+          {/* <div className="absolute top-4 right-4 rounded-full z-40"> */}
           <DashboardSpeedDial contents={speedDialContent(product)} />
         </div>
       ) : null}
       <CardHeader
         shadow={false}
         floated={false}
-        className="m-0 md:w-[45%] lg:w-1/2 shrink-0 rounded-r-xl md:rounded-r-none"
+        className="m-0 md:max-w-[45%] lg:w-1/2 shrink-0 rounded-r-xl md:rounded-r-none"
       >
         <Image
-          src={product.image}
+          src={
+            product.image.slice(0, 3) === "AVT"
+              ? "../../../../api/src/public/images/" + product.image
+              : noImages[0]
+          }
           width={500}
           height={800}
           alt="main-product-image"
           className="h-full w-full object-cover"
+          priority
         />
       </CardHeader>
-      <CardBody>
+      <CardBody className="w-full">
         <Typography
           variant="h6"
           color="gray"
@@ -69,7 +76,7 @@ export function MainCard({
             year: "numeric",
             month: "short",
             day: "numeric",
-          }).format(product.dateCreated)}
+          }).format(new Date(product.dateCreated))}
         </Typography>
         <ContactToPurchase dashboard={dashboard || false} />
       </CardBody>

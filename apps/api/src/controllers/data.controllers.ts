@@ -21,18 +21,30 @@ export default class DataControllers {
       next(err);
     }
   }
-  
-  public async getAllProducts(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
+
+  public async getAllProducts(req: Request, res: Response, next: NextFunction) {
     try {
       const products = await DataServices.getAllProducts(req);
 
       res.status(200).send({
         message: "Products retrieved!",
         data: products,
+      });
+    } catch (err) {
+      res.status(401).send({
+        message: String(err),
+      });
+      next(err);
+    }
+  }
+
+  public async postProduct(req: Request, res: Response, next: NextFunction) {
+    try {
+      const product = await DataServices.postProduct(req);
+
+      res.status(200).send({
+        message: "Product posted!",
+        data: product,
       });
     } catch (err) {
       res.status(401).send({

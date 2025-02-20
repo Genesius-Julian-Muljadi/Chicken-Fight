@@ -14,6 +14,7 @@ import React from "react";
 import DashboardSpeedDial from "../dashboard/SpeedDial";
 import speedDialContent from "../dashboard/speedDialContent";
 import ContactToPurchase from "./contactToPurchase";
+import noImages from "@/assets/noImage";
 
 export function ProductCard({
   product,
@@ -27,7 +28,8 @@ export function ProductCard({
   return (
     <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
       {dashboard ? (
-        <div className="absolute bottom-4 right-4 rounded-full">
+        <div className="absolute bottom-4 right-4 rounded-full z-40">
+          {/* <div className="absolute top-4 right-4 rounded-full z-40"> */}
           <DashboardSpeedDial contents={speedDialContent(product)} />
         </div>
       ) : null}
@@ -37,11 +39,16 @@ export function ProductCard({
         className="m-auto w-full rounded-b-none"
       >
         <Image
-          src={product.image}
+          src={
+            product.image.slice(0, 3) === "AVT"
+              ? "../../../../api/src/public/images/" + product.image
+              : noImages[0]
+          }
           width={500}
           height={800}
           alt={product.name}
           className="h-full w-full object-cover"
+          priority
         />
       </CardHeader>
       <CardBody>
@@ -60,7 +67,7 @@ export function ProductCard({
               year: "numeric",
               month: "short",
               day: "numeric",
-            }).format(product.dateCreated)}
+            }).format(new Date(product.dateCreated))}
           </Typography>
         </div>
         <Typography

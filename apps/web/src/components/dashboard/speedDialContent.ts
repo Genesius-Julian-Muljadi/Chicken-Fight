@@ -7,13 +7,17 @@ import {
 import { SpeedDialContent } from "./SpeedDial";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { Product } from "@/interfaces/databaseTables";
+import { useDispatch } from "react-redux";
+import { toggleAddMainProduct } from "@/redux/slices/toggleAddMainProduct";
 
 function speedDialContent(product: Product): Array<SpeedDialContent> {
+  const dispatch = useDispatch();
+
   const contents: Array<SpeedDialContent> = [
     {
       title: "Add main product",
       icon: PlusIcon,
-      action: () => console.log("Hello, world! this is an add function"),
+      action: () => dispatch(toggleAddMainProduct(true)),
     },
     {
       title: "Promote",

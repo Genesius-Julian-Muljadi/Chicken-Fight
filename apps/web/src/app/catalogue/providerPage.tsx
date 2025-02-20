@@ -13,7 +13,7 @@ interface CatalogueProps {
 export default function ProviderCatalogue({ props }: { props: CatalogueProps }) {
   return (
     <Provider store={store}>
-      <CatalogueHeader />
+      <CatalogueHeader products={props.products} />
       <CatalogueProducts products={props.products} />
     </Provider>
   );
