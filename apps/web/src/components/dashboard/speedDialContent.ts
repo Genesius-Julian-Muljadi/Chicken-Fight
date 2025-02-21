@@ -12,7 +12,7 @@ import { toggleAddMainProduct } from "@/redux/slices/toggleAddMainProduct";
 import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
 import { toggleEditMainProduct } from "@/redux/slices/toggleEditMainProduct";
 
-function speedDialContent(product: Product): Array<SpeedDialContent> {
+function useSpeedDialContent(product: Product): Array<SpeedDialContent> {
   const dispatch = useDispatch();
 
   const contents: Array<SpeedDialContent> = [
@@ -63,4 +63,4 @@ function speedDialContent(product: Product): Array<SpeedDialContent> {
   }
 }
 
-export default speedDialContent;
+export default useSpeedDialContent;

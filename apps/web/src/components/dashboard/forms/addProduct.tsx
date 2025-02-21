@@ -98,7 +98,20 @@ export default function AddProduct() {
           {
             title: "Cancel",
             icon: XCircleIcon,
-            action: () => dispatch(toggleAddProduct(false)),
+            action: () => {
+              dispatch(toggleAddProduct(false));
+              resetForm();
+              ["name", "overview", "desc"].forEach((inputField: string) => {
+                ["light", "dark"].forEach((theme: string) => {
+                  const input = document.getElementById(
+                    inputField + "-input-" + theme
+                  ) as HTMLInputElement;
+                  console.log(inputField + "-input-" + theme);
+                  console.log(input);
+                  input.value = "";
+                });
+              });
+            },
           },
           {
             title: "Submit",
@@ -172,7 +185,7 @@ export default function AddProduct() {
                             const darkInput = document.getElementById(
                               "name-input-dark"
                             ) as HTMLInputElement;
-                            darkInput.setAttribute("value", e.target.value);
+                            darkInput.value = e.target.value;
                           }}
                           disabled={submitted}
                           className="uppercase"
