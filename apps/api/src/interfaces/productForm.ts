@@ -1,4 +1,5 @@
 interface ProductForm {
+  id?: string;
   image: string;
   promoted: string;
   name: string;
