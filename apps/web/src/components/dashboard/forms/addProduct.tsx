@@ -106,8 +106,6 @@ export default function AddProduct() {
                   const input = document.getElementById(
                     inputField + "-input-" + theme
                   ) as HTMLInputElement;
-                  console.log(inputField + "-input-" + theme);
-                  console.log(input);
                   input.value = "";
                 });
               });

@@ -27,12 +27,18 @@ import { Product } from "@/interfaces/databaseTables";
 import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
 import productTypes from "@/data/productTypes";
 
+interface EditOption {
+  productID: number;
+  editActive: boolean;
+}
+
 export default function EditProduct({ product }: { product: Product }) {
   const currentType = useSelector(
     (state: { TPTSlice: { type: number | null } }) => state.TPTSlice.type
   );
-  const editActive = useSelector(
-    (state: { TEPSlice: { editActive: boolean } }) => state.TEPSlice.editActive
+  const editOptions = useSelector(
+    (state: { TEPSlice: { options: EditOption | null } }) =>
+      state.TEPSlice.options
   );
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -57,7 +63,7 @@ export default function EditProduct({ product }: { product: Product }) {
 
       Swal.fire({
         icon: "success",
-        title: "Product created!",
+        title: "Product editted!",
       });
 
       router.push("/admin/dashboard");
@@ -72,10 +78,13 @@ export default function EditProduct({ product }: { product: Product }) {
   };
 
   useEffect(() => {
-    if (!editActive) {
+    if (
+      !editOptions ||
+      (editOptions.productID === product.id && !editOptions.editActive)
+    ) {
       setSubmitted(false);
     }
-  }, [editActive]);
+  }, [editOptions]);
 
   return (
     <Formik
@@ -126,7 +135,7 @@ export default function EditProduct({ product }: { product: Product }) {
               ["name", "overview", "desc"].forEach((inputField: string) => {
                 ["light", "dark"].forEach((theme: string) => {
                   const input = document.getElementById(
-                    inputField + "-input-" + theme
+                    inputField + "-input-edit-" + theme
                   ) as HTMLInputElement;
                   input.value = "";
                 });
@@ -177,13 +186,13 @@ export default function EditProduct({ product }: { product: Product }) {
                             setFieldValue("name", e.target.value);
 
                             const darkInput = document.getElementById(
-                              "name-input-dark"
+                              "name-input-edit-dark"
                             ) as HTMLInputElement;
                             darkInput.value = e.target.value;
                           }}
                           disabled={submitted}
                           className="uppercase"
-                          id="name-input-light"
+                          id="name-input-edit-light"
                         />
                       </div>
                       <div className="col-start-1 row-start-1 hidden dark:block">
@@ -197,13 +206,13 @@ export default function EditProduct({ product }: { product: Product }) {
                             setFieldValue("name", e.target.value);
 
                             const lightInput = document.getElementById(
-                              "name-input-light"
+                              "name-input-edit-light"
                             ) as HTMLInputElement;
                             lightInput.value = e.target.value;
                           }}
                           disabled={submitted}
                           className="text-blue-gray-50 uppercase"
-                          id="name-input-dark"
+                          id="name-input-edit-dark"
                         />
                       </div>
                     </div>
@@ -258,13 +267,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("overview", e.target.value);
 
                           const darkInput = document.getElementById(
-                            "overview-input-dark"
+                            "overview-input-edit-dark"
                           ) as HTMLInputElement;
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="overview-input-light"
+                        id="overview-input-edit-light"
                       />
                     </div>
                     <div className="col-start-1 row-start-1 hidden dark:block">
@@ -276,13 +285,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("overview", e.target.value);
 
                           const lightInput = document.getElementById(
-                            "overview-input-light"
+                            "overview-input-edit-light"
                           ) as HTMLInputElement;
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="overview-input-dark"
+                        id="overview-input-edit-dark"
                       />
                     </div>
                   </div>
@@ -316,13 +325,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("desc", e.target.value);
 
                           const darkInput = document.getElementById(
-                            "desc-input-dark"
+                            "desc-input-edit-dark"
                           ) as HTMLInputElement;
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="desc-input-light"
+                        id="desc-input-edit-light"
                       />
                     </div>
                     <div className="col-start-1 row-start-1 hidden dark:block">
@@ -334,13 +343,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("desc", e.target.value);
 
                           const lightInput = document.getElementById(
-                            "desc-input-light"
+                            "desc-input-edit-light"
                           ) as HTMLInputElement;
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="desc-input-dark"
+                        id="desc-input-edit-dark"
                       />
                     </div>
                   </div>
