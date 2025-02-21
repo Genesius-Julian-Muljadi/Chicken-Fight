@@ -92,18 +92,24 @@ export default function AddProduct() {
       }}
     >
       {(props: FormikProps<ProductForm>) => {
-        const {
-          values,
-          setFieldValue,
-          submitForm,
-          resetForm,
-        } = props;
+        const { values, setFieldValue, submitForm, resetForm } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
           {
             title: "Cancel",
             icon: XCircleIcon,
-            action: () => dispatch(toggleAddProduct(false)),
+            action: () => {
+              dispatch(toggleAddProduct(false));
+              resetForm();
+              ["name", "overview", "desc"].forEach((inputField: string) => {
+                ["light", "dark"].forEach((theme: string) => {
+                  const input = document.getElementById(
+                    inputField + "-input-" + theme
+                  ) as HTMLInputElement;
+                  input.value = "";
+                });
+              });
+            },
           },
           {
             title: "Submit",
