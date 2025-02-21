@@ -22,9 +22,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
 import { toggleAddProduct } from "@/redux/slices/toggleAddProduct";
-import ContactToPurchase from "@/components/catalogue/contactToPurchase";
 import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
+import productTypes from "@/data/productTypes";
 
 export default function AddProduct() {
   const currentType = useSelector(
@@ -350,8 +350,10 @@ export default function AddProduct() {
                   </div>
                 </div>
               </CardBody>
-              <CardFooter className="pt-0">
-                <ContactToPurchase dashboard={true} />
+              <CardFooter className="pt-0 dark:text-white">
+                {/* <ContactToPurchase dashboard={true} /> */}
+                <p>Type: {productTypes[(currentType ? currentType : 1) - 1]}</p>
+                <a href="#dashboard-title">Select a different type</a>
               </CardFooter>
             </Card>
           </Form>

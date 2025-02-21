@@ -64,4 +64,48 @@ export default class DataUtils {
       throw err;
     }
   }
+
+  static async editMainProduct(product: ProductForm) {
+    try {
+      const newProduct = await prisma.products.update({
+        data: {
+          image: product.image,
+          promoted: true,
+          name: product.name,
+          type: parseInt(product.type),
+          overview: product.overview || undefined,
+          desc: product.desc || undefined,
+        },
+        where: {
+          id: parseInt(product.id!)
+        }
+      });
+
+      return newProduct;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async editProduct(product: ProductForm) {
+    try {
+      const newProduct = await prisma.products.update({
+        data: {
+          image: product.image,
+          promoted: false,
+          name: product.name,
+          type: parseInt(product.type),
+          overview: product.overview || undefined,
+          desc: product.desc || undefined,
+        },
+        where: {
+          id: parseInt(product.id!)
+        }
+      });
+
+      return newProduct;
+    } catch (err) {
+      throw err;
+    }
+  }
 }

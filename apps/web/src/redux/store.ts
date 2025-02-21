@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import TPTSlice from "./slices/toggleProductType";
 import TAPSlice from "./slices/toggleAddProduct";
 import TAMPSlice from "./slices/toggleAddMainProduct";
-import TESlice from "./slices/toggleEdit";
+import TEPSlice from "./slices/toggleEditProduct";
+import TEMPSlice from "./slices/toggleEditMainProduct";
 import UCSlice from "./slices/updateCookie";
 import UDPSlice from "./slices/updateDashboardProduct";
 
@@ -11,7 +12,8 @@ export const store = configureStore({
     TPTSlice,
     TAPSlice,
     TAMPSlice,
-    TESlice,
+    TEPSlice,
+    TEMPSlice,
     UCSlice,
     UDPSlice,
   },

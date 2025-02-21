@@ -63,7 +63,13 @@ function CookieManager() {
         window.removeEventListener(event, extendCookieExpiration)
       );
     };
-  }, [currentCookie]);
+  }, [
+    currentCookie,
+    addGlobalEventListeners,
+    extendCookieExpiration,
+    setCookie,
+    removeCookie,
+  ]);
 
   return null;
 }

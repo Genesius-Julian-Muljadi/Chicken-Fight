@@ -9,8 +9,10 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { Product } from "@/interfaces/databaseTables";
 import { useDispatch } from "react-redux";
 import { toggleAddMainProduct } from "@/redux/slices/toggleAddMainProduct";
+import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
+import { toggleEditMainProduct } from "@/redux/slices/toggleEditMainProduct";
 
-function speedDialContent(product: Product): Array<SpeedDialContent> {
+function useSpeedDialContent(product: Product): Array<SpeedDialContent> {
   const dispatch = useDispatch();
 
   const contents: Array<SpeedDialContent> = [
@@ -32,10 +34,12 @@ function speedDialContent(product: Product): Array<SpeedDialContent> {
     {
       title: "Edit",
       icon: PencilSquareIcon,
-      action: () =>
-        console.log(
-          "Hello, world! this is an edit function for product " + product.id
-        ),
+      action: product.promoted
+        ? () => dispatch(toggleEditMainProduct(true))
+        : () =>
+            dispatch(
+              toggleEditProduct({ productID: product.id, editActive: true })
+            ),
     },
     {
       title: "Delete",
@@ -59,4 +63,4 @@ function speedDialContent(product: Product): Array<SpeedDialContent> {
   }
 }
 
-export default speedDialContent;
+export default useSpeedDialContent;

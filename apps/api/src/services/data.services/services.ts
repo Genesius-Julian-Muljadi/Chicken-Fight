@@ -29,7 +29,13 @@ export default class DataServices {
 
       let product;
 
-      if (productForm.promoted === "true") {
+      if (productForm.id) {
+        if (productForm.promoted === "true") {
+          product = await DataUtils.editMainProduct(productForm);
+        } else if (productForm.promoted === "false") {
+          product = await DataUtils.editProduct(productForm);
+        } else throw new Error("Invalid promoted input");
+      } else if (productForm.promoted === "true") {
         product = await DataUtils.postMainProduct(productForm);
       } else if (productForm.promoted === "false") {
         product = await DataUtils.postProduct(productForm);

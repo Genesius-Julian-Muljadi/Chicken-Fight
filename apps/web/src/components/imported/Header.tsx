@@ -40,6 +40,7 @@ const Header = () => {
         } py-4 px-4 sm:px-6 xl:px-8 rounded-b-lg${
           siteMetadata.stickyNav ? " sticky top-0 z-50" : ""
         }`}
+        id="global-header"
       >
         <div className="flex items-center justify-between mx-auto max-w-3xl xl:max-w-full">
           <Link href="/" aria-label={siteMetadata.headerTitle || "headerTitle"}>
@@ -92,11 +93,18 @@ const Header = () => {
                   headerNavLinks
                 </span>
               )}
-              {cookies.access_token !== "undefined" && cookies.access_token ? <LogoutButton mobile={false} /> : null}
+              {cookies.access_token !== "undefined" && cookies.access_token ? (
+                <LogoutButton mobile={false} />
+              ) : null}
             </div>
             <ThemeSwitch scrolling={isScrolling} />
             {/* <MobileNav loggedIn={token ? true : false} /> */}
-            <MobileNav scrolling={isScrolling} loggedIn={cookies.access_token !== "undefined" && cookies.access_token} />
+            <MobileNav
+              scrolling={isScrolling}
+              loggedIn={
+                cookies.access_token !== "undefined" && cookies.access_token
+              }
+            />
           </div>
         </div>
       </header>

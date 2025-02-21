@@ -3,20 +3,29 @@ import { ProductCard } from "@/components/catalogue/productCard";
 import AddProductCard from "@/components/dashboard/addProductCard";
 import AddProduct from "@/components/dashboard/forms/addProduct";
 import AddProductMain from "@/components/dashboard/forms/addProductMain";
+import EditProduct from "@/components/dashboard/forms/editProduct";
 import { ProductSamples } from "@/data/samples/productSamples";
 import { Product } from "@/interfaces/databaseTables";
 import { toggleAddProduct } from "@/redux/slices/toggleAddProduct";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+interface EditOption {
+  productID: number;
+  editActive: boolean;
+}
+
 export default function DashboardProducts({
   products,
 }: {
   products?: Array<Product> | undefined;
 }) {
+  // Page displays products from current product type only
   const currentType = useSelector(
     (state: { TPTSlice: { type: number | null } }) => state.TPTSlice.type
   );
+
+  // Add product form toggles
   const formActive = useSelector(
     (state: { TAPSlice: { formActive: boolean } }) => state.TAPSlice.formActive
   );
@@ -24,6 +33,27 @@ export default function DashboardProducts({
     (state: { TAMPSlice: { formActive: boolean } }) =>
       state.TAMPSlice.formActive
   );
+
+  // Edit product form toggles
+  const editOptions = useSelector(
+    (state: { TEPSlice: { options: EditOption | null } }) =>
+      state.TEPSlice.options
+  );
+
+  // Client-side edit form statuses (non-promoted only)
+  const [currentEdits, setCurrentEdits] = useState<Array<EditOption>>(
+    products
+      ? products
+          .filter((product: Product) => {
+            return !product.promoted;
+          })
+          .map((product: Product) => {
+            return { productID: product.id, editActive: false };
+          })
+      : []
+  );
+
+  // Client-side all products
   const [currentProducts, setCurrentProducts] = useState<Array<Product>>(
     products || [ProductSamples[0], ProductSamples[7]]
   );
@@ -48,7 +78,26 @@ export default function DashboardProducts({
       (product: Product) => product.type === currentType
     )[0];
 
+  // Editting form toggles
   useEffect(() => {
+    if (editOptions && currentEdits.length > 0) {
+      const currentEditsCopy: Array<EditOption> = currentEdits.map(
+        (option: EditOption) => option
+      );
+      const editIndex: number = currentEditsCopy.findIndex(
+        (option: EditOption) => {
+          return option.productID === editOptions.productID;
+        }
+      );
+
+      currentEditsCopy[editIndex].editActive = editOptions.editActive;
+      setCurrentEdits(currentEditsCopy);
+    }
+  }, [editOptions, currentEdits]);
+
+  // Manual updating of products on client-side after change in database products
+  useEffect(() => {
+    // Delete product
     if (updateProduct.deleteID) {
       const deleteIndex: number = currentProducts.findIndex(
         (product: Product) => {
@@ -61,7 +110,20 @@ export default function DashboardProducts({
         })
       );
 
+      if (editOptions) {
+        const currentEditsCopy: Array<EditOption> = currentEdits.map(
+          (option: EditOption) => option
+        );
+        setCurrentEdits(
+          currentEditsCopy.filter((option: EditOption) => {
+            return option.productID !== updateProduct.deleteID;
+          })
+        );
+      }
+
       dispatch(toggleAddProduct(false));
+
+      // Edit product
     } else if (updateProduct.edit) {
       const editIndex: number = currentProducts.findIndex(
         (product: Product) => {
@@ -78,15 +140,41 @@ export default function DashboardProducts({
         })
       );
 
+      if (editOptions) {
+        const currentEditsCopy: Array<EditOption> = currentEdits.map(
+          (option: EditOption) => option
+        );
+        const editOptionIndex: number = currentEditsCopy.findIndex(
+          (option: EditOption) => {
+            return option.productID === updateProduct.newProduct!.id;
+          }
+        );
+        currentEditsCopy[editOptionIndex].editActive = false;
+        setCurrentEdits(currentEditsCopy);
+      }
+
       dispatch(toggleAddProduct(false));
+
+      // Add product
     } else if (updateProduct.newProduct) {
       const newProducts: Array<Product> = currentProducts;
       newProducts.push(updateProduct.newProduct!);
       setCurrentProducts(newProducts);
 
+      if (editOptions) {
+        const currentEditsCopy: Array<EditOption> = currentEdits.map(
+          (option: EditOption) => option
+        );
+        currentEditsCopy.push({
+          productID: updateProduct.newProduct.id,
+          editActive: false,
+        });
+        setCurrentEdits(currentEditsCopy);
+      }
+
       dispatch(toggleAddProduct(false));
     }
-  }, [updateProduct]);
+  }, [updateProduct, currentEdits, currentProducts, dispatch, editOptions]);
 
   return (
     <div className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 bg-gradient-to-b from-primary-100 via-primary-50 to-primary-50 dark:from-backtheme-900 dark:via-backtheme-950 dark:to-backtheme-950 rounded-xl rounded-tl-none shadow-md shadow-gray-700 dark:shadow-md dark:shadow-white/5 px-6 py-4">
@@ -107,15 +195,40 @@ export default function DashboardProducts({
             <AddProductMain />
           </div>
         </div>
-        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-10 xl:gap-6 *:items-center">
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-10 xl:gap-6">
           {PRODUCTS.filter((product: Product) =>
             PRODUCTMAIN.desc === ProductSamples[0].desc ||
             PRODUCTMAIN.desc === ProductSamples[7].desc
               ? true
               : product.id !== PRODUCTMAIN.id
           ).map((product: Product) => (
-            <div key={`product-${product.id}`}>
-              <ProductCard product={product} dashboard={true} />
+            <div
+              key={`product-${product.id}`}
+              className="grid grid-cols-1 grid-rows-1"
+            >
+              <div
+                className={`${
+                  currentEdits.find((option: EditOption) => {
+                    return option.productID === product.id;
+                  })?.editActive
+                    ? "hidden "
+                    : ""
+                }col-start-1 col-end-2 row-start-1 row-end-2`}
+                id={`dashboard-product-${product.id}`}
+              >
+                <ProductCard product={product} dashboard={true} />
+              </div>
+              <div
+                className={`${
+                  currentEdits.find((option: EditOption) => {
+                    return option.productID === product.id;
+                  })?.editActive
+                    ? ""
+                    : "hidden "
+                }col-start-1 col-end-2 row-start-1 row-end-2`}
+              >
+                <EditProduct product={product} />
+              </div>
             </div>
           ))}
           <div className="grid grid-cols-1 grid-rows-1">

@@ -28,7 +28,7 @@ export default function ProviderAdminDashboard({
   return (
     <Provider store={store}>
       <div className="flex flex-row justify-between mt-20 mb-4 mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 text-center dark:text-white text-xl sm:text-2xl md:text-3xl font-bold">
-        <span className="my-auto md:my-0">Admin Dashboard</span>
+        <span className="my-auto md:my-0" id="dashboard-title">Admin Dashboard</span>
         <div className="flex flex-row gap-2 my-auto md:my-0">
           <IconButton
             variant="text"

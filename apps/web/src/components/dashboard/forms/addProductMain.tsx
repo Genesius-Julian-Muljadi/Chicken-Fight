@@ -21,10 +21,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
-import ContactToPurchase from "@/components/catalogue/contactToPurchase";
 import { toggleAddMainProduct } from "@/redux/slices/toggleAddMainProduct";
 import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
+import productTypes from "@/data/productTypes";
 
 export default function AddProductMain() {
   const currentType = useSelector(
@@ -217,6 +217,16 @@ export default function AddProductMain() {
                       />
                     </svg>
                     <span>Max. characters 30</span>
+                    <ErrorMessage name="name">
+                      {(err) => (
+                        <div
+                          aria-label={`Error message: ${err}`}
+                          className="absolute top-[50%] right-4 translate-x-full translate-y-full mt-[0.1rem] flex flex-col text-right text-sm text-red-600"
+                        >
+                          <span>{err}</span>
+                        </div>
+                      )}
+                    </ErrorMessage>
                   </Typography>
                 </div>
                 <div className="mb-7 w-full relative">
@@ -327,7 +337,13 @@ export default function AddProductMain() {
                     day: "numeric",
                   }).format(new Date())}
                 </Typography>
-                <ContactToPurchase dashboard={true} />
+                {/* <ContactToPurchase dashboard={true} /> */}
+                <p className="dark:text-white">
+                  Type: {productTypes[(currentType ? currentType : 1) - 1]}
+                </p>
+                <a href="#dashboard-title" className="dark:text-white">
+                  Select a different type
+                </a>
               </CardBody>
             </Card>
           </Form>

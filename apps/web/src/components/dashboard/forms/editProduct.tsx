@@ -17,18 +17,28 @@ import {
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
-import { toggleAddProduct } from "@/redux/slices/toggleAddProduct";
-import ContactToPurchase from "@/components/catalogue/contactToPurchase";
 import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
+import { Product } from "@/interfaces/databaseTables";
+import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
+import productTypes from "@/data/productTypes";
 
-export default function EditProduct() {
+interface EditOption {
+  productID: number;
+  editActive: boolean;
+}
+
+export default function EditProduct({ product }: { product: Product }) {
   const currentType = useSelector(
     (state: { TPTSlice: { type: number | null } }) => state.TPTSlice.type
+  );
+  const editOptions = useSelector(
+    (state: { TEPSlice: { options: EditOption | null } }) =>
+      state.TEPSlice.options
   );
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -40,6 +50,7 @@ export default function EditProduct() {
       const API: string =
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
       const output = await axios.post(API, {
+        id: String(product.id),
         image: "testimagename",
         promoted: "false",
         name: params.name,
@@ -52,26 +63,39 @@ export default function EditProduct() {
 
       Swal.fire({
         icon: "success",
-        title: "Product created!",
+        title: "Product editted!",
       });
 
       router.push("/admin/dashboard");
       router.refresh();
+
+      dispatch(
+        updateDashboardProduct({ product: output.data.data, edit: true })
+      );
     } catch (err) {
       setSubmitted(false);
     }
   };
 
+  useEffect(() => {
+    if (
+      !editOptions ||
+      (editOptions.productID === product.id && !editOptions.editActive)
+    ) {
+      setSubmitted(false);
+    }
+  }, [editOptions]);
+
   return (
     <Formik
       initialValues={{
         // image: "",
-        image: "test",
+        image: product.image,
         promoted: "false",
-        name: "",
-        type: "0",
-        overview: "",
-        desc: "",
+        name: product.name,
+        type: String(product.type),
+        overview: product.overview || "",
+        desc: product.desc || "",
       }}
       validationSchema={productSchema}
       onSubmit={(values) => {
@@ -81,21 +105,16 @@ export default function EditProduct() {
       }}
     >
       {(props: FormikProps<ProductForm>) => {
-        const {
-          values,
-          errors,
-          touched,
-          handleChange,
-          submitCount,
-          setFieldValue,
-          submitForm,
-        } = props;
+        const { values, setFieldValue, submitForm, resetForm } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
           {
             title: "Cancel",
             icon: XCircleIcon,
-            action: () => dispatch(toggleAddProduct(false)),
+            action: () =>
+              dispatch(
+                toggleEditProduct({ productID: product.id, editActive: false })
+              ),
           },
           {
             title: "Submit",
@@ -111,7 +130,16 @@ export default function EditProduct() {
             ),
             action: async () => {
               await setFieldValue("type", String(currentType));
-              submitForm();
+              await submitForm();
+              resetForm();
+              ["name", "overview", "desc"].forEach((inputField: string) => {
+                ["light", "dark"].forEach((theme: string) => {
+                  const input = document.getElementById(
+                    inputField + "-input-edit-" + theme
+                  ) as HTMLInputElement;
+                  input.value = "";
+                });
+              });
             },
           },
         ];
@@ -144,7 +172,7 @@ export default function EditProduct() {
                 />
               </CardHeader>
               <CardBody>
-                <div className="mb-9 flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <div className="w-full relative">
                     <div className="grid grid-cols-1 grid-rows-1 -mt-2">
                       <div className="col-start-1 row-start-1 block dark:hidden">
@@ -158,13 +186,13 @@ export default function EditProduct() {
                             setFieldValue("name", e.target.value);
 
                             const darkInput = document.getElementById(
-                              "name-input-dark"
+                              "name-input-edit-dark"
                             ) as HTMLInputElement;
                             darkInput.value = e.target.value;
                           }}
                           disabled={submitted}
                           className="uppercase"
-                          id="name-input-light"
+                          id="name-input-edit-light"
                         />
                       </div>
                       <div className="col-start-1 row-start-1 hidden dark:block">
@@ -178,13 +206,13 @@ export default function EditProduct() {
                             setFieldValue("name", e.target.value);
 
                             const lightInput = document.getElementById(
-                              "name-input-light"
+                              "name-input-edit-light"
                             ) as HTMLInputElement;
                             lightInput.value = e.target.value;
                           }}
                           disabled={submitted}
                           className="text-blue-gray-50 uppercase"
-                          id="name-input-dark"
+                          id="name-input-edit-dark"
                         />
                       </div>
                     </div>
@@ -206,6 +234,16 @@ export default function EditProduct() {
                       </svg>
                       <span>Max. characters 30</span>
                     </Typography>
+                    <ErrorMessage name="name">
+                      {(err) => (
+                        <div
+                          aria-label={`Error message: ${err}`}
+                          className="absolute top-[50%] right-4 translate-x-full translate-y-full mt-[0.1rem] flex flex-col text-right text-sm text-red-600"
+                        >
+                          <span>{err}</span>
+                        </div>
+                      )}
+                    </ErrorMessage>
                   </div>
                   <Typography
                     color="blue-gray"
@@ -218,7 +256,7 @@ export default function EditProduct() {
                     }).format(new Date())}
                   </Typography>
                 </div>
-                <div className="mb-7 w-full relative">
+                <div className="mt-9 w-full relative">
                   <div className="grid grid-cols-1 grid-rows-1">
                     <div className="col-start-1 row-start-1 block dark:hidden">
                       <Textarea
@@ -229,13 +267,13 @@ export default function EditProduct() {
                           setFieldValue("overview", e.target.value);
 
                           const darkInput = document.getElementById(
-                            "overview-input-dark"
+                            "overview-input-edit-dark"
                           ) as HTMLInputElement;
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="overview-input-light"
+                        id="overview-input-edit-light"
                       />
                     </div>
                     <div className="col-start-1 row-start-1 hidden dark:block">
@@ -247,13 +285,13 @@ export default function EditProduct() {
                           setFieldValue("overview", e.target.value);
 
                           const lightInput = document.getElementById(
-                            "overview-input-light"
+                            "overview-input-edit-light"
                           ) as HTMLInputElement;
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="overview-input-dark"
+                        id="overview-input-edit-dark"
                       />
                     </div>
                   </div>
@@ -276,7 +314,7 @@ export default function EditProduct() {
                     <span>Max. characters 60</span>
                   </Typography>
                 </div>
-                <div className="w-full">
+                <div className="mt-7 w-full">
                   <div className="grid grid-cols-1 grid-rows-1">
                     <div className="col-start-1 row-start-1 block dark:hidden">
                       <Textarea
@@ -287,13 +325,13 @@ export default function EditProduct() {
                           setFieldValue("desc", e.target.value);
 
                           const darkInput = document.getElementById(
-                            "desc-input-dark"
+                            "desc-input-edit-dark"
                           ) as HTMLInputElement;
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="desc-input-light"
+                        id="desc-input-edit-light"
                       />
                     </div>
                     <div className="col-start-1 row-start-1 hidden dark:block">
@@ -305,20 +343,23 @@ export default function EditProduct() {
                           setFieldValue("desc", e.target.value);
 
                           const lightInput = document.getElementById(
-                            "desc-input-light"
+                            "desc-input-edit-light"
                           ) as HTMLInputElement;
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="desc-input-dark"
+                        id="desc-input-edit-dark"
                       />
                     </div>
                   </div>
                 </div>
               </CardBody>
               <CardFooter className="pt-0">
-                <ContactToPurchase dashboard={true} />
+                <p>Type: {productTypes[(currentType ? currentType : 1) - 1]}</p>
+                {/* <button onClick={() => (window.scrollY = 0)}>
+                  Select a different type
+                </button> */}
               </CardFooter>
             </Card>
           </Form>
