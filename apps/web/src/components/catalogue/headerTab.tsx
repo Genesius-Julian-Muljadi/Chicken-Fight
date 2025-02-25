@@ -26,6 +26,7 @@ export default function CatalogueHeaderTab({
   // Array of counts for each product type
   props?: Array<number>;
 }) {
+
   const dispatch = useDispatch();
 
   return (

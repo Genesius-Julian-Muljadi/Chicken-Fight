@@ -12,36 +12,6 @@ function CookieManager() {
     (state: { UCSlice: { cookie: string | null } }) => state.UCSlice.cookie
   );
 
-  const extendCookieExpiration = (e: any) => {
-    if (
-      cookies.access_token !== "undefined" &&
-      cookies.access_token &&
-      e.target.id !== "LogoutButton"
-    ) {
-      setCookie("access_token", cookies.access_token, {
-        path: "/",
-        expires: new Date(
-          new Date().valueOf() + COOKIE_EXPIRATION_MINUTES * 60000
-        ),
-      });
-    }
-  };
-
-  const addGlobalEventListeners = () => {
-    ["click", "scroll", "keydown"].forEach((event) => {
-      window.addEventListener(event, extendCookieExpiration);
-    });
-
-    window.addEventListener("click", (e: any) => {
-      if (e.target.id === "LogoutButton") {
-        setCookie("access_token", "undefined", {
-          path: "/",
-          expires: new Date(),
-        });
-      }
-    });
-  };
-
   useEffect(() => {
     if (currentCookie) {
       if (currentCookie === "undefined") {
@@ -56,20 +26,40 @@ function CookieManager() {
       }
     }
 
-    addGlobalEventListeners();
+    const extendCookieExpiration = (e: any) => {
+      if (
+        cookies.access_token !== "undefined" &&
+        cookies.access_token &&
+        e.target.id !== "LogoutButton"
+      ) {
+        setCookie("access_token", cookies.access_token, {
+          path: "/",
+          expires: new Date(
+            new Date().valueOf() + COOKIE_EXPIRATION_MINUTES * 60000
+          ),
+        });
+      }
+    };
+
+    ["click", "scroll", "keydown"].forEach((event) => {
+      window.addEventListener(event, extendCookieExpiration);
+    });
+
+    window.addEventListener("click", (e: any) => {
+      if (e.target.id === "LogoutButton") {
+        setCookie("access_token", "undefined", {
+          path: "/",
+          expires: new Date(),
+        });
+      }
+    });
 
     return () => {
       ["click", "scroll", "keydown"].forEach((event) =>
         window.removeEventListener(event, extendCookieExpiration)
       );
     };
-  }, [
-    currentCookie,
-    addGlobalEventListeners,
-    extendCookieExpiration,
-    setCookie,
-    removeCookie,
-  ]);
+  }, [currentCookie, cookies.access_token, setCookie, removeCookie]);
 
   return null;
 }

@@ -24,16 +24,17 @@ export default function CatalogueHeader({
 }: {
   products?: Array<Product> | undefined;
 }) {
-  console.log(products)
   return (
     <header className="mt-24 min-h-18 w-fit ml-4 sm:ml-6 md:ml-8 lg:ml-10 xl:ml-12 bg-primary-100 dark:bg-backtheme-900 rounded-t-xl shadow-md shadow-gray-700 dark:shadow-primary-900 pb-1 -mb-1">
       <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-2 bg-primary-100 dark:bg-backtheme-900 border-primary-100 dark:border-backtheme-900 rounded-b-none shadow-none">
-        <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-          <CatalogueHeaderTab
-            props={
-              products ? countProductTypes(products) : countProductTypes([])
-            }
-          />
+        <div>
+          <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
+            <CatalogueHeaderTab
+              props={
+                products ? countProductTypes(products) : countProductTypes([])
+              }
+            />
+          </div>
         </div>
       </Navbar>
     </header>

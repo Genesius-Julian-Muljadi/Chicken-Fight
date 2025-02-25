@@ -26,18 +26,13 @@ import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
 import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import { Product } from "@/interfaces/databaseTables";
-import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
 import productTypes from "@/data/productTypes";
+import { toggleEditMainProduct } from "@/redux/slices/toggleEditMainProduct";
 
-interface EditOption {
-  productID: number;
-  editActive: boolean;
-}
-
-export default function EditProduct({ product }: { product: Product }) {
-  const editOptions = useSelector(
-    (state: { TEPSlice: { options: EditOption | null } }) =>
-      state.TEPSlice.options
+export default function EditProductMain({ product }: { product: Product }) {
+  const mainEditActive = useSelector(
+    (state: { TEMPSlice: { editActive: boolean } }) =>
+      state.TEMPSlice.editActive
   );
   const [submitted, setSubmitted] = useState<boolean>(false);
 
@@ -51,7 +46,7 @@ export default function EditProduct({ product }: { product: Product }) {
       const output = await axios.post(API, {
         id: String(product.id),
         image: "testimagename",
-        promoted: "false",
+        promoted: "true",
         name: params.name,
         type: params.type,
         overview: params.overview,
@@ -71,26 +66,24 @@ export default function EditProduct({ product }: { product: Product }) {
       dispatch(
         updateDashboardProduct({ product: output.data.data, edit: true })
       );
+      dispatch(toggleEditMainProduct(false));
     } catch (err) {
       setSubmitted(false);
     }
   };
 
   useEffect(() => {
-    if (
-      !editOptions ||
-      (editOptions.productID === product.id && !editOptions.editActive)
-    ) {
+    if (!mainEditActive) {
       setSubmitted(false);
     }
-  }, [editOptions, product.id]);
+  }, [mainEditActive]);
 
   return (
     <Formik
       initialValues={{
         // image: "",
         image: product.image,
-        promoted: "false",
+        promoted: "true",
         name: product.name,
         type: String(product.type),
         overview: product.overview || "",
@@ -112,29 +105,28 @@ export default function EditProduct({ product }: { product: Product }) {
             title: "Cancel",
             icon: XCircleIcon,
             action: () => {
-              dispatch(
-                toggleEditProduct({ productID: product.id, editActive: false })
-              );
+              dispatch(toggleEditMainProduct(false));
+              router.push("#dashboard-header");
               resetForm();
               ["light", "dark"].forEach((theme: string) => {
                 const nameInput = document.getElementById(
-                  "name-input-edit-" + theme
+                  "main-name-input-edit-" + theme
                 ) as HTMLInputElement;
                 nameInput.value = product.name;
 
                 const overviewInput = document.getElementById(
-                  "overview-input-edit-" + theme
+                  "main-overview-input-edit-" + theme
                 ) as HTMLInputElement;
                 overviewInput.value = product.overview || "";
 
                 const descInput = document.getElementById(
-                  "desc-input-edit-" + theme
+                  "main-desc-input-edit-" + theme
                 ) as HTMLInputElement;
                 descInput.value = product.desc || "";
               });
 
               const typeInput = document.getElementById(
-                "type-input-edit-" + product.id
+                "main-type-input-edit-" + product.id
               ) as HTMLSelectElement;
               typeInput.value = String(product.type);
             },
@@ -161,19 +153,19 @@ export default function EditProduct({ product }: { product: Product }) {
         return (
           <Form>
             <Field type="hidden" name="image" value="No Value" />
-            <Field type="hidden" name="promoted" value="false" />
+            <Field type="hidden" name="promoted" value="true" />
             <Field type="hidden" name="name" />
             <Field type="hidden" name="type" />
             <Field type="hidden" name="overview" />
             <Field type="hidden" name="desc" />
-            <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+            <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
               <div className="absolute bottom-4 right-4 rounded-full">
                 <DashboardSpeedDial contents={speedDialContents} />
               </div>
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="m-auto w-full rounded-b-none"
+                className="m-0 md:w-[45%] lg:w-1/2 shrink-0 rounded-r-xl md:rounded-r-none"
               >
                 {/* going to need to file input using regular input tag, then onChange event setFieldValue event.currentTarget into the formik Field */}
                 <Image
@@ -185,94 +177,82 @@ export default function EditProduct({ product }: { product: Product }) {
                   priority
                 />
               </CardHeader>
-              <CardBody>
-                <div className="flex items-center gap-2">
-                  <div className="w-full relative">
-                    <div className="grid grid-cols-1 grid-rows-1 -mt-2">
-                      <div className="col-start-1 row-start-1 block dark:hidden">
-                        <Input
-                          variant="standard"
-                          type="text"
-                          color="blue-gray"
-                          label="Product name"
-                          value={values.name}
-                          crossOrigin={undefined}
-                          onChange={(e: any) => {
-                            setFieldValue("name", e.target.value);
+              <CardBody className="w-full">
+                <div className="mb-9 w-full relative">
+                  <div className="grid grid-cols-1 grid-rows-1">
+                    <div className="col-start-1 row-start-1 block dark:hidden">
+                      <Input
+                        variant="standard"
+                        type="text"
+                        color="blue-gray"
+                        label="Product name"
+                        value={values.name}
+                        crossOrigin={undefined}
+                        onChange={(e: any) => {
+                          setFieldValue("name", e.target.value);
 
-                            const darkInput = document.getElementById(
-                              "name-input-edit-dark"
-                            ) as HTMLInputElement;
-                            darkInput.value = e.target.value;
-                          }}
-                          disabled={submitted}
-                          className="uppercase"
-                          id="name-input-edit-light"
-                        />
-                      </div>
-                      <div className="col-start-1 row-start-1 hidden dark:block">
-                        <Input
-                          variant="standard"
-                          type="text"
-                          color="white"
-                          label="Product name"
-                          value={values.name}
-                          crossOrigin={undefined}
-                          onChange={(e: any) => {
-                            setFieldValue("name", e.target.value);
-
-                            const lightInput = document.getElementById(
-                              "name-input-edit-light"
-                            ) as HTMLInputElement;
-                            lightInput.value = e.target.value;
-                          }}
-                          disabled={submitted}
-                          className="text-blue-gray-50 uppercase"
-                          id="name-input-edit-dark"
-                        />
-                      </div>
+                          const darkInput = document.getElementById(
+                            "main-name-input-edit-dark"
+                          ) as HTMLInputElement;
+                          darkInput.value = e.target.value;
+                        }}
+                        disabled={submitted}
+                        className="uppercase"
+                        id="main-name-input-edit-light"
+                      />
                     </div>
-                    <Typography
-                      color="blue-gray"
-                      className="absolute top-[50%] left-0 text-xs translate-y-full mt-2 flex items-center gap-1 font-normal dark:text-blue-gray-50"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        className="-mt-px h-4 w-4"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span>Max. characters 30</span>
-                    </Typography>
-                    <ErrorMessage name="name">
-                      {(err) => (
-                        <div
-                          aria-label={`Error message: ${err}`}
-                          className="absolute top-[50%] right-4 translate-x-full translate-y-full mt-[0.1rem] flex flex-col text-right text-sm text-red-600"
-                        >
-                          <span>{err}</span>
-                        </div>
-                      )}
-                    </ErrorMessage>
+                    <div className="col-start-1 row-start-1 hidden dark:block">
+                      <Input
+                        variant="standard"
+                        type="text"
+                        color="white"
+                        label="Product name"
+                        value={values.name}
+                        crossOrigin={undefined}
+                        onChange={(e: any) => {
+                          setFieldValue("name", e.target.value);
+
+                          const lightInput = document.getElementById(
+                            "main-name-input-edit-light"
+                          ) as HTMLInputElement;
+                          lightInput.value = e.target.value;
+                        }}
+                        disabled={submitted}
+                        className="text-blue-gray-50 uppercase"
+                        id="main-name-input-edit-dark"
+                      />
+                    </div>
                   </div>
                   <Typography
                     color="blue-gray"
-                    className="font-semibold dark:text-blue-gray-50 text-nowrap w-fit"
+                    className="absolute top-[50%] left-0 text-xs translate-y-full mt-2 flex items-center gap-1 font-normal dark:text-blue-gray-50"
                   >
-                    {Intl.DateTimeFormat(siteMetadata.locale, {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    }).format(new Date())}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="-mt-px h-4 w-4"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>Max. characters 30</span>
                   </Typography>
+                  <ErrorMessage name="name">
+                    {(err) => (
+                      <div
+                        aria-label={`Error message: ${err}`}
+                        className="absolute top-[50%] right-4 translate-x-full translate-y-full mt-[0.1rem] flex flex-col text-right text-sm text-red-600"
+                      >
+                        <span>{err}</span>
+                      </div>
+                    )}
+                  </ErrorMessage>
                 </div>
-                <div className="mt-9 w-full relative">
+                <div className="mb-7 w-full relative">
                   <div className="grid grid-cols-1 grid-rows-1">
                     <div className="col-start-1 row-start-1 block dark:hidden">
                       <Textarea
@@ -284,13 +264,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("overview", e.target.value);
 
                           const darkInput = document.getElementById(
-                            "overview-input-edit-dark"
+                            "main-overview-input-edit-dark"
                           ) as HTMLInputElement;
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="overview-input-edit-light"
+                        id="main-overview-input-edit-light"
                       />
                     </div>
                     <div className="col-start-1 row-start-1 hidden dark:block">
@@ -303,13 +283,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("overview", e.target.value);
 
                           const lightInput = document.getElementById(
-                            "overview-input-edit-light"
+                            "main-overview-input-edit-light"
                           ) as HTMLInputElement;
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="overview-input-edit-dark"
+                        id="main-overview-input-edit-dark"
                       />
                     </div>
                   </div>
@@ -332,7 +312,7 @@ export default function EditProduct({ product }: { product: Product }) {
                     <span>Max. characters 60</span>
                   </Typography>
                 </div>
-                <div className="mt-7 w-full">
+                <div className="w-full">
                   <div className="grid grid-cols-1 grid-rows-1">
                     <div className="col-start-1 row-start-1 block dark:hidden">
                       <Textarea
@@ -344,13 +324,13 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("desc", e.target.value);
 
                           const darkInput = document.getElementById(
-                            "desc-input-edit-dark"
+                            "main-desc-input-edit-dark"
                           ) as HTMLInputElement;
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="desc-input-edit-light"
+                        id="main-desc-input-edit-light"
                       />
                     </div>
                     <div className="col-start-1 row-start-1 hidden dark:block">
@@ -363,22 +343,31 @@ export default function EditProduct({ product }: { product: Product }) {
                           setFieldValue("desc", e.target.value);
 
                           const lightInput = document.getElementById(
-                            "desc-input-edit-light"
+                            "main-desc-input-edit-light"
                           ) as HTMLInputElement;
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
                         className="normal-case"
-                        id="desc-input-edit-dark"
+                        id="main-desc-input-edit-dark"
                       />
                     </div>
                   </div>
                 </div>
-              </CardBody>
-              <CardFooter className="pt-0 dark:text-white">
+                <Typography
+                  color="blue-gray"
+                  className="font-medium text-right mt-4 dark:text-blue-gray-50"
+                >
+                  {Intl.DateTimeFormat(siteMetadata.locale, {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  }).format(new Date())}
+                </Typography>
                 <div className="w-3/4 grid grid-cols-1 grid-rows-1">
                   <span className="text-blue-gray-500 dark:text-white text-sm mb-2">
-                    Change product type
+                    Change product type (Will demote previous main product on
+                    new type)
                   </span>
                   <Select
                     variant="static"
@@ -388,11 +377,11 @@ export default function EditProduct({ product }: { product: Product }) {
                     }}
                     disabled={submitted}
                     className="dark:text-blue-gray-50 bg-gray-700/10 dark:bg-gray-400/40 rounded-t-md *:pl-2 grid *:my-auto *:py-0"
-                    id={"type-input-edit-" + product.id}
+                    id={"main-type-input-edit-" + product.id}
                   >
                     {productTypes.map((type: string, index: number) => (
                       <Option
-                        key={"edit-type-" + type}
+                        key={"main-edit-type-" + type}
                         value={String(index + 1)}
                       >
                         {type}
@@ -400,8 +389,7 @@ export default function EditProduct({ product }: { product: Product }) {
                     ))}
                   </Select>
                 </div>
-                {/* <button type="button" onClick={() => console.log(values)} > hello</button> */}
-              </CardFooter>
+              </CardBody>
             </Card>
           </Form>
         );

@@ -99,7 +99,18 @@ export default function AddProductMain() {
           {
             title: "Cancel",
             icon: XCircleIcon,
-            action: () => dispatch(toggleAddMainProduct(false)),
+            action: () => {
+              dispatch(toggleAddMainProduct(false));
+              resetForm();
+              ["name", "overview", "desc"].forEach((inputField: string) => {
+                ["light", "dark"].forEach((theme: string) => {
+                  const input = document.getElementById(
+                    "main-" + inputField + "-input-" + theme
+                  ) as HTMLInputElement;
+                  input.value = "";
+                });
+              });
+            },
           },
           {
             title: "Submit",
@@ -120,7 +131,7 @@ export default function AddProductMain() {
               ["name", "overview", "desc"].forEach((inputField: string) => {
                 ["light", "dark"].forEach((theme: string) => {
                   const input = document.getElementById(
-                    inputField + "-input-" + theme
+                    "main-" + inputField + "-input-" + theme
                   ) as HTMLInputElement;
                   input.value = "";
                 });
@@ -341,9 +352,6 @@ export default function AddProductMain() {
                 <p className="dark:text-white">
                   Type: {productTypes[(currentType ? currentType : 1) - 1]}
                 </p>
-                <a href="#dashboard-title" className="dark:text-white">
-                  Select a different type
-                </a>
               </CardBody>
             </Card>
           </Form>
