@@ -108,7 +108,7 @@ export default function DashboardProducts({
     // Delete product
     if (updateProduct.deleteID) {
       setCurrentProducts((productArray: Array<Product>) => {
-        const deleteIndex: number = currentProducts.findIndex(
+        const deleteIndex: number = productArray.findIndex(
           (product: Product) => {
             return product.id === updateProduct.deleteID;
           }
