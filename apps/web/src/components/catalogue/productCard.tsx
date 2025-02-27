@@ -15,22 +15,23 @@ import DashboardSpeedDial from "../dashboard/SpeedDial";
 import speedDialContent from "../dashboard/speedDialContent";
 import ContactToPurchase from "./contactToPurchase";
 import noImages from "@/assets/noImage";
+import { ProductSamples } from "@/data/samples/productSamples";
 
 export function ProductCard({
   product,
   dashboard,
-  edit,
+  allProducts,
 }: {
   product: Product;
   dashboard?: boolean;
-  edit?: boolean;
+  allProducts?: Array<Product>;
 }) {
   return (
     <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
       {dashboard ? (
         <div className="absolute bottom-4 right-4 rounded-full z-40">
           {/* <div className="absolute top-4 right-4 rounded-full z-40"> */}
-          <DashboardSpeedDial contents={speedDialContent(product)} />
+          <DashboardSpeedDial contents={speedDialContent(product, allProducts || ProductSamples)} />
         </div>
       ) : null}
       <CardHeader

@@ -62,6 +62,8 @@ export default function DashboardProducts({
   const [currentProducts, setCurrentProducts] = useState<Array<Product>>(
     products || [ProductSamples[0], ProductSamples[7]]
   );
+
+  // Client-side dashboard product updates after form submission
   const updateProduct = useSelector(
     (state: {
       UDPSlice: {
@@ -70,6 +72,16 @@ export default function DashboardProducts({
         deleteID: number | null;
       };
     }) => state.UDPSlice
+  );
+  const promoteDemoteProduct = useSelector(
+    (state: {
+      PDPSlice: {
+        promote: boolean;
+        promoteProduct: Product | null;
+        demote: boolean;
+        demoteProduct: Product | null;
+      };
+    }) => state.PDPSlice
   );
 
   const dispatch = useDispatch();
@@ -105,8 +117,8 @@ export default function DashboardProducts({
 
   // Manual updating of products on client-side after change in database products
   useEffect(() => {
-    // Delete product
     if (updateProduct.deleteID) {
+      // Delete product
       setCurrentProducts((productArray: Array<Product>) => {
         const deleteIndex: number = productArray.findIndex(
           (product: Product) => {
@@ -119,21 +131,16 @@ export default function DashboardProducts({
         });
       });
 
-      if (editOptions) {
-        setCurrentEdits((editArray: Array<EditOption>) => {
-          const currentEditsCopy: Array<EditOption> = editArray.map(
-            (option: EditOption) => option
-          );
-          return currentEditsCopy.filter((option: EditOption) => {
-            return option.productID !== updateProduct.deleteID;
-          });
+      setCurrentEdits((editArray: Array<EditOption>) => {
+        const currentEditsCopy: Array<EditOption> = editArray.map(
+          (option: EditOption) => option
+        );
+        return currentEditsCopy.filter((option: EditOption) => {
+          return option.productID !== updateProduct.deleteID;
         });
-      }
-
-      dispatch(toggleAddProduct(false));
-
-      // Edit product
+      });
     } else if (updateProduct.edit) {
+      // Edit product
       setCurrentProducts((productArray: Array<Product>) => {
         const editIndex: number = productArray.findIndex((product: Product) => {
           return product.id === updateProduct.newProduct!.id;
@@ -147,7 +154,7 @@ export default function DashboardProducts({
         });
       });
 
-      if (editOptions) {
+      if (!updateProduct.newProduct!.promoted) {
         setCurrentEdits((editArray: Array<EditOption>) => {
           const currentEditsCopy: Array<EditOption> = editArray.map(
             (option: EditOption) => option
@@ -162,11 +169,8 @@ export default function DashboardProducts({
           return currentEditsCopy;
         });
       }
-
-      dispatch(toggleAddProduct(false));
-
-      // Add product
     } else if (updateProduct.newProduct) {
+      // Add product
       setCurrentProducts((productArray: Array<Product>) => {
         const newProducts: Array<Product> = productArray.map(
           (product: Product) => product
@@ -175,26 +179,88 @@ export default function DashboardProducts({
         return newProducts;
       });
 
-      if (editOptions) {
-        setCurrentEdits((editArray: Array<EditOption>) => {
-          const currentEditsCopy: Array<EditOption> = editArray.map(
-            (option: EditOption) => option
-          );
+      setCurrentEdits((editArray: Array<EditOption>) => {
+        const currentEditsCopy: Array<EditOption> = editArray.map(
+          (option: EditOption) => option
+        );
+        if (!updateProduct.newProduct!.promoted) {
           currentEditsCopy.push({
             productID: updateProduct.newProduct!.id,
             editActive: false,
           });
+        }
 
-          return currentEditsCopy;
-        });
-      }
+        return currentEditsCopy;
+      });
 
       dispatch(toggleAddProduct(false));
     }
-  }, [updateProduct, dispatch, editOptions]);
+  }, [updateProduct, dispatch]);
+
+  // Manual updating of products on client-side after product promotion/demotion
+  useEffect(() => {
+    if (promoteDemoteProduct.promote) {
+      setCurrentProducts((productArray: Array<Product>) => {
+        const productsCopy: Array<Product> = productArray.map(
+          (product: Product) => {
+            if (product.id === promoteDemoteProduct.promoteProduct!.id) {
+              return promoteDemoteProduct.promoteProduct!;
+            } else {
+              return product;
+            }
+          }
+        );
+
+        return productsCopy;
+      });
+
+      setCurrentEdits((editArray: Array<EditOption>) => {
+        const currentEditsCopy: Array<EditOption> = editArray.map(
+          (option: EditOption) => option
+        );
+        return currentEditsCopy.filter((option: EditOption) => {
+          return option.productID !== promoteDemoteProduct.promoteProduct!.id;
+        });
+      });
+    }
+
+    if (promoteDemoteProduct.demote) {
+      setCurrentProducts((productArray: Array<Product>) => {
+        const productsCopy: Array<Product> = productArray.map(
+          (product: Product) => {
+            if (product.id === promoteDemoteProduct.demoteProduct!.id) {
+              return promoteDemoteProduct.demoteProduct!;
+            } else {
+              return product;
+            }
+          }
+        );
+
+        return productsCopy;
+      });
+
+      setCurrentEdits((editArray: Array<EditOption>) => {
+        const currentEditsCopy: Array<EditOption> = editArray.map(
+          (option: EditOption) => option
+        );
+        currentEditsCopy.push({
+          productID: promoteDemoteProduct.demoteProduct!.id,
+          editActive: false,
+        });
+
+        return currentEditsCopy;
+      });
+    }
+  }, [promoteDemoteProduct]);
 
   return (
     <div className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 bg-gradient-to-b from-primary-100 via-primary-50 to-primary-50 dark:from-backtheme-900 dark:via-backtheme-950 dark:to-backtheme-950 rounded-xl rounded-tl-none shadow-md shadow-gray-700 dark:shadow-md dark:shadow-white/5 px-6 py-4">
+      {/* <button
+        className="border border-green-500"
+        onClick={() => console.log(currentProducts)}
+      >
+        check current products
+      </button> */}
       <div className="flex flex-col gap-8">
         <div className="grid grid-cols-1 grid-rows-1">
           <div
@@ -202,7 +268,11 @@ export default function DashboardProducts({
               !mainFormActive && !mainEditActive ? "" : "hidden "
             }col-start-1 row-start-1 grid`}
           >
-            <MainCard product={PRODUCTMAIN} dashboard={true} />
+            <MainCard
+              product={PRODUCTMAIN}
+              dashboard={true}
+              allProducts={currentProducts || ProductSamples}
+            />
           </div>
           <div
             className={`${
@@ -216,7 +286,10 @@ export default function DashboardProducts({
               !mainFormActive && mainEditActive ? "" : "hidden "
             }col-start-1 row-start-1 grid`}
           >
-            <EditProductMain product={PRODUCTMAIN} />
+            <EditProductMain
+              product={PRODUCTMAIN}
+              allProducts={products || ProductSamples}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-10 xl:gap-6">
@@ -240,7 +313,11 @@ export default function DashboardProducts({
                 }col-start-1 col-end-2 row-start-1 row-end-2`}
                 id={`dashboard-product-${product.id}`}
               >
-                <ProductCard product={product} dashboard={true} />
+                <ProductCard
+                  product={product}
+                  dashboard={true}
+                  allProducts={currentProducts || ProductSamples}
+                />
               </div>
               <div
                 className={`${

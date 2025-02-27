@@ -53,4 +53,20 @@ export default class DataControllers {
       next(err);
     }
   }
+
+  public async deleteProduct(req: Request, res: Response, next: NextFunction) {
+    try {
+      const product = await DataServices.deleteProduct(req);
+
+      res.status(200).send({
+        message: "Product deleted!",
+        data: product,
+      });
+    } catch (err) {
+      res.status(401).send({
+        message: String(err),
+      });
+      next(err);
+    }
+  }
 }

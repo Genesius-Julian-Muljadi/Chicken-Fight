@@ -48,4 +48,15 @@ export default class DataServices {
       throw err;
     }
   }
+
+  static async deleteProduct(req: Request) {
+    try {
+      const productID = req.params.id as string;
+      const product = await DataUtils.deleteProductByID(parseInt(productID));
+
+      return product;
+    } catch (err) {
+      throw err;
+    }
+  }
 }

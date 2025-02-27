@@ -73,7 +73,7 @@ export default function DashboardHeader({
                 </Button>
               </PopoverHandler>
               <PopoverContent className="flex flex-row gap-2 items-center py-1 text-black dark:text-gray-100 border-none shadow-md bg-primary-100 dark:bg-backtheme-900">
-                <span className="dark:text-white font-semibold">
+                <span className="dark:text-white font-semibold py-1">
                   Type select disabled. Please cancel or complete the current
                   form.
                 </span>

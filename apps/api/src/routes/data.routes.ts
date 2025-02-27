@@ -20,6 +20,7 @@ export default class DataRoutes {
       this.productValidations.productValidation,
       this.controllers.postProduct
     );
+    this.router.delete("/product/:id", this.controllers.deleteProduct);
   }
 
   public getRoutes() {

@@ -28,8 +28,16 @@ import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import { Product } from "@/interfaces/databaseTables";
 import productTypes from "@/data/productTypes";
 import { toggleEditMainProduct } from "@/redux/slices/toggleEditMainProduct";
+import ErrorHandler from "@/errorhandler/error-handler";
+import { promoteDemoteProduct } from "@/redux/slices/promoteDemoteProduct";
 
-export default function EditProductMain({ product }: { product: Product }) {
+export default function EditProductMain({
+  product,
+  allProducts,
+}: {
+  product: Product;
+  allProducts: Array<Product>;
+}) {
   const mainEditActive = useSelector(
     (state: { TEMPSlice: { editActive: boolean } }) =>
       state.TEMPSlice.editActive
@@ -40,35 +48,137 @@ export default function EditProductMain({ product }: { product: Product }) {
   const router = useRouter();
 
   const postProduct = async (params: ProductForm) => {
+    const otherMainProducts: Array<Product> = allProducts.filter(
+      (product: Product) => {
+        return product.type === parseInt(params.type) && product.promoted;
+      }
+    );
+
     try {
-      const API: string =
-        process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
-      const output = await axios.post(API, {
-        id: String(product.id),
-        image: "testimagename",
-        promoted: "true",
-        name: params.name,
-        type: params.type,
-        overview: params.overview,
-        desc: params.desc,
-      });
+      if (
+        params.type !== String(product.type) &&
+        siteMetadata.maxMainProducts === 1 &&
+        otherMainProducts.length >= 1
+      ) {
+        const otherMainProduct: Product = otherMainProducts[0];
 
-      if (!output) throw Error();
+        Swal.fire({
+          title: "Confirm product type change",
+          html:
+            "<span>Submitting this edit will demote the following product:</span>" +
+            "<br>" +
+            `<b>${productTypes[otherMainProduct.type - 1]}</b>: ` +
+            `<b>${otherMainProduct.name.toLocaleUpperCase()}</b>`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#948916",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Confirm",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            // Demote
+            const API: string =
+              process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
+            const outputDemote = await axios.post(API, {
+              id: String(otherMainProduct.id),
+              image: otherMainProduct.image,
+              promoted: "false",
+              name: otherMainProduct.name,
+              type: String(otherMainProduct.type),
+              overview: otherMainProduct.overview || "",
+              desc: otherMainProduct.desc || "",
+            });
 
-      Swal.fire({
-        icon: "success",
-        title: "Product editted!",
-      });
+            if (!outputDemote) throw Error();
 
-      router.push("/admin/dashboard");
-      router.refresh();
+            // Type change edit
+            const outputEdit = await axios.post(API, {
+              id: String(product.id),
+              image: params.image,
+              promoted: "true",
+              name: params.name,
+              type: params.type,
+              overview: params.overview,
+              desc: params.desc,
+            });
 
-      dispatch(
-        updateDashboardProduct({ product: output.data.data, edit: true })
-      );
-      dispatch(toggleEditMainProduct(false));
+            if (!outputEdit) throw Error();
+
+            Swal.fire({
+              icon: "success",
+              title: "Product editted!",
+              html:
+                `<b>${otherMainProduct.name.toLocaleUpperCase() + " "}</b>` +
+                "<span>has been demoted</span>",
+            });
+
+            router.push("/admin/dashboard");
+            router.refresh();
+
+            dispatch(
+              promoteDemoteProduct({
+                demote: true,
+                demoteProduct: outputDemote.data.data,
+              })
+            );
+            dispatch(
+              updateDashboardProduct({
+                product: outputEdit.data.data,
+                edit: true,
+              })
+            );
+            dispatch(toggleEditMainProduct(false));
+          } else {
+            setSubmitted(false);
+          }
+        });
+      } else if (
+        params.type !== String(product.type) &&
+        siteMetadata.maxMainProducts > 1 &&
+        otherMainProducts.length >= siteMetadata.maxMainProducts
+      ) {
+        Swal.fire({
+          icon: "error",
+          title:
+            productTypes[parseInt(params.type) - 1] +
+            " main products at maximum capacity",
+          html:
+            "<span>Please demote or delete a</span>" +
+            `<b>${" " + productTypes[parseInt(params.type) - 1] + " "}</b>` +
+            "<span>main product first</span>",
+        });
+        setSubmitted(false);
+      } else {
+        const API: string =
+          process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
+        const output = await axios.post(API, {
+          id: String(product.id),
+          image: params.image,
+          promoted: "true",
+          name: params.name,
+          type: params.type,
+          overview: params.overview,
+          desc: params.desc,
+        });
+
+        if (!output) throw Error();
+
+        Swal.fire({
+          icon: "success",
+          title: "Product editted!",
+        });
+
+        router.push("/admin/dashboard");
+        router.refresh();
+
+        dispatch(
+          updateDashboardProduct({ product: output.data.data, edit: true })
+        );
+        dispatch(toggleEditMainProduct(false));
+      }
     } catch (err) {
       setSubmitted(false);
+      ErrorHandler(err);
     }
   };
 
@@ -376,7 +486,7 @@ export default function EditProductMain({ product }: { product: Product }) {
                       setFieldValue("type", val);
                     }}
                     disabled={submitted}
-                    className="dark:text-blue-gray-50 bg-gray-700/10 dark:bg-gray-400/40 rounded-t-md *:pl-2 grid *:my-auto *:py-0"
+                    className="dark:text-blue-gray-50 bg-gray-700/5 dark:bg-gray-400/40 rounded-t-md *:pl-2 grid *:my-auto *:py-0"
                     id={"main-type-input-edit-" + product.id}
                   >
                     {productTypes.map((type: string, index: number) => (

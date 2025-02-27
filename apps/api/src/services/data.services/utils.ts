@@ -77,8 +77,8 @@ export default class DataUtils {
           desc: product.desc || undefined,
         },
         where: {
-          id: parseInt(product.id!)
-        }
+          id: parseInt(product.id!),
+        },
       });
 
       return newProduct;
@@ -99,11 +99,25 @@ export default class DataUtils {
           desc: product.desc || undefined,
         },
         where: {
-          id: parseInt(product.id!)
-        }
+          id: parseInt(product.id!),
+        },
       });
 
       return newProduct;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async deleteProductByID(productID: number) {
+    try {
+      const oldProduct = await prisma.products.delete({
+        where: {
+          id: productID,
+        },
+      });
+
+      return oldProduct;
     } catch (err) {
       throw err;
     }

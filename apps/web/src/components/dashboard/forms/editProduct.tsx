@@ -28,6 +28,7 @@ import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import { Product } from "@/interfaces/databaseTables";
 import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
 import productTypes from "@/data/productTypes";
+import ErrorHandler from "@/errorhandler/error-handler";
 
 interface EditOption {
   productID: number;
@@ -50,7 +51,7 @@ export default function EditProduct({ product }: { product: Product }) {
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
       const output = await axios.post(API, {
         id: String(product.id),
-        image: "testimagename",
+        image: params.image,
         promoted: "false",
         name: params.name,
         type: params.type,
@@ -73,6 +74,7 @@ export default function EditProduct({ product }: { product: Product }) {
       );
     } catch (err) {
       setSubmitted(false);
+      ErrorHandler(err);
     }
   };
 
@@ -387,7 +389,7 @@ export default function EditProduct({ product }: { product: Product }) {
                       setFieldValue("type", val);
                     }}
                     disabled={submitted}
-                    className="dark:text-blue-gray-50 bg-gray-700/10 dark:bg-gray-400/40 rounded-t-md *:pl-2 grid *:my-auto *:py-0"
+                    className="dark:text-blue-gray-50 bg-gray-700/5 dark:bg-gray-400/40 rounded-t-md *:pl-2 grid *:my-auto *:py-0"
                     id={"type-input-edit-" + product.id}
                   >
                     {productTypes.map((type: string, index: number) => (

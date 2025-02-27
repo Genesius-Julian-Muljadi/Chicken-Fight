@@ -6,6 +6,7 @@ import TEPSlice from "./slices/toggleEditProduct";
 import TEMPSlice from "./slices/toggleEditMainProduct";
 import UCSlice from "./slices/updateCookie";
 import UDPSlice from "./slices/updateDashboardProduct";
+import PDPSlice from "./slices/promoteDemoteProduct"
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     TEMPSlice,
     UCSlice,
     UDPSlice,
+    PDPSlice,
   },
 });

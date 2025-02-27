@@ -25,6 +25,7 @@ import { toggleAddMainProduct } from "@/redux/slices/toggleAddMainProduct";
 import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import productTypes from "@/data/productTypes";
+import ErrorHandler from "@/errorhandler/error-handler";
 
 export default function AddProductMain() {
   const currentType = useSelector(
@@ -63,8 +64,10 @@ export default function AddProductMain() {
       router.refresh();
 
       dispatch(updateDashboardProduct({ product: output.data.data }));
+      dispatch(toggleAddMainProduct(false));
     } catch (err) {
       setSubmitted(false);
+      ErrorHandler(err);
     }
   };
 
