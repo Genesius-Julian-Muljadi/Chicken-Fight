@@ -21,7 +21,7 @@ export default class Server {
       cors({
         origin: true,
         credentials: true,
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        methods: ["GET", "POST", "DELETE"],
       })
     );
     this.app.use(helmet());
