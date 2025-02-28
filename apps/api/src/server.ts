@@ -25,7 +25,7 @@ export default class Server {
         optionsSuccessStatus: 200,
       })
     );
-    this.app.options("/auth", cors());
+    this.app.options("*", cors());
     this.app.use(helmet());
     this.app.use(express.json());
   }
