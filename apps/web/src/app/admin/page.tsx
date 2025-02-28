@@ -28,7 +28,7 @@ function AdminLogin() {
           regkey: params.regkey,
           password: params.password,
         },
-        // { withCredentials: true }
+        { withCredentials: true }
       );
 
       if (!output) throw Error();
