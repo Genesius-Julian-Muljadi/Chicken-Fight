@@ -30,8 +30,7 @@ export default class Server {
   }
 
   private routes() {
-    this.app.options("*", cors());
-    this.app.use("/auth", new AuthRoutes().getRoutes());
+    this.app.options("*", cors()).use("/auth", new AuthRoutes().getRoutes());
     this.app.use("/data", new DataRoutes().getRoutes());
   }
 
