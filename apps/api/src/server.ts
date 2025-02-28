@@ -17,7 +17,6 @@ export default class Server {
   }
 
   private middlewares() {
-    this.app.options("*", cors());
     this.app.use(
       cors({
         origin: true,
@@ -26,6 +25,9 @@ export default class Server {
         optionsSuccessStatus: 200,
       })
     );
+    this.app.options("/*", (_, res) => {
+      res.sendStatus(200);
+    });
     this.app.use(helmet());
     this.app.use(express.json());
   }
