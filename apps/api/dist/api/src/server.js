@@ -20,7 +20,8 @@ class Server {
         this.app.use((0, cors_1.default)({
             origin: true,
             credentials: true,
-            methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+            methods: ["GET", "POST", "DELETE", "OPTIONS"],
+            optionsSuccessStatus: 200,
         }));
         this.app.use((0, helmet_1.default)());
         this.app.use(express_1.default.json());
