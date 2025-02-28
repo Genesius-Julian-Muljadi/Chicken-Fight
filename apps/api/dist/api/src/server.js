@@ -23,6 +23,9 @@ class Server {
             methods: ["GET", "POST", "DELETE", "OPTIONS"],
             optionsSuccessStatus: 200,
         }));
+        this.app.options("/*", (_, res) => {
+            res.sendStatus(200);
+        });
         this.app.use((0, helmet_1.default)());
         this.app.use(express_1.default.json());
     }
