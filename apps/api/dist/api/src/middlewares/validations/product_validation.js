@@ -1,19 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_validator_1 = require("express-validator");
-class AuthValidations {
+class ProductValidations {
     constructor() {
-        this.loginValidationUser = [
-            (0, express_validator_1.body)("regkey")
+        this.productValidation = [
+            (0, express_validator_1.body)("image").trim().notEmpty().withMessage("Image file name is required"),
+            (0, express_validator_1.body)("promoted")
                 .trim()
                 .notEmpty()
-                .withMessage("Registration key is required"),
-            (0, express_validator_1.body)("password")
-                .trim()
-                .notEmpty()
-                .withMessage("Password is required")
-                .isLength({ min: 6 })
-                .withMessage("Passwords contain at least 6 characters"),
+                .withMessage("Promoted status is required"),
+            (0, express_validator_1.body)("name").trim().notEmpty().withMessage("Product name is required"),
+            (0, express_validator_1.body)("type").trim().notEmpty().withMessage("Product type is required"),
+            (0, express_validator_1.body)("overview").trim(),
+            (0, express_validator_1.body)("desc").trim(),
             (req, res, next) => {
                 try {
                     const errors = (0, express_validator_1.validationResult)(req);
@@ -32,4 +31,4 @@ class AuthValidations {
         ];
     }
 }
-exports.default = AuthValidations;
+exports.default = ProductValidations;

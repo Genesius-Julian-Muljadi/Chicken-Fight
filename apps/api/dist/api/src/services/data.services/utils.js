@@ -44,5 +44,106 @@ class DataUtils {
             }
         });
     }
+    static postMainProduct(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const newMainProduct = yield prisma_1.default.products.create({
+                    data: {
+                        image: product.image,
+                        promoted: true,
+                        name: product.name,
+                        type: parseInt(product.type),
+                        overview: product.overview || undefined,
+                        desc: product.desc || undefined,
+                    },
+                });
+                return newMainProduct;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static postProduct(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const newProduct = yield prisma_1.default.products.create({
+                    data: {
+                        image: product.image,
+                        promoted: false,
+                        name: product.name,
+                        type: parseInt(product.type),
+                        overview: product.overview || undefined,
+                        desc: product.desc || undefined,
+                    },
+                });
+                return newProduct;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static editMainProduct(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const newProduct = yield prisma_1.default.products.update({
+                    data: {
+                        image: product.image,
+                        promoted: true,
+                        name: product.name,
+                        type: parseInt(product.type),
+                        overview: product.overview || undefined,
+                        desc: product.desc || undefined,
+                    },
+                    where: {
+                        id: parseInt(product.id),
+                    },
+                });
+                return newProduct;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static editProduct(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const newProduct = yield prisma_1.default.products.update({
+                    data: {
+                        image: product.image,
+                        promoted: false,
+                        name: product.name,
+                        type: parseInt(product.type),
+                        overview: product.overview || undefined,
+                        desc: product.desc || undefined,
+                    },
+                    where: {
+                        id: parseInt(product.id),
+                    },
+                });
+                return newProduct;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static deleteProductByID(productID) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const oldProduct = yield prisma_1.default.products.delete({
+                    where: {
+                        id: productID,
+                    },
+                });
+                return oldProduct;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }
 exports.default = DataUtils;

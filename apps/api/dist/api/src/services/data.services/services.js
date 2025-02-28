@@ -36,5 +36,48 @@ class DataServices {
             }
         });
     }
+    static postProduct(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const productForm = req.body;
+                let product;
+                if (productForm.id) {
+                    if (productForm.promoted === "true") {
+                        product = yield utils_1.default.editMainProduct(productForm);
+                    }
+                    else if (productForm.promoted === "false") {
+                        product = yield utils_1.default.editProduct(productForm);
+                    }
+                    else
+                        throw new Error("Invalid promoted input");
+                }
+                else if (productForm.promoted === "true") {
+                    product = yield utils_1.default.postMainProduct(productForm);
+                }
+                else if (productForm.promoted === "false") {
+                    product = yield utils_1.default.postProduct(productForm);
+                }
+                else {
+                    throw new Error("Invalid promoted input");
+                }
+                return product;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static deleteProduct(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const productID = req.params.id;
+                const product = yield utils_1.default.deleteProductByID(parseInt(productID));
+                return product;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }
 exports.default = DataServices;

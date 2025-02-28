@@ -18,31 +18,19 @@ const cookieExpiration_1 = __importDefault(require("../../../cookieExpiration"))
 // Once created, password will be empty
 // First login attempt will convert to registration with inputted password
 class AuthControllers {
-    registerUser(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const user = yield services_1.default.registerUser(req);
-                if (!user)
-                    throw new Error("Register failed");
-                res.status(200).send({
-                    message: "Registration successful!",
-                    data: user,
-                });
-            }
-            catch (err) {
-                res.status(401).send({
-                    message: String(err),
-                });
-                next(err);
-            }
-        });
-    }
     loginUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const authToken = yield services_1.default.loginUser(req);
+                // First time login. Convert to registration
                 if (authToken === 1) {
-                    return this.registerUser(req, res, next);
+                    const user = yield services_1.default.registerUser(req);
+                    if (!user)
+                        throw new Error("Register failed");
+                    res.status(200).send({
+                        message: "Registration successful!",
+                        data: user,
+                    });
                 }
                 else if (authToken) {
                     res

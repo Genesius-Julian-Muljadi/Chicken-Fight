@@ -48,5 +48,39 @@ class DataControllers {
             }
         });
     }
+    postProduct(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const product = yield services_1.default.postProduct(req);
+                res.status(200).send({
+                    message: "Product posted!",
+                    data: product,
+                });
+            }
+            catch (err) {
+                res.status(401).send({
+                    message: String(err),
+                });
+                next(err);
+            }
+        });
+    }
+    deleteProduct(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const product = yield services_1.default.deleteProduct(req);
+                res.status(200).send({
+                    message: "Product deleted!",
+                    data: product,
+                });
+            }
+            catch (err) {
+                res.status(401).send({
+                    message: String(err),
+                });
+                next(err);
+            }
+        });
+    }
 }
 exports.default = DataControllers;

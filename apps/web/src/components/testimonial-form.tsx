@@ -16,7 +16,7 @@ export default function TestimonialForm() {
 
   //   const postTestimony = async (params: TestimonialSubmit) => {
   //     try {
-  //       const API: string = process.env.NEXT_PUBLIC_BASE_API_URL + '/auth/login'
+  //       const API: string = process.env.NEXT_PUBLIC_BASE_API_URL + '/data/testimonial'
   //       const output = await axios.post(
   //         API,
   //         {
