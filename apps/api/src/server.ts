@@ -25,12 +25,12 @@ export default class Server {
         optionsSuccessStatus: 200,
       })
     );
-    this.app.options("*", cors());
     this.app.use(helmet());
     this.app.use(express.json());
   }
 
   private routes() {
+    this.app.options("*", cors());
     this.app.use("/auth", new AuthRoutes().getRoutes());
     this.app.use("/data", new DataRoutes().getRoutes());
   }
