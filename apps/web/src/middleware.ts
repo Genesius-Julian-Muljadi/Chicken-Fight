@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { NextURL } from "next/dist/server/web/next-url";
 import { jwtDecode } from "jwt-decode";
 import { AccessTokenUser } from "./interfaces/accesstokens";
+import userRoles, { RoleAccess } from "./data/userRoles";
 
 const protectedRoutes = ["/admin/dashboard"];
 
@@ -23,17 +24,29 @@ export default async function middleware(req: NextRequest) {
     let decodedToken: AccessTokenUser | null = null;
     if (token) {
       decodedToken = jwtDecode(token);
-    }
 
-    // if (
-    //   isProtected &&
-    //   req.nextUrl.pathname.startsWith("/events/purchase") &&
-    //   decodedToken?.role !== "user"
-    // ) {
-    //   return NextResponse.redirect(
-    //     new NextURL("/events" + req.nextUrl.pathname.slice(16), req.nextUrl)
-    //   );
-    // }
+      const access: "all" | Array<string> | undefined = userRoles.find(
+        (roleAccess: RoleAccess) => {
+          return roleAccess.role === decodedToken?.role;
+        }
+      )?.access;
+
+      if (access) {
+        if (
+          req.nextUrl.pathname.startsWith("/admin/dashboard") &&
+          access !== "all" &&
+          !(
+            Array.isArray(access) &&
+            access.some((value: string) => {
+              return value === "dashboard";
+            })
+          )
+          // or another access-restricted path
+        ) {
+          return NextResponse.redirect(new NextURL("/noaccess", req.nextUrl));
+        }
+      }
+    }
 
     return NextResponse.next();
   } catch (err) {

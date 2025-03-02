@@ -19,25 +19,13 @@ export default class Server {
   private middlewares() {
     this.app.use(
       cors({
-        origin: true,
+        origin: "https://chicken-fight-web.vercel.app",
         credentials: true,
         methods: ["GET", "POST", "DELETE", "OPTIONS"],
         optionsSuccessStatus: 200,
       })
     );
-    this.app.use((req, res, next) => {
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-      );
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-      );
-      next();
-    });
-    this.app.options("/*", (_, res) => {
+    this.app.options("*", (req, res) => {
       res.sendStatus(200);
     });
     this.app.use(helmet());
