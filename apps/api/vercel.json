@@ -12,7 +12,7 @@
             "src": "/(.*)",
             "status": 200,
             "dest": "dist/main.js",
-            "methods": ["OPTIONS"],
+            "methods": ["POST", "OPTIONS"],
             "headers": {
                "Access-Control-Allow-Origin": "https://chicken-fight-web.vercel.app",
                "Access-Control-Allow-Credentials": "true",
