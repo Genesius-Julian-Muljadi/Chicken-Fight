@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { Provider, useDispatch } from "react-redux";
 import { store } from "@/redux/store";
 import { updateCookie } from "@/redux/slices/updateCookie";
+import COOKIE_EXPIRATION_MINUTES from "../../../../cookieExpiration";
 
 function AdminLogin() {
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -39,7 +40,7 @@ function AdminLogin() {
       });
       // Vercel cookie issue fix
       document.cookie = `access_token=${output.data.cookie}; expires=${new Date(
-        new Date().valueOf() + 1200000
+        new Date().valueOf() + COOKIE_EXPIRATION_MINUTES * 60000
       )}`;
 
       router.push("/admin/dashboard");
