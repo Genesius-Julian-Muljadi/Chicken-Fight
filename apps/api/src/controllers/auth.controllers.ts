@@ -8,7 +8,9 @@ import COOKIE_EXPIRATION_MINUTES from "../../../cookieExpiration";
 export default class AuthControllers {
   public async loginUser(req: Request, res: Response, next: NextFunction) {
     if (req.method === "OPTIONS") {
-      res.status(200).end();
+      res.status(200).send({
+        message: "Stupid Options vercel issue",
+      });
       return;
     }
 
