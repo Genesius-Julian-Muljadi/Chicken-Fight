@@ -17,14 +17,14 @@ export default class Server {
   }
 
   private middlewares() {
-    // this.app.use(
-    //   cors({
-    //     origin: String(BASE_WEB_URL),
-    //     credentials: true,
-    //     methods: ["GET", "POST", "DELETE", "OPTIONS"],
-    //     optionsSuccessStatus: 200,
-    //   })
-    // );
+    this.app.use(
+      cors({
+        origin: String(BASE_WEB_URL),
+        credentials: true,
+        methods: ["GET", "POST", "DELETE", "OPTIONS"],
+        optionsSuccessStatus: 200,
+      })
+    );
     this.app.use(helmet());
     this.app.use(express.json());
   }
