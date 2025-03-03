@@ -18,32 +18,10 @@ class Server {
     }
     middlewares() {
         // Handle preflight requests
-        this.app.options("*", (req, res) => {
-            console.log("OPTIONS request received");
-            res.sendStatus(200);
-        }
-        // cors({
-        //   origin: String(BASE_WEB_URL),
-        //   credentials: true,
-        //   methods: ["GET", "POST", "DELETE", "OPTIONS"],
-        //   allowedHeaders: [
-        //     "X-CSRF-Token",
-        //     "X-Requested-With",
-        //     "Accept",
-        //     "Accept-Version",
-        //     "Content-Length",
-        //     "Content-MD5",
-        //     "Content-Type",
-        //     "Date",
-        //     "X-Api-Version",
-        //   ],
-        //   optionsSuccessStatus: 200,
-        // })
-        ); // Preflight requests for all routes
-        this.app.use((0, cors_1.default)({
+        this.app.options("*", (0, cors_1.default)({
             origin: String(config_1.BASE_WEB_URL),
             credentials: true,
-            methods: ["GET", "POST", "DELETE", "OPTIONS"],
+            methods: ["OPTIONS"],
             allowedHeaders: [
                 "X-CSRF-Token",
                 "X-Requested-With",
@@ -56,6 +34,22 @@ class Server {
                 "X-Api-Version",
             ],
             optionsSuccessStatus: 200,
+        })); // Preflight requests for all routes
+        this.app.use((0, cors_1.default)({
+            origin: String(config_1.BASE_WEB_URL),
+            credentials: true,
+            methods: ["GET", "POST", "DELETE"],
+            allowedHeaders: [
+                "X-CSRF-Token",
+                "X-Requested-With",
+                "Accept",
+                "Accept-Version",
+                "Content-Length",
+                "Content-MD5",
+                "Content-Type",
+                "Date",
+                "X-Api-Version",
+            ],
         }));
         this.app.use((0, helmet_1.default)());
         this.app.use(express_1.default.json());
