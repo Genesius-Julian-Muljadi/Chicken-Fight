@@ -17,6 +17,8 @@ export default class Server {
   }
 
   private middlewares() {
+    // Handle preflight requests
+    this.app.options("*", cors()); // Preflight requests for all routes
     this.app.use(
       cors({
         origin: String(BASE_WEB_URL),
@@ -36,8 +38,7 @@ export default class Server {
         optionsSuccessStatus: 200,
       })
     );
-    // Handle preflight requests
-    this.app.options("*", cors()); // Preflight requests for all routes
+
     this.app.use(helmet());
     this.app.use(express.json());
   }
