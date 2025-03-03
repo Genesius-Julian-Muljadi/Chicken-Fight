@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/auth/(.*)",
-      "destination": "src/main.ts"
+      "destination": "/apps/api/dist/main.js"
     }
   ],
   "headers": [
