@@ -25,10 +25,6 @@ export default class Server {
         // optionsSuccessStatus: 200,
       })
     );
-
-    // this.app.options("*", (req, res) => {
-    //   res.sendStatus(200);
-    // });
     this.app.use(helmet());
     this.app.use(express.json());
   }
