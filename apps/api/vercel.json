@@ -9,8 +9,8 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api/dist/main.js"
+      "source": "/auth/(.*)",
+      "destination": "src/main.ts"
     }
   ],
   "headers": [
