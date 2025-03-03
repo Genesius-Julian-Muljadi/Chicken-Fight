@@ -21,6 +21,17 @@ class Server {
             origin: String(config_1.BASE_WEB_URL),
             credentials: true,
             methods: ["GET", "POST", "DELETE", "OPTIONS"],
+            allowedHeaders: [
+                "X-CSRF-Token",
+                "X-Requested-With",
+                "Accept",
+                "Accept-Version",
+                "Content-Length",
+                "Content-MD5",
+                "Content-Type",
+                "Date",
+                "X-Api-Version",
+            ],
             optionsSuccessStatus: 200,
         }));
         this.app.use((0, helmet_1.default)());

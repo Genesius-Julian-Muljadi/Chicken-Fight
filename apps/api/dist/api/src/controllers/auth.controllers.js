@@ -20,6 +20,12 @@ const cookieExpiration_1 = __importDefault(require("../../../cookieExpiration"))
 class AuthControllers {
     loginUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (req.method === "OPTIONS") {
+                res.status(200).send({
+                    message: "Stupid Options vercel issue",
+                });
+                return;
+            }
             try {
                 const authToken = yield services_1.default.loginUser(req);
                 // First time login. Convert to registration
