@@ -2,15 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/main.js",
+      "src": "/dist/main.js",
       "use": "@vercel/node",
-      "config": { "includeFiles": ["dist/**"] }
+      "config": { "includeFiles": ["/dist/**"] }
     }
   ],
   "rewrites": [
     {
       "source": "/auth/(.*)",
-      "destination": "/apps/api/dist/main.js"
+      "destination": "/dist/main.js"
     }
   ],
   "headers": [
