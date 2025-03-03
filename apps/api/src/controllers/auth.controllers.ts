@@ -7,6 +7,11 @@ import COOKIE_EXPIRATION_MINUTES from "../../../cookieExpiration";
 // First login attempt will convert to registration with inputted password
 export default class AuthControllers {
   public async loginUser(req: Request, res: Response, next: NextFunction) {
+    if (req.method === "OPTIONS") {
+      res.status(200).end();
+      return;
+    }
+
     try {
       const authToken = await AuthServices.loginUser(req);
 
