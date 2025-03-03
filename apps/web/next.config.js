@@ -46,7 +46,10 @@ const securityHeaders = [
     value: "camera=(), microphone=(), geolocation=()",
   },
   { key: "Access-Control-Allow-Credentials", value: "true" },
-  { key: "Access-Control-Allow-Origin", value: "*" },
+  {
+    key: "Access-Control-Allow-Origin",
+    value: String(process.env.NEXT_PUBLIC_BASE_WEB_URL),
+  },
   {
     key: "Access-Control-Allow-Methods",
     value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
