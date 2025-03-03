@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
-import { PORT } from "./config";
+import { BASE_WEB_URL, PORT } from "./config";
 import helmet from "helmet";
 import AuthRoutes from "./routes/auth.routes";
 import DataRoutes from "./routes/data.routes";
@@ -17,14 +17,14 @@ export default class Server {
   }
 
   private middlewares() {
-    this.app.use(
-      cors({
-        origin: true,
-        credentials: true,
-        methods: ["GET", "POST", "DELETE", "OPTIONS"],
-        optionsSuccessStatus: 200,
-      })
-    );
+    // this.app.use(
+    //   cors({
+    //     origin: String(BASE_WEB_URL),
+    //     credentials: true,
+    //     methods: ["GET", "POST", "DELETE", "OPTIONS"],
+    //     optionsSuccessStatus: 200,
+    //   })
+    // );
     this.app.use(helmet());
     this.app.use(express.json());
   }
