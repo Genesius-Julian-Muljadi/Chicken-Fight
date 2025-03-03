@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "dist/main.js"
+      "destination": "/api/dist/main.js"
     }
   ],
   "headers": [
