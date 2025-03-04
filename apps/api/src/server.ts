@@ -17,13 +17,11 @@ export default class Server {
   }
 
   private middlewares() {
-    // Handle preflight requests
-    this.app.options(
-      "*",
+    this.app.use(
       cors({
         origin: String(BASE_WEB_URL),
         credentials: true,
-        methods: ["OPTIONS"],
+        methods: ["GET", "POST", "DELETE", "OPTIONS"],
         allowedHeaders: [
           "X-CSRF-Token",
           "X-Requested-With",
@@ -36,24 +34,6 @@ export default class Server {
           "X-Api-Version",
         ],
         optionsSuccessStatus: 200,
-      })
-    ); // Preflight requests for all routes
-    this.app.use(
-      cors({
-        origin: String(BASE_WEB_URL),
-        credentials: true,
-        methods: ["GET", "POST", "DELETE"],
-        allowedHeaders: [
-          "X-CSRF-Token",
-          "X-Requested-With",
-          "Accept",
-          "Accept-Version",
-          "Content-Length",
-          "Content-MD5",
-          "Content-Type",
-          "Date",
-          "X-Api-Version",
-        ],
       })
     );
 

@@ -65,7 +65,7 @@ export default function TestimonialForm() {
         onSubmit={(values) => {
           setSubmitted(true);
           console.log(values);
-          //   postLogin(values);
+          //   postTestimony(values);
         }}
       >
         {(props: FormikProps<TestimonialSubmit>) => {
@@ -127,21 +127,6 @@ export default function TestimonialForm() {
                       }}
                     />
                   </div>
-                  {/* <div className="flex flex-col gap-6">
-              <Typography variant="h6" color="blue-gray" className="-mb-3">
-                Date
-              </Typography>
-              <Input
-                type="password"
-                size="lg"
-                placeholder="********"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                crossOrigin={undefined}
-              />
-            </div> */}
                 </div>
               </div>
               <div className="w-full max-w-xl mx-auto flex flex-col">
