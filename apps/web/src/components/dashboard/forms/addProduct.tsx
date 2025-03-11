@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import productTypes from "@/data/productTypes";
 import ErrorHandler from "@/errorhandler/error-handler";
+import { CldUploadWidget } from "next-cloudinary";
 
 export default function AddProduct() {
   const currentType = useSelector(
@@ -79,7 +80,7 @@ export default function AddProduct() {
     <Formik
       initialValues={{
         // image: "",
-        image: "test",
+        image: "",
         promoted: "false",
         name: "",
         type: "0",
@@ -127,7 +128,11 @@ export default function AddProduct() {
             ),
             action: async () => {
               await setFieldValue("type", String(currentType));
-              await submitForm();
+              try {
+                await submitForm();
+              } catch (err) {
+                console.log(err)
+              }
               resetForm();
               ["name", "overview", "desc"].forEach((inputField: string) => {
                 ["light", "dark"].forEach((theme: string) => {
@@ -159,14 +164,25 @@ export default function AddProduct() {
                 className="m-auto w-full rounded-b-none"
               >
                 {/* going to need to file input using regular input tag, then onChange event setFieldValue event.currentTarget into the formik Field */}
-                <Image
+                {/* <Image
                   src={noImages[0]}
                   width={500}
                   height={800}
                   alt={values.name}
                   className="h-full w-full object-cover"
                   priority
-                />
+                /> */}
+                <CldUploadWidget
+                  signatureEndpoint={
+                    process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary"
+                  }
+                >
+                  {({ open }) => {
+                    return (
+                      <button onClick={() => open()}>Upload an Image</button>
+                    );
+                  }}
+                </CldUploadWidget>
               </CardHeader>
               <CardBody>
                 <div className="flex items-center gap-2">

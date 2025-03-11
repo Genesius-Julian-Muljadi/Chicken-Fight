@@ -81,7 +81,7 @@ export default function AddProductMain() {
     <Formik
       initialValues={{
         // image: "",
-        image: "test",
+        image: "",
         promoted: "true",
         name: "",
         type: "0",

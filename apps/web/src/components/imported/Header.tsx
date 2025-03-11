@@ -10,10 +10,27 @@ import { useCookies } from "react-cookie";
 import LogoutButton from "./LogoutButton";
 import { AccessTokenUser } from "@/interfaces/accesstokens";
 import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
+import { Provider, useSelector } from "react-redux";
+import { store } from "@/redux/store";
 
 const Header = ({ token }: { token: AccessTokenUser | null }) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
+  const [navLinks, setNavLinks] = useState(
+    token ? headerNavLinksLoggedIn : headerNavLinks
+  );
+
+  const activeLinks = useSelector(
+    (state: {
+      UHLSlice: { headerLinks: Array<{ href: string; title: string }> | null };
+    }) => state.UHLSlice.headerLinks
+  );
+
+  useEffect(() => {
+    if (activeLinks) {
+      setNavLinks(activeLinks);
+    }
+  }, [activeLinks]);
 
   useEffect(() => {
     function handleScroll() {
@@ -28,8 +45,6 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navLinks = token ? headerNavLinksLoggedIn : headerNavLinks;
 
   try {
     return (
@@ -68,7 +83,6 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
           </Link>
           <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
             <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
-       
               {navLinks.length > 1 ? (
                 navLinks
                   .filter((link) => link.href !== "/")
@@ -116,4 +130,14 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
   }
 };
 
-export default Header;
+export default function HeaderProvider({
+  token,
+}: {
+  token: AccessTokenUser | null;
+}) {
+  return (
+    <Provider store={store}>
+      <Header token={token} />
+    </Provider>
+  );
+}

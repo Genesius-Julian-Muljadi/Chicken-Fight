@@ -13,6 +13,8 @@ import { Provider, useDispatch } from "react-redux";
 import { store } from "@/redux/store";
 import { updateCookie } from "@/redux/slices/updateCookie";
 import COOKIE_EXPIRATION_MINUTES from "../../../../cookieExpiration";
+import { updateHeaderLinks } from "@/redux/slices/updateHeaderLinks";
+import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
 
 function AdminLogin() {
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -46,6 +48,7 @@ function AdminLogin() {
 
       router.push("/admin/dashboard");
       dispatch(updateCookie(String(output.data.cookie)));
+      dispatch(updateHeaderLinks(headerNavLinksLoggedIn))
       setSubmitted(false);
     } catch (err) {
       setSubmitted(false);

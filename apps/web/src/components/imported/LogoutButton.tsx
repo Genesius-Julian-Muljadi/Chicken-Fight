@@ -1,6 +1,8 @@
 "use client";
 
+import headerNavLinks from "@/data/headerNavLinks";
 import { updateCookie } from "@/redux/slices/updateCookie";
+import { updateHeaderLinks } from "@/redux/slices/updateHeaderLinks";
 import { store } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
@@ -36,6 +38,7 @@ function LogoutButton({ mobile }: { mobile: boolean }) {
         onClick={() => {
           router.push("/");
           dispatch(updateCookie("undefined"));
+          dispatch(updateHeaderLinks(headerNavLinks));
           removeCookie("access_token", {
             path: "/",
           });
