@@ -22,6 +22,26 @@ export default class DataControllers {
     }
   }
 
+  public async postTestimonial(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const testimonial = await DataServices.postTestimonial(req);
+
+      res.status(200).send({
+        message: "Testimonial posted!",
+        data: testimonial,
+      });
+    } catch (err) {
+      res.status(401).send({
+        message: String(err),
+      });
+      next(err);
+    }
+  }
+
   public async getAllProducts(req: Request, res: Response, next: NextFunction) {
     try {
       const products = await DataServices.getAllProducts(req);

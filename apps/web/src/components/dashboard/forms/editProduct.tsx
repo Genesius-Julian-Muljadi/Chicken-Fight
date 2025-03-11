@@ -162,7 +162,7 @@ export default function EditProduct({ product }: { product: Product }) {
 
         return (
           <Form>
-            <Field type="hidden" name="image" value="No Value" />
+            <Field type="hidden" name="image" />
             <Field type="hidden" name="promoted" value="false" />
             <Field type="hidden" name="name" />
             <Field type="hidden" name="type" />

@@ -1,10 +1,14 @@
 "use client";
 
 import BasicSpinner from "@/assets/BasicSpinner/BasicSpinner";
+import ErrorHandler from "@/errorhandler/error-handler";
 import { testimonialSchema } from "@/lib/validationSchemas/testimonialSchema";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import axios from "axios";
 import { Field, Form, Formik, FormikProps } from "formik";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 interface TestimonialSubmit {
   testimony: string;
@@ -13,35 +17,32 @@ interface TestimonialSubmit {
 
 export default function TestimonialForm() {
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const router = useRouter();
 
-  //   const postTestimony = async (params: TestimonialSubmit) => {
-  //     try {
-  //       const API: string = process.env.NEXT_PUBLIC_BASE_API_URL + '/data/testimonial'
-  //       const output = await axios.post(
-  //         API,
-  //         {
-  //           email: params.email,
-  //           password: params.password,
-  //         },
-  //         { withCredentials: true }
-  //       )
+  const postTestimony = async (params: TestimonialSubmit) => {
+    try {
+      const API: string =
+        process.env.NEXT_PUBLIC_BASE_API_URL + "/data/testimonial";
+      const output = await axios.post(API, {
+        testimony: params.testimony,
+        testifier: params.testifier,
+      });
 
-  //       if (!output) throw Error()
+      if (!output) throw Error();
 
-  //       Swal.fire({
-  //         icon: 'success',
-  //         title: 'Login success!',
-  //       })
-  //       // Vercel cookie issue fix
-  //       document.cookie = `access_token=${output.data.cookie}; expires=${new Date(new Date().valueOf() + 1200000)}`
+      Swal.fire({
+        icon: "success",
+        title: "Testimonial posted",
+      });
 
-  //       router.push('/')
-  //       router.refresh()
-  //     } catch (err) {
-  //       setSubmitted(false)
-  //       ErrorHandler(err)
-  //     }
-  //   }
+      router.push("/");
+      router.refresh();
+      setSubmitted(false);
+    } catch (err) {
+      setSubmitted(false);
+      ErrorHandler(err);
+    }
+  };
 
   return (
     <Card
@@ -54,7 +55,7 @@ export default function TestimonialForm() {
         color="blue-gray"
         className="dark:text-blue-gray-100"
       >
-        Add your testimony (Console submission only)
+        Add your testimony
       </Typography>
       <Formik
         initialValues={{
@@ -64,8 +65,8 @@ export default function TestimonialForm() {
         validationSchema={testimonialSchema}
         onSubmit={(values) => {
           setSubmitted(true);
-          console.log(values);
-          //   postTestimony(values);
+          // console.log(values);
+          postTestimony(values);
         }}
       >
         {(props: FormikProps<TestimonialSubmit>) => {
@@ -94,6 +95,7 @@ export default function TestimonialForm() {
                     labelProps={{
                       className: "before:content-none after:content-none",
                     }}
+                    disabled={submitted}
                     crossOrigin={undefined}
                     onChange={(e) => {
                       setFieldValue(`testimony`, e.target.value);
@@ -121,6 +123,7 @@ export default function TestimonialForm() {
                       labelProps={{
                         className: "before:content-none after:content-none",
                       }}
+                      disabled={submitted}
                       crossOrigin={undefined}
                       onChange={(e) => {
                         setFieldValue(`testifier`, e.target.value);

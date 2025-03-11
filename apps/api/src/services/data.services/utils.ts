@@ -1,4 +1,5 @@
 import { ProductForm } from "../../interfaces/productForm";
+import { TestimonialForm } from "../../interfaces/testimonialForm";
 import prisma from "../../lib/prisma";
 
 export default class DataUtils {
@@ -10,6 +11,32 @@ export default class DataUtils {
         throw new Error("No testimonials available");
 
       return findTestimonials;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static secretValidateTestimonial(testimonial: TestimonialForm): boolean {
+    // work on this
+    // secret validation to still return success if this fails
+    // Prevent spam and nonsense posts from filling database
+    return true
+  }
+
+  static async postTestimonial(testimonial: TestimonialForm) {
+    try {
+      const newTestimonial = await prisma.testimonials.create({
+        data: {
+          id: testimonial.id ? parseInt(testimonial.id) : undefined,
+          testifier: testimonial.testifier,
+          testimony: testimonial.testimony,
+          dateCreated: testimonial.dateCreated
+            ? new Date(testimonial.dateCreated)
+            : undefined,
+        },
+      });
+
+      return newTestimonial
     } catch (err) {
       throw err;
     }

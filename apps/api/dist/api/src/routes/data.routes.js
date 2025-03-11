@@ -15,6 +15,7 @@ class DataRoutes {
     }
     routes() {
         this.router.get("/testimonials", this.controllers.getAllTestimonials);
+        this.router.post("/testimonial", this.controllers.postTestimonial);
         this.router.get("/products", this.controllers.getAllProducts);
         this.router.post("/product", this.productValidations.productValidation, this.controllers.postProduct);
         this.router.delete("/product/:id", this.controllers.deleteProduct);

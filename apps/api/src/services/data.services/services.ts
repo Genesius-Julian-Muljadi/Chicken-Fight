@@ -1,6 +1,7 @@
 import { Request } from "express";
 import DataUtils from "./utils";
 import { ProductForm } from "../../interfaces/productForm";
+import { TestimonialForm } from "../../interfaces/testimonialForm";
 
 export default class DataServices {
   static async getAllTestimonials(req: Request) {
@@ -8,6 +9,22 @@ export default class DataServices {
       const testimonials = await DataUtils.findAllTestimonials();
 
       return testimonials;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async postTestimonial(req: Request) {
+    try {
+      const testimonialForm = req.body as TestimonialForm;
+
+      const validTestimony: boolean = DataUtils.secretValidateTestimonial(testimonialForm);
+      if (validTestimony) {
+        const testimonial = await DataUtils.postTestimonial(testimonialForm);
+
+        return testimonial;
+      }
+      // if not valid, still return success
     } catch (err) {
       throw err;
     }

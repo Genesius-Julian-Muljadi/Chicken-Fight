@@ -29,6 +29,32 @@ class DataUtils {
             }
         });
     }
+    static secretValidateTestimonial(testimonial) {
+        // work on this
+        // secret validation to still return success if this fails
+        // Prevent spam and nonsense posts from filling database
+        return true;
+    }
+    static postTestimonial(testimonial) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const newTestimonial = yield prisma_1.default.testimonials.create({
+                    data: {
+                        id: testimonial.id ? parseInt(testimonial.id) : undefined,
+                        testifier: testimonial.testifier,
+                        testimony: testimonial.testimony,
+                        dateCreated: testimonial.dateCreated
+                            ? new Date(testimonial.dateCreated)
+                            : undefined,
+                    },
+                });
+                return newTestimonial;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
     static findAllProducts() {
         return __awaiter(this, void 0, void 0, function* () {
             try {

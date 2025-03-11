@@ -44,7 +44,7 @@ export default function AddProduct() {
       const API: string =
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
       const output = await axios.post(API, {
-        image: "testimagename",
+        image: "",
         promoted: "false",
         name: params.name,
         type: params.type,
@@ -143,7 +143,7 @@ export default function AddProduct() {
 
         return (
           <Form>
-            <Field type="hidden" name="image" value="No Value" />
+            <Field type="hidden" name="image" />
             <Field type="hidden" name="promoted" value="false" />
             <Field type="hidden" name="name" />
             <Field type="hidden" name="type" />

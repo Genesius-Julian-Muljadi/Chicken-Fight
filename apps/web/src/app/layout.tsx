@@ -4,8 +4,8 @@ import { Roboto } from "next/font/google";
 import { Footer, Layout } from "@/components";
 import { ThemeProviders } from "./theme-providers";
 import siteMetadata from "@/data/siteMetadata";
-import Header from "@/components/imported/Header";
 import CookieManager from "@/cookies/cookieManager";
+import HeaderServer from "@/components/imported/HeaderServer";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -39,7 +39,7 @@ export default function RootLayout({
         <ThemeProviders>
           <Layout>
             <CookieManager />
-            <Header />
+            <HeaderServer />
             <div className="-mt-16">{children}</div>
             <Footer />
           </Layout>

@@ -7,6 +7,7 @@ import { AccessTokenUser } from "./interfaces/accesstokens";
 import userRoles, { RoleAccess } from "./data/userRoles";
 
 const protectedRoutes = ["/admin/dashboard"];
+// const protectedRoutes = ["/thispathdoesn'texist"];
 
 export default async function middleware(req: NextRequest) {
   try {

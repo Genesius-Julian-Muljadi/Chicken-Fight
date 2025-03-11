@@ -262,7 +262,7 @@ export default function EditProductMain({
 
         return (
           <Form>
-            <Field type="hidden" name="image" value="No Value" />
+            <Field type="hidden" name="image" />
             <Field type="hidden" name="promoted" value="true" />
             <Field type="hidden" name="name" />
             <Field type="hidden" name="type" />

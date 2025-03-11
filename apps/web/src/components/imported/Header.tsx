@@ -8,11 +8,10 @@ import ThemeSwitch from "./ThemeSwitch";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import LogoutButton from "./LogoutButton";
-// import VerifyTokenServer from 'verifytoken/verifytokenserver'
-// import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
-// import LogoutButton from './LogoutButton'
+import { AccessTokenUser } from "@/interfaces/accesstokens";
+import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
 
-const Header = () => {
+const Header = ({ token }: { token: AccessTokenUser | null }) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["access_token"]);
 
@@ -29,6 +28,8 @@ const Header = () => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navLinks = token ? headerNavLinksLoggedIn : headerNavLinks;
 
   try {
     return (
@@ -67,9 +68,9 @@ const Header = () => {
           </Link>
           <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
             <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
-              {/* {(token ? headerNavLinksLoggedIn : headerNavLinks) */}
-              {headerNavLinks.length > 1 ? (
-                headerNavLinks
+       
+              {navLinks.length > 1 ? (
+                navLinks
                   .filter((link) => link.href !== "/")
                   .map((link) => (
                     <Link
@@ -90,7 +91,7 @@ const Header = () => {
                     isScrolling ? "" : "text-black dark:text-white"
                   }`}
                 >
-                  headerNavLinks
+                  {token ? "headerNavLinksLoggedIn" : "headerNavLinks"}
                 </span>
               )}
               {cookies.access_token !== "undefined" && cookies.access_token ? (

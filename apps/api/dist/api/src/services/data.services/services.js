@@ -25,6 +25,22 @@ class DataServices {
             }
         });
     }
+    static postTestimonial(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const testimonialForm = req.body;
+                const validTestimony = utils_1.default.secretValidateTestimonial(testimonialForm);
+                if (validTestimony) {
+                    const testimonial = yield utils_1.default.postTestimonial(testimonialForm);
+                    return testimonial;
+                }
+                // if not valid, still return success
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
     static getAllProducts(req) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -12,7 +12,7 @@ export default function TestimonialTypography({
     year: "numeric",
     month: "short",
     day: "numeric",
-  }).format(dateCreated);
+  }).format(new Date(dateCreated));
 
   return (
     <Typography
