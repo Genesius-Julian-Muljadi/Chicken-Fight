@@ -47,8 +47,9 @@ function AdminLogin() {
       )}`;
 
       router.push("/admin/dashboard");
+      router.refresh();
       dispatch(updateCookie(String(output.data.cookie)));
-      dispatch(updateHeaderLinks(headerNavLinksLoggedIn))
+      dispatch(updateHeaderLinks(headerNavLinksLoggedIn));
       setSubmitted(false);
     } catch (err) {
       setSubmitted(false);
