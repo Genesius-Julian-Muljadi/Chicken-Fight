@@ -187,14 +187,13 @@ export default function AddProduct() {
                       console.log(info.public_id);
                     }}
                   >
-                    {({ open, destroy }) => {
+                    {({ open }) => {
                       return (
                         <Button
                           variant="text"
                           className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
                           ripple={true}
-                          // onClick={() => open()}
-                          onClick={() => destroy()}
+                          onClick={() => open()}
                         >
                           {createElement(CloudArrowUpIcon, {
                             className: "w-5 h-5 -ml-1",
