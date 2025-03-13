@@ -34,7 +34,6 @@ function AdminLogin() {
         { withCredentials: true }
       );
 
-      console.log(output);
       if (!output) throw Error();
 
       Swal.fire({

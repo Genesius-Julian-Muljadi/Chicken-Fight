@@ -46,10 +46,10 @@ class AuthUtils {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!user)
-                    throw new Error("Invalid credentials");
+                    throw new Error("401: Invalid credentials");
                 const passwordMatches = yield (0, bcrypt_1.compare)(password, user.password);
                 if (!passwordMatches)
-                    throw new Error("Invalid credentials");
+                    throw new Error("401: Invalid credentials");
             }
             catch (err) {
                 throw err;

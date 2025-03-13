@@ -4,7 +4,7 @@ import { BASE_WEB_URL, PORT } from "./config";
 import helmet from "helmet";
 import AuthRoutes from "./routes/auth.routes";
 import DataRoutes from "./routes/data.routes";
-import Cloudinary from "./cloudinary/handler";
+import CloudinaryRoutes from "./routes/cloudinary.routes";
 
 export default class Server {
   private app: Application;
@@ -45,7 +45,7 @@ export default class Server {
   private routes() {
     this.app.use("/auth", new AuthRoutes().getRoutes());
     this.app.use("/data", new DataRoutes().getRoutes());
-    this.app.use("/cloudinary", new Cloudinary().sign());
+    this.app.use("/cloudinary", new CloudinaryRoutes().getRoutes());
   }
 
   public start() {

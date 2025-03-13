@@ -24,8 +24,10 @@ class DataControllers {
                 });
             }
             catch (err) {
-                res.status(401).send({
-                    message: String(err),
+                res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+                    message: parseInt(String(err).slice(7, 10))
+                        ? String(err).slice(12)
+                        : String(err).slice(7),
                 });
                 next(err);
             }
@@ -35,14 +37,16 @@ class DataControllers {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const testimonial = yield services_1.default.postTestimonial(req);
-                res.status(200).send({
+                res.status(201).send({
                     message: "Testimonial posted!",
                     data: testimonial,
                 });
             }
             catch (err) {
-                res.status(401).send({
-                    message: String(err),
+                res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+                    message: parseInt(String(err).slice(7, 10))
+                        ? String(err).slice(12)
+                        : String(err).slice(7),
                 });
                 next(err);
             }
@@ -58,8 +62,10 @@ class DataControllers {
                 });
             }
             catch (err) {
-                res.status(401).send({
-                    message: String(err),
+                res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+                    message: parseInt(String(err).slice(7, 10))
+                        ? String(err).slice(12)
+                        : String(err).slice(7),
                 });
                 next(err);
             }
@@ -69,14 +75,16 @@ class DataControllers {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const product = yield services_1.default.postProduct(req);
-                res.status(200).send({
+                res.status(201).send({
                     message: "Product posted!",
                     data: product,
                 });
             }
             catch (err) {
-                res.status(401).send({
-                    message: String(err),
+                res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+                    message: parseInt(String(err).slice(7, 10))
+                        ? String(err).slice(12)
+                        : String(err).slice(7),
                 });
                 next(err);
             }
@@ -92,8 +100,10 @@ class DataControllers {
                 });
             }
             catch (err) {
-                res.status(401).send({
-                    message: String(err),
+                res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+                    message: parseInt(String(err).slice(7, 10))
+                        ? String(err).slice(12)
+                        : String(err).slice(7),
                 });
                 next(err);
             }

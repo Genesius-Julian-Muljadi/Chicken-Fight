@@ -20,12 +20,6 @@ const cookieExpiration_1 = __importDefault(require("../../../cookieExpiration"))
 class AuthControllers {
     loginUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (req.method === "OPTIONS") {
-                res.status(200).send({
-                    message: "Stupid Options vercel issue",
-                });
-                return;
-            }
             try {
                 const authToken = yield services_1.default.loginUser(req);
                 // First time login. Convert to registration
@@ -33,14 +27,14 @@ class AuthControllers {
                     const user = yield services_1.default.registerUser(req);
                     if (!user)
                         throw new Error("Register failed");
-                    res.status(200).send({
+                    res.status(201).send({
                         message: "Registration successful!",
                         data: user,
                     });
                 }
                 else if (authToken) {
                     res
-                        .status(200)
+                        .status(201)
                         .cookie("access_token", authToken, {
                         expires: new Date(new Date().valueOf() + cookieExpiration_1.default * 60000),
                     })
@@ -54,8 +48,10 @@ class AuthControllers {
                 }
             }
             catch (err) {
-                res.status(401).send({
-                    message: String(err),
+                res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+                    message: parseInt(String(err).slice(7, 10))
+                        ? String(err).slice(12)
+                        : String(err).slice(7),
                 });
                 next(err);
             }

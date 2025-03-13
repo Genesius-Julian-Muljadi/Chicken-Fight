@@ -4,8 +4,9 @@ import noImages from "@/assets/noImage";
 import siteMetadata from "@/data/siteMetadata";
 import { ProductForm } from "@/interfaces/forms/products";
 import { productSchema } from "@/lib/validationSchemas/productSchema";
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -17,7 +18,7 @@ import {
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
@@ -26,7 +27,11 @@ import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import productTypes from "@/data/productTypes";
 import ErrorHandler from "@/errorhandler/error-handler";
-import { CldUploadWidget } from "next-cloudinary";
+import {
+  CldUploadWidget,
+  CloudinaryUploadWidgetInfo,
+  CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 
 export default function AddProduct() {
   const currentType = useSelector(
@@ -131,7 +136,7 @@ export default function AddProduct() {
               try {
                 await submitForm();
               } catch (err) {
-                console.log(err)
+                console.log(err);
               }
               resetForm();
               ["name", "overview", "desc"].forEach((inputField: string) => {
@@ -172,17 +177,34 @@ export default function AddProduct() {
                   className="h-full w-full object-cover"
                   priority
                 /> */}
-                <CldUploadWidget
-                  signatureEndpoint={
-                    process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary"
-                  }
-                >
-                  {({ open }) => {
-                    return (
-                      <button onClick={() => open()}>Upload an Image</button>
-                    );
-                  }}
-                </CldUploadWidget>
+                <div className="pt-6 pb-2 place-items-center bg-[#fffcf6] dark:bg-gray-900">
+                  <CldUploadWidget
+                    signatureEndpoint={
+                      process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary/sign"
+                    }
+                    onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                      const info = result.info as CloudinaryUploadWidgetInfo;
+                      console.log(info.public_id);
+                    }}
+                  >
+                    {({ open, destroy }) => {
+                      return (
+                        <Button
+                          variant="text"
+                          className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
+                          ripple={true}
+                          // onClick={() => open()}
+                          onClick={() => destroy()}
+                        >
+                          {createElement(CloudArrowUpIcon, {
+                            className: "w-5 h-5 -ml-1",
+                          })}
+                          Upload image
+                        </Button>
+                      );
+                    }}
+                  </CldUploadWidget>
+                </div>
               </CardHeader>
               <CardBody>
                 <div className="flex items-center gap-2">

@@ -29,10 +29,10 @@ export default class AuthUtils {
 
   static async verifyCredentials(user: any, password: string) {
     try {
-      if (!user) throw new Error("Invalid credentials");
+      if (!user) throw new Error("401: Invalid credentials");
 
       const passwordMatches = await compare(password, user.password);
-      if (!passwordMatches) throw new Error("Invalid credentials");
+      if (!passwordMatches) throw new Error("401: Invalid credentials");
     } catch (err) {
       throw err;
     }

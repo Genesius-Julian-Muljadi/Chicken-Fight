@@ -19,9 +19,9 @@ class DataUtils {
             try {
                 const findTestimonials = yield prisma_1.default.testimonials.findMany();
                 if (!findTestimonials)
-                    throw new Error("Unable to find testimonials");
+                    throw new Error("404: Unable to find testimonials");
                 if (findTestimonials.length < 1)
-                    throw new Error("No testimonials available");
+                    throw new Error("404: No testimonials available");
                 return findTestimonials;
             }
             catch (err) {
@@ -60,9 +60,9 @@ class DataUtils {
             try {
                 const findProducts = yield prisma_1.default.products.findMany();
                 if (!findProducts)
-                    throw new Error("Unable to find products");
+                    throw new Error("404: Unable to find products");
                 if (findProducts.length < 1)
-                    throw new Error("No products available");
+                    throw new Error("404: No products available");
                 return findProducts;
             }
             catch (err) {

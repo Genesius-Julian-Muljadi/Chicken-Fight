@@ -9,6 +9,7 @@ const config_1 = require("./config");
 const helmet_1 = __importDefault(require("helmet"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const data_routes_1 = __importDefault(require("./routes/data.routes"));
+const cloudinary_routes_1 = __importDefault(require("./routes/cloudinary.routes"));
 class Server {
     constructor() {
         this.port = config_1.PORT || 8000;
@@ -40,6 +41,7 @@ class Server {
     routes() {
         this.app.use("/auth", new auth_routes_1.default().getRoutes());
         this.app.use("/data", new data_routes_1.default().getRoutes());
+        this.app.use("/cloudinary", new cloudinary_routes_1.default().getRoutes());
     }
     start() {
         this.app.listen(this.port, () => {

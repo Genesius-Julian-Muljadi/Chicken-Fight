@@ -47,7 +47,7 @@ class AuthServices {
                 const { regkey, password } = req.body;
                 const findUser = yield utils_1.default.findUserByKey(regkey);
                 if (!findUser)
-                    throw new Error("Invalid credentials");
+                    throw new Error("401: Invalid credentials");
                 // First login attempt. Switch to registration instead
                 if (!findUser.password)
                     return 1;

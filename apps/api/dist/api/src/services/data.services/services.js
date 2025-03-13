@@ -65,7 +65,7 @@ class DataServices {
                         product = yield utils_1.default.editProduct(productForm);
                     }
                     else
-                        throw new Error("Invalid promoted input");
+                        throw new Error("400: Invalid promoted input");
                 }
                 else if (productForm.promoted === "true") {
                     product = yield utils_1.default.postMainProduct(productForm);
@@ -74,7 +74,7 @@ class DataServices {
                     product = yield utils_1.default.postProduct(productForm);
                 }
                 else {
-                    throw new Error("Invalid promoted input");
+                    throw new Error("400: Invalid promoted input");
                 }
                 return product;
             }

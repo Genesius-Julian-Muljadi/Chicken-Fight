@@ -6,9 +6,9 @@ export default class DataUtils {
   static async findAllTestimonials() {
     try {
       const findTestimonials = await prisma.testimonials.findMany();
-      if (!findTestimonials) throw new Error("Unable to find testimonials");
+      if (!findTestimonials) throw new Error("404: Unable to find testimonials");
       if (findTestimonials.length < 1)
-        throw new Error("No testimonials available");
+        throw new Error("404: No testimonials available");
 
       return findTestimonials;
     } catch (err) {
@@ -45,8 +45,8 @@ export default class DataUtils {
   static async findAllProducts() {
     try {
       const findProducts = await prisma.products.findMany();
-      if (!findProducts) throw new Error("Unable to find products");
-      if (findProducts.length < 1) throw new Error("No products available");
+      if (!findProducts) throw new Error("404: Unable to find products");
+      if (findProducts.length < 1) throw new Error("404: No products available");
 
       return findProducts;
     } catch (err) {

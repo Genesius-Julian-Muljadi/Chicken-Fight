@@ -15,8 +15,10 @@ export default class DataControllers {
         data: testimonials,
       });
     } catch (err) {
-      res.status(401).send({
-        message: String(err),
+      res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+        message: parseInt(String(err).slice(7, 10))
+          ? String(err).slice(12)
+          : String(err).slice(7),
       });
       next(err);
     }
@@ -30,13 +32,15 @@ export default class DataControllers {
     try {
       const testimonial = await DataServices.postTestimonial(req);
 
-      res.status(200).send({
+      res.status(201).send({
         message: "Testimonial posted!",
         data: testimonial,
       });
     } catch (err) {
-      res.status(401).send({
-        message: String(err),
+      res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+        message: parseInt(String(err).slice(7, 10))
+          ? String(err).slice(12)
+          : String(err).slice(7),
       });
       next(err);
     }
@@ -51,8 +55,10 @@ export default class DataControllers {
         data: products,
       });
     } catch (err) {
-      res.status(401).send({
-        message: String(err),
+      res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+        message: parseInt(String(err).slice(7, 10))
+          ? String(err).slice(12)
+          : String(err).slice(7),
       });
       next(err);
     }
@@ -62,13 +68,15 @@ export default class DataControllers {
     try {
       const product = await DataServices.postProduct(req);
 
-      res.status(200).send({
+      res.status(201).send({
         message: "Product posted!",
         data: product,
       });
     } catch (err) {
-      res.status(401).send({
-        message: String(err),
+      res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+        message: parseInt(String(err).slice(7, 10))
+          ? String(err).slice(12)
+          : String(err).slice(7),
       });
       next(err);
     }
@@ -83,8 +91,10 @@ export default class DataControllers {
         data: product,
       });
     } catch (err) {
-      res.status(401).send({
-        message: String(err),
+      res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+        message: parseInt(String(err).slice(7, 10))
+          ? String(err).slice(12)
+          : String(err).slice(7),
       });
       next(err);
     }

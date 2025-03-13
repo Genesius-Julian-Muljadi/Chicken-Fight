@@ -51,13 +51,13 @@ export default class DataServices {
           product = await DataUtils.editMainProduct(productForm);
         } else if (productForm.promoted === "false") {
           product = await DataUtils.editProduct(productForm);
-        } else throw new Error("Invalid promoted input");
+        } else throw new Error("400: Invalid promoted input");
       } else if (productForm.promoted === "true") {
         product = await DataUtils.postMainProduct(productForm);
       } else if (productForm.promoted === "false") {
         product = await DataUtils.postProduct(productForm);
       } else {
-        throw new Error("Invalid promoted input");
+        throw new Error("400: Invalid promoted input");
       }
 
       return product;

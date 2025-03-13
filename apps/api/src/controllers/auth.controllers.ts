@@ -7,13 +7,6 @@ import COOKIE_EXPIRATION_MINUTES from "../../../cookieExpiration";
 // First login attempt will convert to registration with inputted password
 export default class AuthControllers {
   public async loginUser(req: Request, res: Response, next: NextFunction) {
-    if (req.method === "OPTIONS") {
-      res.status(200).send({
-        message: "Stupid Options vercel issue",
-      });
-      return;
-    }
-
     try {
       const authToken = await AuthServices.loginUser(req);
 
@@ -22,13 +15,13 @@ export default class AuthControllers {
         const user = await AuthServices.registerUser(req);
         if (!user) throw new Error("Register failed");
 
-        res.status(200).send({
+        res.status(201).send({
           message: "Registration successful!",
           data: user,
         });
       } else if (authToken) {
         res
-          .status(200)
+          .status(201)
           .cookie("access_token", authToken, {
             expires: new Date(
               new Date().valueOf() + COOKIE_EXPIRATION_MINUTES * 60000
@@ -42,8 +35,10 @@ export default class AuthControllers {
         throw new Error("Login failed");
       }
     } catch (err) {
-      res.status(401).send({
-        message: String(err),
+      res.status(parseInt(String(err).slice(7, 10)) || 500).send({
+        message: parseInt(String(err).slice(7, 10))
+          ? String(err).slice(12)
+          : String(err).slice(7),
       });
       next(err);
     }
