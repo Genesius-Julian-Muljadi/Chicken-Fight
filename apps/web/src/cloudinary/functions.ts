@@ -11,9 +11,6 @@ export async function deleteCloudinaryImage(publicID: string) {
       },
     });
 
-    // console.log("deleted " + publicID);
-    // console.log(output);
-
     if (!output) throw Error();
   } catch (err) {
     // nothing

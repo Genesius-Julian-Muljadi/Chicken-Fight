@@ -1,5 +1,5 @@
 "use client";
-
+// Should add captcha to this form
 import BasicSpinner from "@/assets/BasicSpinner/BasicSpinner";
 import ErrorHandler from "@/errorhandler/error-handler";
 import { testimonialSchema } from "@/lib/validationSchemas/testimonialSchema";
@@ -65,7 +65,6 @@ export default function TestimonialForm() {
         validationSchema={testimonialSchema}
         onSubmit={(values) => {
           setSubmitted(true);
-          // console.log(values);
           postTestimony(values);
         }}
       >

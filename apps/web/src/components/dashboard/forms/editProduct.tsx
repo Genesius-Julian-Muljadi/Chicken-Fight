@@ -102,7 +102,6 @@ export default function EditProduct({ product }: { product: Product }) {
       validationSchema={productSchema}
       onSubmit={(values) => {
         setSubmitted(true);
-        // console.log(values);
         postProduct(values);
       }}
     >

@@ -45,15 +45,6 @@ export default function AddProduct() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const formInitialValues: ProductForm = {
-    image: "",
-    promoted: "false",
-    name: "",
-    type: "0",
-    overview: "",
-    desc: "",
-  };
-
   const postProduct = async (params: ProductForm) => {
     if (!params.image || !params.name) {
       return;
@@ -97,11 +88,17 @@ export default function AddProduct() {
 
   return (
     <Formik
-      initialValues={formInitialValues}
+      initialValues={{
+        image: "",
+        promoted: "false",
+        name: "",
+        type: "0",
+        overview: "",
+        desc: "",
+      }}
       validationSchema={productSchema}
       onSubmit={(values) => {
         setSubmitted(true);
-        // console.log(values);
         postProduct(values);
       }}
     >
