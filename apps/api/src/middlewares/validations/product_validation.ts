@@ -20,7 +20,7 @@ export default class ProductValidations {
         }
         next();
       } catch (err) {
-        res.status(401).send({
+        res.status(400).send({
           message: String(err),
         });
         next(err);

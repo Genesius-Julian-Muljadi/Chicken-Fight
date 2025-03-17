@@ -9,13 +9,12 @@ import {
   CardFooter,
   Typography,
 } from "@material-tailwind/react";
-import Image from "next/image";
 import React from "react";
 import DashboardSpeedDial from "../dashboard/SpeedDial";
 import speedDialContent from "../dashboard/speedDialContent";
 import ContactToPurchase from "./contactToPurchase";
-import noImages from "@/assets/noImage";
 import { ProductSamples } from "@/data/samples/productSamples";
+import { CldImage } from "next-cloudinary";
 
 export function ProductCard({
   product,
@@ -31,7 +30,9 @@ export function ProductCard({
       {dashboard ? (
         <div className="absolute bottom-4 right-4 rounded-full z-40">
           {/* <div className="absolute top-4 right-4 rounded-full z-40"> */}
-          <DashboardSpeedDial contents={speedDialContent(product, allProducts || ProductSamples)} />
+          <DashboardSpeedDial
+            contents={speedDialContent(product, allProducts || ProductSamples)}
+          />
         </div>
       ) : null}
       <CardHeader
@@ -39,12 +40,8 @@ export function ProductCard({
         floated={false}
         className="m-auto w-full rounded-b-none"
       >
-        <Image
-          src={
-            product.image.slice(0, 3) === "AVT"
-              ? "../../../../api/src/public/images/" + product.image
-              : noImages[0]
-          }
+        <CldImage
+          src={product.image}
           width={500}
           height={800}
           alt={product.name}

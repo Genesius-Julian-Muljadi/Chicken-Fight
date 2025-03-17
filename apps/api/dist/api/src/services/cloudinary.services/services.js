@@ -28,10 +28,10 @@ class CloudinaryServices {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const publicID = req.body.publicID;
-                const resource_type = req.body.type;
+                const resource_type = req.body.resource_type;
                 const data = yield cloudinary_1.v2.api.delete_resources([publicID], {
                     type: "upload",
-                    resource_type: resource_type,
+                    resource_type: resource_type || "image",
                 });
                 if (data.deleted[publicID] === "not_found") {
                     throw new Error("404: Resource not found with public ID and type");

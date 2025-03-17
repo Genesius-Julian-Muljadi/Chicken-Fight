@@ -1,3 +1,4 @@
+import productTypes from "@/data/productTypes";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -12,7 +13,7 @@ const toggleProductTypeSlice = createSlice({
       state: { type: number | null },
       input: { payload: number }
     ) => {
-      if (input.payload === 1 || 2) {
+      if (input.payload >= 1 && input.payload <= productTypes.length) {
         state.type = input.payload;
       } else if (input.payload === 0) {
         state.type = null;

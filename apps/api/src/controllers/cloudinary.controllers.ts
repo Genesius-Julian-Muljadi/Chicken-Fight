@@ -35,7 +35,7 @@ export default class Cloudinary {
     return this.signHandler;
   }
 
-  public async destroyByID(req: Request, res: Response, next: NextFunction) {
+  public async destroy(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await CloudinaryServices.destroy(req);
 

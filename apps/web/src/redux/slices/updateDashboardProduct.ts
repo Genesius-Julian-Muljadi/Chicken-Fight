@@ -27,10 +27,13 @@ const updateDashboardProductSlice = createSlice({
     ) => {
       if (input.payload.deleteID && input.payload.deleteID > 0) {
         state.deleteID = input.payload.deleteID;
+        state.newProduct = null;
+        state.edit = false;
       } else if (input.payload.product) {
         if (input.payload.edit) {
           state.edit = true;
         }
+        state.deleteID = null;
         state.newProduct = input.payload.product;
       } else {
         throw new Error("Invalid input!");

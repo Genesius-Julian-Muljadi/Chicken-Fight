@@ -36,6 +36,7 @@ const promoteDemoteProductSlice = createSlice({
         state.promoteProduct = input.payload.promoteProduct;
       } else {
         state.promote = false;
+        state.promoteProduct = null;
       }
       if (input.payload.demote) {
         if (!input.payload.demoteProduct) {
@@ -45,6 +46,7 @@ const promoteDemoteProductSlice = createSlice({
         state.demoteProduct = input.payload.demoteProduct;
       } else {
         state.demote = false;
+        state.demoteProduct = null;
       }
     },
   },

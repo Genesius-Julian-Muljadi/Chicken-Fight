@@ -13,7 +13,7 @@ class CloudinaryRoutes {
     }
     routes() {
         this.router.post("/sign", this.controllers.sign());
-        this.router.delete("/destroy", this.controllers.destroyByID);
+        this.router.delete("/destroy", this.controllers.destroy);
     }
     getRoutes() {
         return this.router;

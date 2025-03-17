@@ -45,7 +45,7 @@ export default function AddProductMain() {
       const API: string =
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
       const output = await axios.post(API, {
-        image: "",
+        image: params.image,
         promoted: "true",
         name: params.name,
         type: params.type,
@@ -96,7 +96,7 @@ export default function AddProductMain() {
       }}
     >
       {(props: FormikProps<ProductForm>) => {
-        const { setFieldValue, submitForm, resetForm } = props;
+        const { setFieldValue, resetForm, isValid } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
           {
@@ -127,18 +127,20 @@ export default function AddProductMain() {
                 <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
               </svg>
             ),
+            buttonType: "submit",
             action: async () => {
               await setFieldValue("type", String(currentType));
-              await submitForm();
-              resetForm();
-              ["name", "overview", "desc"].forEach((inputField: string) => {
-                ["light", "dark"].forEach((theme: string) => {
-                  const input = document.getElementById(
-                    "main-" + inputField + "-input-" + theme
-                  ) as HTMLInputElement;
-                  input.value = "";
+              if (isValid) {
+                resetForm();
+                ["name", "overview", "desc"].forEach((inputField: string) => {
+                  ["light", "dark"].forEach((theme: string) => {
+                    const input = document.getElementById(
+                      "main-" + inputField + "-input-" + theme
+                    ) as HTMLInputElement;
+                    input.value = "";
+                  });
                 });
-              });
+              }
             },
           },
         ];

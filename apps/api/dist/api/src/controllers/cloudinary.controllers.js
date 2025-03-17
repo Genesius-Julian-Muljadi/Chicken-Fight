@@ -42,7 +42,7 @@ class Cloudinary {
     sign() {
         return this.signHandler;
     }
-    destroyByID(req, res, next) {
+    destroy(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield services_1.default.destroy(req);

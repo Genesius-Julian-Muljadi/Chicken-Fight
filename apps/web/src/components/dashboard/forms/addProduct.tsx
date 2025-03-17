@@ -1,6 +1,5 @@
 "use client";
 
-import noImages from "@/assets/noImage";
 import siteMetadata from "@/data/siteMetadata";
 import { ProductForm } from "@/interfaces/forms/products";
 import { productSchema } from "@/lib/validationSchemas/productSchema";
@@ -17,7 +16,6 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
-import Image from "next/image";
 import { createElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -32,6 +30,7 @@ import {
   CloudinaryUploadWidgetInfo,
   CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
+import { deleteCloudinaryImage } from "@/cloudinary/functions";
 
 export default function AddProduct() {
   const currentType = useSelector(
@@ -40,17 +39,31 @@ export default function AddProduct() {
   const formActive = useSelector(
     (state: { TAPSlice: { formActive: boolean } }) => state.TAPSlice.formActive
   );
+  const [currentOriginalFileName, setOriginalFileName] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const formInitialValues: ProductForm = {
+    image: "",
+    promoted: "false",
+    name: "",
+    type: "0",
+    overview: "",
+    desc: "",
+  };
+
   const postProduct = async (params: ProductForm) => {
+    if (!params.image || !params.name) {
+      return;
+    }
+
     try {
       const API: string =
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
       const output = await axios.post(API, {
-        image: "",
+        image: params.image,
         promoted: "false",
         name: params.name,
         type: params.type,
@@ -69,6 +82,7 @@ export default function AddProduct() {
       router.refresh();
 
       dispatch(updateDashboardProduct({ product: output.data.data }));
+      dispatch(toggleAddProduct(false));
     } catch (err) {
       setSubmitted(false);
       ErrorHandler(err);
@@ -83,15 +97,7 @@ export default function AddProduct() {
 
   return (
     <Formik
-      initialValues={{
-        // image: "",
-        image: "",
-        promoted: "false",
-        name: "",
-        type: "0",
-        overview: "",
-        desc: "",
-      }}
+      initialValues={formInitialValues}
       validationSchema={productSchema}
       onSubmit={(values) => {
         setSubmitted(true);
@@ -100,7 +106,15 @@ export default function AddProduct() {
       }}
     >
       {(props: FormikProps<ProductForm>) => {
-        const { values, setFieldValue, submitForm, resetForm } = props;
+        const {
+          values,
+          handleSubmit,
+          setFieldValue,
+          resetForm,
+          isValid,
+          isSubmitting,
+          submitForm,
+        } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
           {
@@ -108,6 +122,8 @@ export default function AddProduct() {
             icon: XCircleIcon,
             action: () => {
               dispatch(toggleAddProduct(false));
+              const prevImage: string = values.image;
+
               resetForm();
               ["name", "overview", "desc"].forEach((inputField: string) => {
                 ["light", "dark"].forEach((theme: string) => {
@@ -117,6 +133,19 @@ export default function AddProduct() {
                   input.value = "";
                 });
               });
+
+              if (typeof localStorage.CloudinaryPendingUploads === "string") {
+                let newString: string = "";
+                localStorage.CloudinaryPendingUploads.split("||")
+                  .filter((publicID: string) => {
+                    return publicID && publicID !== prevImage;
+                  })
+                  .forEach((publicID: string) => {
+                    newString += publicID + "||";
+                  });
+                localStorage.CloudinaryPendingUploads = newString;
+                deleteCloudinaryImage(prevImage);
+              }
             },
           },
           {
@@ -131,28 +160,47 @@ export default function AddProduct() {
                 <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
               </svg>
             ),
+            buttonType: "submit",
             action: async () => {
               await setFieldValue("type", String(currentType));
-              try {
+              if (!isSubmitting) {
                 await submitForm();
-              } catch (err) {
-                console.log(err);
               }
-              resetForm();
-              ["name", "overview", "desc"].forEach((inputField: string) => {
-                ["light", "dark"].forEach((theme: string) => {
-                  const input = document.getElementById(
-                    inputField + "-input-" + theme
-                  ) as HTMLInputElement;
-                  input.value = "";
-                });
-              });
             },
           },
         ];
 
         return (
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              const prevImage: string = values.image;
+              handleSubmit(e);
+
+              if (isValid) {
+                resetForm();
+                ["name", "overview", "desc"].forEach((inputField: string) => {
+                  ["light", "dark"].forEach((theme: string) => {
+                    const input = document.getElementById(
+                      inputField + "-input-" + theme
+                    ) as HTMLInputElement;
+                    input.value = "";
+                  });
+                });
+
+                if (typeof localStorage.CloudinaryPendingUploads === "string") {
+                  let newString: string = "";
+                  localStorage.CloudinaryPendingUploads.split("||")
+                    .filter((publicID: string) => {
+                      return publicID && publicID !== prevImage;
+                    })
+                    .forEach((publicID: string) => {
+                      newString += publicID + "||";
+                    });
+                  localStorage.CloudinaryPendingUploads = newString;
+                }
+              }
+            }}
+          >
             <Field type="hidden" name="image" />
             <Field type="hidden" name="promoted" value="false" />
             <Field type="hidden" name="name" />
@@ -168,38 +216,91 @@ export default function AddProduct() {
                 floated={false}
                 className="m-auto w-full rounded-b-none"
               >
-                {/* going to need to file input using regular input tag, then onChange event setFieldValue event.currentTarget into the formik Field */}
-                {/* <Image
-                  src={noImages[0]}
-                  width={500}
-                  height={800}
-                  alt={values.name}
-                  className="h-full w-full object-cover"
-                  priority
-                /> */}
                 <div className="pt-6 pb-2 place-items-center bg-[#fffcf6] dark:bg-gray-900">
                   <CldUploadWidget
                     signatureEndpoint={
                       process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary/sign"
                     }
+                    onUploadAdded={(result: CloudinaryUploadWidgetResults) => {
+                      const prevImage: string = values.image;
+                      setFieldValue("image", "");
+
+                      if (
+                        typeof localStorage.CloudinaryPendingUploads ===
+                          "string" &&
+                        localStorage.CloudinaryPendingUploads.split("||").find(
+                          (publicID: string) => {
+                            return publicID === prevImage;
+                          }
+                        )
+                      ) {
+                        let newString: string = "";
+                        localStorage.CloudinaryPendingUploads.split("||")
+                          .filter((publicID: string) => {
+                            return publicID && publicID !== prevImage;
+                          })
+                          .forEach((publicID: string) => {
+                            newString += publicID + "||";
+                          });
+                        localStorage.CloudinaryPendingUploads = newString;
+
+                        deleteCloudinaryImage(prevImage);
+                      }
+                    }}
                     onSuccess={(result: CloudinaryUploadWidgetResults) => {
                       const info = result.info as CloudinaryUploadWidgetInfo;
-                      console.log(info.public_id);
+                      setOriginalFileName(info.original_filename);
+
+                      setFieldValue("image", String(info.public_id));
+
+                      if (
+                        typeof localStorage.CloudinaryPendingUploads ===
+                        "string"
+                      ) {
+                        localStorage.CloudinaryPendingUploads +=
+                          String(info.public_id) + "||";
+                      } else {
+                        localStorage.CloudinaryPendingUploads =
+                          String(info.public_id) + "||";
+                      }
                     }}
                   >
                     {({ open }) => {
                       return (
-                        <Button
-                          variant="text"
-                          className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
-                          ripple={true}
-                          onClick={() => open()}
-                        >
-                          {createElement(CloudArrowUpIcon, {
-                            className: "w-5 h-5 -ml-1",
-                          })}
-                          Upload image
-                        </Button>
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            variant="text"
+                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
+                            ripple={true}
+                            onClick={() => open()}
+                          >
+                            {createElement(CloudArrowUpIcon, {
+                              className: "w-5 h-5 -ml-1",
+                            })}
+                            <div className="flex flex-row gap-2">
+                              <span>
+                                {values.image ? "Uploaded: " : "Upload image"}
+                              </span>
+                              <span
+                                className={
+                                  values.image ? "normal-case" : "hidden"
+                                }
+                              >
+                                {currentOriginalFileName}
+                              </span>
+                            </div>
+                          </Button>
+                          <ErrorMessage name="image">
+                            {(err) => (
+                              <div
+                                aria-label={`Error message: ${err}`}
+                                className="mt-[0.1rem] flex flex-col text-center text-sm text-red-600"
+                              >
+                                <span>{err}</span>
+                              </div>
+                            )}
+                          </ErrorMessage>
+                        </div>
                       );
                     }}
                   </CldUploadWidget>
@@ -390,7 +491,6 @@ export default function AddProduct() {
                 </div>
               </CardBody>
               <CardFooter className="pt-0 dark:text-white">
-                {/* <ContactToPurchase dashboard={true} /> */}
                 <p>Type: {productTypes[(currentType ? currentType : 1) - 1]}</p>
                 <a href="#dashboard-title">Select a different type</a>
               </CardFooter>

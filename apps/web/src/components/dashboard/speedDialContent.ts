@@ -18,6 +18,7 @@ import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import siteMetadata from "@/data/siteMetadata";
 import ErrorHandler from "@/errorhandler/error-handler";
 import { promoteDemoteProduct } from "@/redux/slices/promoteDemoteProduct";
+import { deleteCloudinaryImage } from "@/cloudinary/functions";
 
 function useSpeedDialContent(
   product: Product,
@@ -265,6 +266,8 @@ function useSpeedDialContent(
                 "/data/product/" +
                 product.id;
               const output = await axios.delete(API);
+
+              await deleteCloudinaryImage(output.data.data.image)
 
               if (!output) throw Error();
 

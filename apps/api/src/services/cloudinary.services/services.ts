@@ -21,11 +21,11 @@ export default class CloudinaryServices {
   static async destroy(req: Request) {
     try {
       const publicID = req.body.publicID as string;
-      const resource_type = req.body.type as string;
+      const resource_type = req.body.resource_type as string;
 
       const data = await cloudinary.api.delete_resources([publicID], {
         type: "upload",
-        resource_type: resource_type,
+        resource_type: resource_type || "image",
       });
 
       if (data.deleted[publicID] === "not_found") {
