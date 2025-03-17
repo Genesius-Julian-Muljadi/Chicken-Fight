@@ -44,6 +44,10 @@ const config: Config = withMT({
           "900": "#301b08",
           "950": "#1f1105",
         },
+        productCard: {
+          light: "#fffcf6",
+          dark: "#111827",
+        },
       },
       zIndex: {
         60: "60",

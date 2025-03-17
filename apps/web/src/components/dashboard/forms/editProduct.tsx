@@ -168,7 +168,7 @@ export default function EditProduct({ product }: { product: Product }) {
             <Field type="hidden" name="type" />
             <Field type="hidden" name="overview" />
             <Field type="hidden" name="desc" />
-            <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+            <Card className="w-full max-w-[30rem] mx-auto bg-productCard-light dark:bg-productCard-dark dark:shadow-gray-800">
               <div className="absolute bottom-4 right-4 rounded-full">
                 <DashboardSpeedDial contents={speedDialContents} />
               </div>

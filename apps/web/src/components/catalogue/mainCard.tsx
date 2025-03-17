@@ -26,7 +26,7 @@ export function MainCard({
   allProducts?: Array<Product>;
 }) {
   return (
-    <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+    <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-productCard-light dark:bg-productCard-dark dark:shadow-gray-800">
       {dashboard ? (
         <div className="absolute bottom-4 right-4 rounded-full z-40">
           {/* <div className="absolute top-4 right-4 rounded-full z-40"> */}
