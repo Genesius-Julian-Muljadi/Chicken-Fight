@@ -6,6 +6,7 @@ import { ArrowUpRightIcon, ArrowDownIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
 import { toggleProductType } from "@/redux/slices/toggleProductType";
 import productTypes from "../../data/productTypes";
+import { useRouter } from "next/navigation";
 
 const typeData = [
   {
@@ -26,7 +27,7 @@ export default function CatalogueHeaderTab({
   // Array of counts for each product type
   props?: Array<number>;
 }) {
-
+  const router = useRouter();
   const dispatch = useDispatch();
 
   return (
@@ -44,6 +45,7 @@ export default function CatalogueHeaderTab({
             value={value}
             onClick={() => {
               dispatch(toggleProductType(value));
+              router.refresh();
             }}
           >
             <div className="flex items-center gap-2 px-8 dark:text-white font-medium text-nowrap">
