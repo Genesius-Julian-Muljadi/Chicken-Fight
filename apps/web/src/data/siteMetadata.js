@@ -10,13 +10,13 @@ const siteMetadata = {
   homeHeaderDescription2: "",
   testimonialHeader: "",
   testimonialDescription: "",
-  language: "en-us",
+  // language: "en-us",
   locale: "id-ID",
   whatsapp: "",
   lynk: "",
   maxMainProducts: 1, // Must be at least 1 or things will break
   theme: "system", // system, dark or light
-  // set to true if you want a navbar fixed to the top
+  // Set to true if you want a navbar fixed to the top
   stickyNav: true,
   analytics: {
     // If you want to use an analytics provider you have to add it to the
