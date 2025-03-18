@@ -4,8 +4,8 @@ import { Typography, IconButton, Button } from "@material-tailwind/react";
 import siteMetadata from "@/data/siteMetadata";
 import Link from "next/link";
 
-const LINKS = ["About Us", "Careers", "Press", "Blog", "Pricing"];
-const CURRENT_YEAR = new Date().getFullYear();
+// const LINKS = ["About Us", "Careers", "Press", "Blog", "Pricing"];
+// const CURRENT_YEAR = new Date().getFullYear();
 
 export function Footer() {
   return (
@@ -16,12 +16,15 @@ export function Footer() {
             href={siteMetadata.whatsapp ? "tel:" + siteMetadata.whatsapp : "/"}
             className="flex flex-row gap-2 cursor-pointer"
           >
-            <IconButton variant="text" className="text-[#62c076] bg-backtheme-950 dark:bg-backtheme-50 bg-opacity-5 dark:bg-opacity-10 hover:bg-backtheme-950/20 dark:hover:bg-backtheme-50/20">
+            <IconButton
+              variant="text"
+              className="text-[#62c076] bg-backtheme-950 dark:bg-backtheme-50 bg-opacity-5 dark:bg-opacity-10 hover:bg-backtheme-950/20 dark:hover:bg-backtheme-50/20"
+            >
               <i className="fa-brands fa-whatsapp text-3xl not-italic opacity-75"></i>
             </IconButton>
             <Typography
               color="blue-gray"
-              className="text-center font-semibold opacity-75 m-auto dark:text-white"
+              className="text-center font-semibold opacity-75 m-auto dark:text-white text-sm sm:text-base"
             >
               {siteMetadata.whatsapp
                 ? "WhatsApp: " + siteMetadata.whatsapp
@@ -29,10 +32,10 @@ export function Footer() {
             </Typography>
           </a>
 
-          <div className="flex gap-6">
+          <div className="flex gap-3 sm:gap-6">
             <Typography
               color="blue-gray"
-              className="text-center font-semibold opacity-75 m-auto dark:text-white"
+              className="text-center font-semibold opacity-75 m-auto dark:text-white text-sm sm:text-base"
             >
               Links
             </Typography>
