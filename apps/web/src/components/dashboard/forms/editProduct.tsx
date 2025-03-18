@@ -1,11 +1,11 @@
 "use client";
 
-import noImages from "@/assets/noImage";
 import siteMetadata from "@/data/siteMetadata";
 import { ProductForm } from "@/interfaces/forms/products";
 import { productSchema } from "@/lib/validationSchemas/productSchema";
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -18,8 +18,7 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
@@ -29,6 +28,16 @@ import { Product } from "@/interfaces/databaseTables";
 import { toggleEditProduct } from "@/redux/slices/toggleEditProduct";
 import productTypes from "@/data/productTypes";
 import ErrorHandler from "@/errorhandler/error-handler";
+import {
+  clearCloudinaryLocalStorage,
+  deleteCloudinaryImage,
+  setCloudinaryLocalStorage,
+} from "@/cloudinary/functions";
+import {
+  CldUploadWidget,
+  CloudinaryUploadWidgetInfo,
+  CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 
 interface EditOption {
   productID: number;
@@ -40,13 +49,20 @@ export default function EditProduct({ product }: { product: Product }) {
     (state: { TEPSlice: { options: EditOption | null } }) =>
       state.TEPSlice.options
   );
+  const [currentOriginalFileName, setOriginalFileName] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
   const postProduct = async (params: ProductForm) => {
+    if (!params.image || !params.name) {
+      return;
+    }
+
     try {
+      const prevImage: string = product.image;
+
       const API: string =
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
       const output = await axios.post(API, {
@@ -65,6 +81,11 @@ export default function EditProduct({ product }: { product: Product }) {
         icon: "success",
         title: "Product editted!",
       });
+
+      clearCloudinaryLocalStorage(params.image, false);
+      if (prevImage !== params.image) {
+        deleteCloudinaryImage(prevImage);
+      }
 
       router.push("/admin/dashboard");
       router.refresh();
@@ -90,7 +111,6 @@ export default function EditProduct({ product }: { product: Product }) {
   return (
     <Formik
       initialValues={{
-        // image: "",
         image: product.image,
         promoted: "false",
         name: product.name,
@@ -106,7 +126,14 @@ export default function EditProduct({ product }: { product: Product }) {
       }}
     >
       {(props: FormikProps<ProductForm>) => {
-        const { values, setFieldValue, submitForm, resetForm } = props;
+        const {
+          values,
+          handleSubmit,
+          setFieldValue,
+          resetForm,
+          isSubmitting,
+          submitForm,
+        } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
           {
@@ -116,28 +143,19 @@ export default function EditProduct({ product }: { product: Product }) {
               dispatch(
                 toggleEditProduct({ productID: product.id, editActive: false })
               );
+              const prevImage: string = values.image;
+
               resetForm();
-              ["light", "dark"].forEach((theme: string) => {
-                const nameInput = document.getElementById(
-                  "name-input-edit-" + theme
-                ) as HTMLInputElement;
-                nameInput.value = product.name;
-
-                const overviewInput = document.getElementById(
-                  "overview-input-edit-" + theme
-                ) as HTMLInputElement;
-                overviewInput.value = product.overview || "";
-
-                const descInput = document.getElementById(
-                  "desc-input-edit-" + theme
-                ) as HTMLInputElement;
-                descInput.value = product.desc || "";
+              ["name", "overview", "desc"].forEach((inputField: string) => {
+                ["light", "dark"].forEach((theme: string) => {
+                  const input = document.getElementById(
+                    inputField + "-input-edit-" + theme
+                  ) as HTMLInputElement;
+                  input.value = "";
+                });
               });
 
-              const typeInput = document.getElementById(
-                "type-input-edit-" + product.id
-              ) as HTMLSelectElement;
-              typeInput.value = String(product.type);
+              clearCloudinaryLocalStorage(prevImage, true);
             },
           },
           {
@@ -154,14 +172,15 @@ export default function EditProduct({ product }: { product: Product }) {
             ),
             buttonType: "submit",
             action: async () => {
-              // console.log(values)
-              await submitForm();
+              if (!isSubmitting) {
+                await submitForm();
+              }
             },
           },
         ];
 
         return (
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Field type="hidden" name="image" />
             <Field type="hidden" name="promoted" value="false" />
             <Field type="hidden" name="name" />
@@ -177,15 +196,68 @@ export default function EditProduct({ product }: { product: Product }) {
                 floated={false}
                 className="m-auto w-full rounded-b-none"
               >
-                {/* going to need to file input using regular input tag, then onChange event setFieldValue event.currentTarget into the formik Field */}
-                <Image
-                  src={noImages[0]}
-                  width={500}
-                  height={800}
-                  alt={values.name}
-                  className="h-full w-full object-cover"
-                  priority
-                />
+                <div className="pt-6 pb-2 place-items-center bg-productCard-light dark:bg-productCard-dark">
+                  <CldUploadWidget
+                    signatureEndpoint={
+                      process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary/sign"
+                    }
+                    onUploadAdded={(result: CloudinaryUploadWidgetResults) => {
+                      const prevImage: string = values.image;
+                      setFieldValue("image", "");
+
+                      clearCloudinaryLocalStorage(prevImage, true);
+                    }}
+                    onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                      const info = result.info as CloudinaryUploadWidgetInfo;
+                      setOriginalFileName(info.original_filename);
+                      setFieldValue("image", String(info.public_id));
+                      setCloudinaryLocalStorage(String(info.public_id));
+                    }}
+                  >
+                    {({ open }) => {
+                      return (
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            variant="text"
+                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
+                            ripple={true}
+                            onClick={() => open()}
+                          >
+                            {createElement(CloudArrowUpIcon, {
+                              className: "w-5 h-5 -ml-1",
+                            })}
+                            <div className="flex flex-row gap-2">
+                              <span>
+                                {currentOriginalFileName
+                                  ? "Uploaded: "
+                                  : "Upload image"}
+                              </span>
+                              <span
+                                className={
+                                  currentOriginalFileName
+                                    ? "normal-case"
+                                    : "hidden"
+                                }
+                              >
+                                {currentOriginalFileName}
+                              </span>
+                            </div>
+                          </Button>
+                          <ErrorMessage name="image">
+                            {(err) => (
+                              <div
+                                aria-label={`Error message: ${err}`}
+                                className="mt-[0.1rem] flex flex-col text-center text-sm text-red-600"
+                              >
+                                <span>{err}</span>
+                              </div>
+                            )}
+                          </ErrorMessage>
+                        </div>
+                      );
+                    }}
+                  </CldUploadWidget>
+                </div>
               </CardHeader>
               <CardBody>
                 <div className="flex items-center gap-2">

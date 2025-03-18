@@ -16,3 +16,29 @@ export async function deleteCloudinaryImage(publicID: string) {
     // nothing
   }
 }
+
+export function setCloudinaryLocalStorage(image: string) {
+  if (typeof localStorage.CloudinaryPendingUploads === "string") {
+    localStorage.CloudinaryPendingUploads += image + "||";
+  } else {
+    localStorage.CloudinaryPendingUploads = image + "||";
+  }
+}
+
+export function clearCloudinaryLocalStorage(image: string, destroy: boolean) {
+  if (typeof localStorage.CloudinaryPendingUploads === "string") {
+    let newString: string = "";
+    localStorage.CloudinaryPendingUploads.split("||")
+      .filter((publicID: string) => {
+        return publicID && publicID !== image;
+      })
+      .forEach((publicID: string) => {
+        newString += publicID + "||";
+      });
+    localStorage.CloudinaryPendingUploads = newString;
+
+    if (destroy) {
+      deleteCloudinaryImage(image);
+    }
+  }
+}

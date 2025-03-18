@@ -30,7 +30,11 @@ import {
   CloudinaryUploadWidgetInfo,
   CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
-import { deleteCloudinaryImage } from "@/cloudinary/functions";
+import {
+  clearCloudinaryLocalStorage,
+  deleteCloudinaryImage,
+  setCloudinaryLocalStorage,
+} from "@/cloudinary/functions";
 
 export default function AddProduct() {
   const currentType = useSelector(
@@ -68,6 +72,8 @@ export default function AddProduct() {
         icon: "success",
         title: "Product created!",
       });
+
+      clearCloudinaryLocalStorage(params.image, false);
 
       router.push("/admin/dashboard");
       router.refresh();
@@ -131,18 +137,7 @@ export default function AddProduct() {
                 });
               });
 
-              if (typeof localStorage.CloudinaryPendingUploads === "string") {
-                let newString: string = "";
-                localStorage.CloudinaryPendingUploads.split("||")
-                  .filter((publicID: string) => {
-                    return publicID && publicID !== prevImage;
-                  })
-                  .forEach((publicID: string) => {
-                    newString += publicID + "||";
-                  });
-                localStorage.CloudinaryPendingUploads = newString;
-                deleteCloudinaryImage(prevImage);
-              }
+              clearCloudinaryLocalStorage(prevImage, true);
             },
           },
           {
@@ -170,7 +165,6 @@ export default function AddProduct() {
         return (
           <Form
             onSubmit={(e) => {
-              const prevImage: string = values.image;
               handleSubmit(e);
 
               if (isValid) {
@@ -183,18 +177,6 @@ export default function AddProduct() {
                     input.value = "";
                   });
                 });
-
-                if (typeof localStorage.CloudinaryPendingUploads === "string") {
-                  let newString: string = "";
-                  localStorage.CloudinaryPendingUploads.split("||")
-                    .filter((publicID: string) => {
-                      return publicID && publicID !== prevImage;
-                    })
-                    .forEach((publicID: string) => {
-                      newString += publicID + "||";
-                    });
-                  localStorage.CloudinaryPendingUploads = newString;
-                }
               }
             }}
           >
@@ -204,7 +186,7 @@ export default function AddProduct() {
             <Field type="hidden" name="type" />
             <Field type="hidden" name="overview" />
             <Field type="hidden" name="desc" />
-            <Card className="w-full max-w-[30rem] mx-auto bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+            <Card className="w-full max-w-[30rem] mx-auto bg-productCard-light dark:bg-productCard-dark dark:shadow-gray-800">
               <div className="absolute bottom-4 right-4 rounded-full">
                 <DashboardSpeedDial contents={speedDialContents} />
               </div>
@@ -213,7 +195,7 @@ export default function AddProduct() {
                 floated={false}
                 className="m-auto w-full rounded-b-none"
               >
-                <div className="pt-6 pb-2 place-items-center bg-[#fffcf6] dark:bg-gray-900">
+                <div className="pt-6 pb-2 place-items-center bg-productCard-light dark:bg-productCard-dark">
                   <CldUploadWidget
                     signatureEndpoint={
                       process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary/sign"
@@ -247,19 +229,8 @@ export default function AddProduct() {
                     onSuccess={(result: CloudinaryUploadWidgetResults) => {
                       const info = result.info as CloudinaryUploadWidgetInfo;
                       setOriginalFileName(info.original_filename);
-
                       setFieldValue("image", String(info.public_id));
-
-                      if (
-                        typeof localStorage.CloudinaryPendingUploads ===
-                        "string"
-                      ) {
-                        localStorage.CloudinaryPendingUploads +=
-                          String(info.public_id) + "||";
-                      } else {
-                        localStorage.CloudinaryPendingUploads =
-                          String(info.public_id) + "||";
-                      }
+                      setCloudinaryLocalStorage(String(info.public_id))
                     }}
                   >
                     {({ open }) => {

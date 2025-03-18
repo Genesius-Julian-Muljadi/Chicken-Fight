@@ -1,14 +1,13 @@
 "use client";
 
-import noImages from "@/assets/noImage";
 import siteMetadata from "@/data/siteMetadata";
 import { ProductForm } from "@/interfaces/forms/products";
 import { productSchema } from "@/lib/validationSchemas/productSchema";
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import {
+  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Input,
   Textarea,
@@ -16,8 +15,7 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import DashboardSpeedDial, { SpeedDialContent } from "../SpeedDial";
@@ -26,6 +24,15 @@ import { useRouter } from "next/navigation";
 import { updateDashboardProduct } from "@/redux/slices/updateDashboardProduct";
 import productTypes from "@/data/productTypes";
 import ErrorHandler from "@/errorhandler/error-handler";
+import {
+  clearCloudinaryLocalStorage,
+  setCloudinaryLocalStorage,
+} from "@/cloudinary/functions";
+import {
+  CldUploadWidget,
+  CloudinaryUploadWidgetInfo,
+  CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 
 export default function AddProductMain() {
   const currentType = useSelector(
@@ -35,12 +42,17 @@ export default function AddProductMain() {
     (state: { TAMPSlice: { formActive: boolean } }) =>
       state.TAMPSlice.formActive
   );
+  const [currentOriginalFileName, setOriginalFileName] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
   const postProductMain = async (params: ProductForm) => {
+    if (!params.image || !params.name) {
+      return;
+    }
+
     try {
       const API: string =
         process.env.NEXT_PUBLIC_BASE_API_URL + "/data/product";
@@ -59,6 +71,8 @@ export default function AddProductMain() {
         icon: "success",
         title: "Product created!",
       });
+
+      clearCloudinaryLocalStorage(params.image, false);
 
       router.push("/admin/dashboard");
       router.refresh();
@@ -80,7 +94,6 @@ export default function AddProductMain() {
   return (
     <Formik
       initialValues={{
-        // image: "",
         image: "",
         promoted: "true",
         name: "",
@@ -91,12 +104,19 @@ export default function AddProductMain() {
       validationSchema={productSchema}
       onSubmit={(values) => {
         setSubmitted(true);
-        // console.log(values);
         postProductMain(values);
       }}
     >
       {(props: FormikProps<ProductForm>) => {
-        const { setFieldValue, resetForm, isValid } = props;
+        const {
+          values,
+          handleSubmit,
+          setFieldValue,
+          resetForm,
+          isValid,
+          isSubmitting,
+          submitForm,
+        } = props;
 
         const speedDialContents: Array<SpeedDialContent> = [
           {
@@ -104,6 +124,8 @@ export default function AddProductMain() {
             icon: XCircleIcon,
             action: () => {
               dispatch(toggleAddMainProduct(false));
+              const prevImage: string = values.image;
+
               resetForm();
               ["name", "overview", "desc"].forEach((inputField: string) => {
                 ["light", "dark"].forEach((theme: string) => {
@@ -113,6 +135,8 @@ export default function AddProductMain() {
                   input.value = "";
                 });
               });
+
+              clearCloudinaryLocalStorage(prevImage, true);
             },
           },
           {
@@ -130,6 +154,18 @@ export default function AddProductMain() {
             buttonType: "submit",
             action: async () => {
               await setFieldValue("type", String(currentType));
+              if (!isSubmitting) {
+                await submitForm();
+              }
+            },
+          },
+        ];
+
+        return (
+          <Form
+            onSubmit={(e) => {
+              handleSubmit(e);
+
               if (isValid) {
                 resetForm();
                 ["name", "overview", "desc"].forEach((inputField: string) => {
@@ -141,19 +177,15 @@ export default function AddProductMain() {
                   });
                 });
               }
-            },
-          },
-        ];
-
-        return (
-          <Form>
+            }}
+          >
             <Field type="hidden" name="image" />
             <Field type="hidden" name="promoted" value="false" />
             <Field type="hidden" name="name" />
             <Field type="hidden" name="type" />
             <Field type="hidden" name="overview" />
             <Field type="hidden" name="desc" />
-            <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-[#fffcf6] dark:bg-gray-900 dark:shadow-gray-800">
+            <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-productCard-light dark:bg-productCard-dark dark:shadow-gray-800">
               <div className="absolute bottom-4 right-4 rounded-full">
                 <DashboardSpeedDial contents={speedDialContents} />
               </div>
@@ -162,15 +194,64 @@ export default function AddProductMain() {
                 floated={false}
                 className="m-0 md:w-[45%] lg:w-1/2 shrink-0 rounded-r-xl md:rounded-r-none"
               >
-                <Image
-                  // src={product.image}
-                  src={noImages[0]}
-                  width={500}
-                  height={800}
-                  alt="main-product-image"
-                  className="h-full w-full object-cover"
-                  priority
-                />
+                <div className="pt-6 pb-2 md:pt-0 md:pb-0 md:h-full flex place-items-center bg-productCard-light dark:bg-productCard-dark">
+                  <CldUploadWidget
+                    signatureEndpoint={
+                      process.env.NEXT_PUBLIC_BASE_API_URL + "/cloudinary/sign"
+                    }
+                    onUploadAdded={(result: CloudinaryUploadWidgetResults) => {
+                      const prevImage: string = values.image;
+                      setFieldValue("image", "");
+
+                      clearCloudinaryLocalStorage(prevImage, true);
+                    }}
+                    onSuccess={(result: CloudinaryUploadWidgetResults) => {
+                      const info = result.info as CloudinaryUploadWidgetInfo;
+                      setOriginalFileName(info.original_filename);
+                      setFieldValue("image", String(info.public_id));
+                      setCloudinaryLocalStorage(String(info.public_id));
+                    }}
+                  >
+                    {({ open }) => {
+                      return (
+                        <div className="flex flex-col gap-2 m-auto">
+                          <Button
+                            variant="text"
+                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
+                            ripple={true}
+                            onClick={() => open()}
+                          >
+                            {createElement(CloudArrowUpIcon, {
+                              className: "w-5 h-5 -ml-1",
+                            })}
+                            <div className="flex flex-row gap-2">
+                              <span>
+                                {values.image ? "Uploaded: " : "Upload image"}
+                              </span>
+                              <span
+                                className={
+                                  values.image ? "normal-case" : "hidden"
+                                }
+                              >
+                                {currentOriginalFileName}
+                              </span>
+                            </div>
+                          </Button>
+                          <ErrorMessage name="image">
+                            {(err) => (
+                              <div
+                                aria-label={`Error message: ${err}`}
+                                className="mt-[0.1rem] flex flex-col text-center text-sm text-red-600"
+                              >
+                                <span>{err}</span>
+                              </div>
+                            )}
+                          </ErrorMessage>
+                        </div>
+                      );
+                    }}
+                  </CldUploadWidget>
+                </div>
               </CardHeader>
               <CardBody className="w-full">
                 <div className="mb-9 w-full relative">
