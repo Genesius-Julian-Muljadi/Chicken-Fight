@@ -19,15 +19,22 @@ export default function TestimonialTypography({
       variant="paragraph"
       className="font-serif text-lg lg:text-xl flex flex-col xl:flex-row xl:justify-between xl:gap-4"
     >
-      <i className="text-left">&quot;{`${testimony}`}&quot;</i>
+      <i aria-label={testimony} className="text-left">
+        &quot;{`${testimony}`}&quot;
+      </i>
       <span className="text-wrap flex flex-col xl:inline xl:text-nowrap">
         <span className="text-nowrap text-right">
-          <span>{`${testifier ? "- " + testifier : ""}`}</span>
+          <span aria-label={testifier}>{`${
+            testifier ? "- " + testifier : ""
+          }`}</span>
           <span className={`hidden${testifier ? " xl:inline" : ""}`}>
             {", "}
           </span>
         </span>
-        <span className="text-nowrap text-right">{`${dateDisplay}`}</span>
+        <span
+          aria-label={dateDisplay}
+          className="text-nowrap text-right"
+        >{`${dateDisplay}`}</span>
       </span>
     </Typography>
   );

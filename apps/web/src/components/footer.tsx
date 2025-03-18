@@ -18,12 +18,14 @@ export function Footer() {
           >
             <IconButton
               variant="text"
+              aria-label="WhatsApp"
               className="text-[#62c076] bg-backtheme-950 dark:bg-backtheme-50 bg-opacity-5 dark:bg-opacity-10 hover:bg-backtheme-950/20 dark:hover:bg-backtheme-50/20"
             >
               <i className="fa-brands fa-whatsapp text-3xl not-italic opacity-75"></i>
             </IconButton>
             <Typography
               color="blue-gray"
+              aria-label={siteMetadata.whatsapp}
               className="text-center font-semibold opacity-75 m-auto dark:text-white text-sm sm:text-base"
             >
               {siteMetadata.whatsapp
@@ -41,6 +43,7 @@ export function Footer() {
             </Typography>
             <Link
               href={siteMetadata.lynk || "/"}
+              aria-label="Lynk links"
               className="bg-white cursor-pointer hover:opacity-85 active:opacity-75 w-24 rounded-md grid"
             >
               <Image

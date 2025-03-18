@@ -1,7 +1,10 @@
 export default function NoAccess() {
   return (
-    <div>
-      <div>hello, world! no access!</div>
+    <div
+      aria-label="Unauthorized to view this page"
+      className="h-full w-full flex"
+    >
+      <div className="m-auto">Unauthorized to view this page</div>
     </div>
   );
 }

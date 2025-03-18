@@ -54,7 +54,7 @@ const ThemeSwitch = ({ scrolling }: { scrolling: boolean }) => {
   useEffect(() => setMounted(true), []);
 
   return (
-    <div className="mr-5 flex items-center">
+    <div aria-label="Theme switch" className="mr-5 flex items-center">
       <Menu as="div" className="relative inline-block text-left">
         <div
           className={`flex items-center justify-center${
@@ -85,7 +85,7 @@ const ThemeSwitch = ({ scrolling }: { scrolling: boolean }) => {
           <Menu.Items className="absolute right-0 z-50 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
             <RadioGroup value={theme} onChange={setTheme}>
               <div className="p-1">
-                <RadioGroup.Option value="light">
+                <RadioGroup.Option value="light" aria-label="Light">
                   <Menu.Item>
                     {({ active }) => (
                       <button
@@ -103,7 +103,7 @@ const ThemeSwitch = ({ scrolling }: { scrolling: boolean }) => {
                     )}
                   </Menu.Item>
                 </RadioGroup.Option>
-                <RadioGroup.Option value="dark">
+                <RadioGroup.Option value="dark" aria-label="Dark">
                   <Menu.Item>
                     {({ active }) => (
                       <button
@@ -121,7 +121,7 @@ const ThemeSwitch = ({ scrolling }: { scrolling: boolean }) => {
                     )}
                   </Menu.Item>
                 </RadioGroup.Option>
-                <RadioGroup.Option value="system">
+                <RadioGroup.Option value="system" aria-label="System">
                   <Menu.Item>
                     {({ active }) => (
                       <button

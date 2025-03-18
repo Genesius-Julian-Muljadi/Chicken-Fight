@@ -255,16 +255,6 @@ export default function DashboardProducts({
 
   return (
     <div className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 bg-gradient-to-b from-primary-100 via-primary-50 to-primary-50 dark:from-backtheme-900 dark:via-backtheme-950 dark:to-backtheme-950 rounded-xl rounded-tl-none shadow-md shadow-gray-700 dark:shadow-md dark:shadow-white/5 px-6 py-4">
-      {/* <button
-        className="border border-green-500"
-        onClick={() => {
-          console.log(updateProduct);
-          console.log(currentProducts);
-          console.log(currentEdits);
-        }}
-      >
-        check current products
-      </button> */}
       <div className="flex flex-col gap-8">
         <div className="grid grid-cols-1 grid-rows-1">
           <div

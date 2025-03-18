@@ -58,7 +58,9 @@ function AdminLogin() {
 
   return (
     <div className="flex min-h-screen h-auto w-auto flex-col items-center justify-center gap-6">
-      <h1 className="text-2xl font-bold">Admin Access</h1>
+      <h1 aria-label="Admin Access" className="text-2xl font-bold">
+        Admin Access
+      </h1>
       <Formik
         initialValues={{
           regkey: "",
@@ -92,6 +94,8 @@ function AdminLogin() {
                   placeholder="Ask site creator for registration key"
                   disabled={submitted}
                   aria-label="Admin registration key text box"
+                  aria-invalid={errors.regkey !== undefined}
+                  aria-describedby={String(errors.regkey)}
                   className="mt-2 flex h-10 w-full items-center rounded bg-gray-100 px-3 text-sm text-black border dark:border-none focus:outline-1 focus:ring-zinc-600 sm:h-12 sm:px-4 sm:text-base"
                 />
                 {touched.regkey && errors.regkey ? (
@@ -113,6 +117,8 @@ function AdminLogin() {
                   placeholder="Type password here"
                   disabled={submitted}
                   aria-label="Password text box"
+                  aria-invalid={errors.password !== undefined}
+                  aria-describedby={String(errors.password)}
                   className={`mt-2 flex h-10 w-full items-center rounded bg-gray-100 px-3 text-sm text-black border dark:border-none focus:outline-1 focus:ring-zinc-600 sm:h-12 sm:px-4 sm:text-base`}
                 />
                 {touched.password && errors.password ? (
@@ -123,7 +129,18 @@ function AdminLogin() {
                 <button
                   type="submit"
                   className="mx-auto flex h-12 items-center justify-center rounded-lg uppercase bg-blue-400 dark:bg-blue-600 px-6 text-sm font-semibold text-black dark:text-blue-gray-100 shadow-sm shadow-slate-400 hover:bg-blue-700 sm:w-64"
-                  aria-label="Log in button"
+                  aria-label="Log in"
+                  aria-invalid={errors.regkey !== undefined || errors.password !== undefined}
+                  
+                  aria-describedby={
+                    String(
+                      errors.regkey === undefined ? "" : errors.regkey
+                    ) +
+                    ". " +
+                    String(
+                      errors.password === undefined ? "" : errors.password
+                    )
+                  }
                 >
                   Log in
                 </button>

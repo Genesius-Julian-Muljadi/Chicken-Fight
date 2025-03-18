@@ -45,7 +45,7 @@ export default function DashboardSpeedDial({
   placement,
 }: {
   contents?: Array<SpeedDialContent>;
-  placement?: "top" | "left" | "right" | "bottom"
+  placement?: "top" | "left" | "right" | "bottom";
 }) {
   const SPEED_DIAL_CONTENT: Array<SpeedDialContent> =
     contents && contents.length > 0 ? contents : speedDialContentSample;
@@ -65,6 +65,7 @@ export default function DashboardSpeedDial({
         {SPEED_DIAL_CONTENT.map((content: SpeedDialContent, index: number) => (
           <SpeedDialAction
             key={content.title + index}
+            aria-label={content.title}
             className="relative bg-primary-200 dark:bg-primary-700 dark:border-primary-800/40 shadow-md shadow-gray-400 dark:shadow-gray-700/40 text-black dark:text-white"
             onClick={content.action}
             type={content.buttonType ? content.buttonType : "button"}

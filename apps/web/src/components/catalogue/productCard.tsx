@@ -30,7 +30,10 @@ export function ProductCard({
   return (
     <Card className="w-full max-w-[30rem] mx-auto bg-productCard-light dark:bg-productCard-dark dark:shadow-gray-800">
       {dashboard ? (
-        <div className="absolute bottom-4 right-4 rounded-full z-40">
+        <div
+          aria-label="Product speed dial"
+          className="absolute bottom-4 right-4 rounded-full z-40"
+        >
           {/* <div className="absolute top-4 right-4 rounded-full z-40"> */}
           <DashboardSpeedDial
             contents={speedDialContent(product, allProducts || ProductSamples)}
@@ -47,7 +50,8 @@ export function ProductCard({
             src={noImages[0]}
             width={500}
             height={800}
-            alt={"Main product: " + product.name}
+            alt={product.name}
+            aria-label={product.name}
             className="h-full w-full object-cover"
             priority
           />
@@ -56,7 +60,8 @@ export function ProductCard({
             src={product.image}
             width={500}
             height={800}
-            alt={"Main product: " + product.name}
+            alt={product.name}
+            aria-label={product.name}
             className="h-full w-full object-cover"
             priority
           />
@@ -66,12 +71,18 @@ export function ProductCard({
         <div className="mb-2 flex items-center justify-between">
           <Typography
             color="blue-gray"
+            aria-label={product.name}
             className="font-extrabold dark:text-blue-gray-50 uppercase"
           >
             {product.name}
           </Typography>
           <Typography
             color="blue-gray"
+            aria-label={Intl.DateTimeFormat(siteMetadata.locale, {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            }).format(new Date(product.dateCreated))}
             className="font-semibold dark:text-blue-gray-50"
           >
             {Intl.DateTimeFormat(siteMetadata.locale, {
@@ -84,6 +95,7 @@ export function ProductCard({
         <Typography
           variant="small"
           color="blue-gray"
+          aria-label={product.overview || ""}
           className="font-medium dark:text-blue-gray-50 normal-case"
         >
           {product.overview || ""}
@@ -91,6 +103,7 @@ export function ProductCard({
         <Typography
           variant="small"
           color="gray"
+          aria-label={product.desc || ""}
           className="font-normal opacity-75 dark:text-gray-50"
         >
           {product.desc || ""}

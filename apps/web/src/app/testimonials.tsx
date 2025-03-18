@@ -25,12 +25,16 @@ export function Testimonials({
           <Typography
             variant="h2"
             color="blue-gray"
+            aria-label={siteMetadata.testimonialHeader || "testimonialHeader"}
             className="mb-2 dark:text-white"
           >
             {siteMetadata.testimonialHeader || "testimonialHeader"}
           </Typography>
           <Typography
             variant="lead"
+            aria-label={
+              siteMetadata.testimonialDescription || "testimonialDescription"
+            }
             className="mb-10 max-w-3xl text-center text-gray-600 dark:text-gray-200"
           >
             {siteMetadata.testimonialDescription || "testimonialDescription"}

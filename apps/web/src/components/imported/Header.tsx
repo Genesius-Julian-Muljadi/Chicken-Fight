@@ -12,6 +12,8 @@ import { AccessTokenUser } from "@/interfaces/accesstokens";
 import headerNavLinksLoggedIn from "@/data/headerNavLinksLoggedIn";
 import { Provider, useSelector } from "react-redux";
 import { store } from "@/redux/store";
+import Image from "next/image";
+import noImages from "@/assets/noImage";
 
 const Header = ({ token }: { token: AccessTokenUser | null }) => {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -59,14 +61,30 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
         id="global-header"
       >
         <div className="flex items-center justify-between mx-auto max-w-3xl xl:max-w-full">
-          <Link href="/" aria-label={siteMetadata.headerTitle || "headerTitle"}>
+          <Link
+            href="/"
+            aria-label={
+              (siteMetadata.headerTitle || "headerTitle") + " home page"
+            }
+          >
             <div className="flex items-center justify-between">
               <div
                 className={`block sm:hidden md:block mr-3${
                   isScrolling ? "" : " text-black dark:text-white"
                 }`}
               >
-                {/* <Logo /> */}logo
+                {siteMetadata.headerLogo ? (
+                  <Image
+                    src={siteMetadata.headerLogo || noImages[0]}
+                    width={siteMetadata.headerLogoWidth || 32}
+                    height={siteMetadata.headerLogoHeight || 32}
+                    alt={siteMetadata.headerTitle}
+                    className="h-full w-full object-cover"
+                    priority
+                  />
+                ) : (
+                  <span>logo</span>
+                )}
               </div>
               {typeof siteMetadata.headerTitle === "string" ? (
                 <div
@@ -82,7 +100,7 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
             </div>
           </Link>
           <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-            <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
+            <div className="no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto md:flex md:space-x-6 md:max-w-72 lg:max-w-96">
               {navLinks.length > 1 ? (
                 navLinks
                   .filter((link) => link.href !== "/")
@@ -90,6 +108,7 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
                     <Link
                       key={link.title}
                       href={link.href}
+                      aria-label={link.title}
                       className={`block font-medium hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400${
                         isScrolling
                           ? " text-gray-900"

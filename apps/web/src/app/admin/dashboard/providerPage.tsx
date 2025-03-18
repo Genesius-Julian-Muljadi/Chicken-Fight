@@ -28,7 +28,13 @@ export default function ProviderAdminDashboard({
   return (
     <Provider store={store}>
       <div className="flex flex-row justify-between mt-20 mb-4 mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 text-center dark:text-white text-xl sm:text-2xl md:text-3xl font-bold">
-        <span className="my-auto md:my-0" id="dashboard-title">Admin Dashboard</span>
+        <span
+          aria-label="Admin Dashboard"
+          className="my-auto md:my-0"
+          id="dashboard-title"
+        >
+          Admin Dashboard
+        </span>
         <div className="flex flex-row gap-2 my-auto md:my-0">
           <IconButton
             variant="text"
@@ -39,13 +45,18 @@ export default function ProviderAdminDashboard({
           </IconButton>
           <Typography
             color="blue-gray"
+            aria-label={
+              siteMetadata.whatsapp
+                ? "WhatsApp: " + siteMetadata.whatsapp
+                : "whatsapp phone number"
+            }
             className="text-center font-semibold opacity-75 m-auto dark:text-white"
           >
             {siteMetadata.whatsapp
               ? "WhatsApp: " + siteMetadata.whatsapp
               : "whatsapp phone number"}
           </Typography>
-          <div className="my-auto md:my-0">
+          <div aria-label="WhatsApp speed dial" className="my-auto md:my-0">
             <DashboardSpeedDial
               contents={speedDialContent}
               placement="bottom"

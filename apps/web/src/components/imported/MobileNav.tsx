@@ -41,9 +41,9 @@ const MobileNav = ({
   return (
     <>
       <button
-        aria-label="Toggle Menu"
+        aria-label="Toggle mobile menu"
         onClick={onToggleNav}
-        className="sm:hidden"
+        className="md:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +95,7 @@ const MobileNav = ({
                     <Link
                       key={link.title}
                       href={link.href}
+                      aria-label={link.title}
                       className="mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline outline-0 hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700"
                       onClick={onToggleNav}
                     >
@@ -107,7 +108,7 @@ const MobileNav = ({
 
               <button
                 className="fixed right-4 top-7 z-80 h-16 w-16 p-4 text-gray-900 hover:text-primary-700 dark:text-gray-100 dark:hover:text-primary-700"
-                aria-label="Toggle Menu"
+                aria-label="Toggle mobile menu"
                 onClick={onToggleNav}
               >
                 <svg

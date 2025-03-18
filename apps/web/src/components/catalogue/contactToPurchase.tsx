@@ -24,6 +24,12 @@ export default function ContactToPurchase({
             ? "/dashboard"
             : "/catalogue"
         }
+        aria-label={
+          "Contact to Purchase: " +
+          (siteMetadata.whatsapp
+            ? siteMetadata.whatsapp
+            : "WhatsApp phone number")
+        }
         className="col-start-1 row-start-1 col-end-2 row-end-2 inline-block sm:hidden mt-8"
       >
         <Button
@@ -37,7 +43,15 @@ export default function ContactToPurchase({
           Contact to purchase
         </Button>
       </a>
-      <div className="col-start-1 row-start-1 col-end-2 row-end-2 mt-8 hidden sm:block">
+      <div
+        aria-label={
+          "Contact to Purchase: " +
+          (siteMetadata.whatsapp
+            ? siteMetadata.whatsapp
+            : "WhatsApp phone number")
+        }
+        className="col-start-1 row-start-1 col-end-2 row-end-2 mt-8 hidden sm:block"
+      >
         <Popover
           animate={{
             mount: { scale: 1, y: 0 },

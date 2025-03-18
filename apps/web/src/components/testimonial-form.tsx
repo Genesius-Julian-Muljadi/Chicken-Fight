@@ -53,6 +53,7 @@ export default function TestimonialForm() {
       <Typography
         variant="h4"
         color="blue-gray"
+        aria-label="Add your testimony"
         className="dark:text-blue-gray-100"
       >
         Add your testimony
@@ -90,6 +91,9 @@ export default function TestimonialForm() {
                   <Input
                     size="lg"
                     placeholder="Type your testimony here"
+                    aria-label="Testimony text box"
+                    aria-invalid={errors.testimony !== undefined}
+                    aria-describedby={String(errors.testimony)}
                     className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                     labelProps={{
                       className: "before:content-none after:content-none",
@@ -118,6 +122,9 @@ export default function TestimonialForm() {
                     <Input
                       size="lg"
                       placeholder="ex: John Doe"
+                      aria-label="Testifier text box"
+                      aria-invalid={errors.testifier !== undefined}
+                      aria-describedby={String(errors.testifier)}
                       className=" !border-t-blue-gray-200 focus:!border-t-gray-900 max-w-full"
                       labelProps={{
                         className: "before:content-none after:content-none",
@@ -153,6 +160,20 @@ export default function TestimonialForm() {
           /> */}
                 <Button
                   type="submit"
+                  aria-label="Submit"
+                  aria-invalid={
+                    errors.testimony !== undefined ||
+                    errors.testifier !== undefined
+                  }
+                  aria-describedby={
+                    String(
+                      errors.testimony === undefined ? "" : errors.testimony
+                    ) +
+                    ". " +
+                    String(
+                      errors.testifier === undefined ? "" : errors.testifier
+                    )
+                  }
                   className="mt-6 mx-auto w-full bg-blue-gray-800 dark:bg-blue-gray-200"
                   ripple={true}
                   disabled={submitted}

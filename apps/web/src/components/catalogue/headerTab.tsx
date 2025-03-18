@@ -43,6 +43,7 @@ export default function CatalogueHeaderTab({
           <Tab
             key={value}
             value={value}
+            aria-label={label + (props ? ": " + props[value - 1] : "")}
             onClick={() => {
               dispatch(toggleProductType(value));
               router.refresh();
