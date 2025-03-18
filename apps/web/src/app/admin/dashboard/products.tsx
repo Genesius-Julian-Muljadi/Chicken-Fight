@@ -300,7 +300,7 @@ export default function DashboardProducts({
           {PRODUCTS.filter((product: Product) =>
             PRODUCTMAIN.desc === ProductSamples[0].desc ||
             PRODUCTMAIN.desc === ProductSamples[7].desc
-              ? true
+              ? !product.promoted
               : product.id !== PRODUCTMAIN.id
           ).map((product: Product) => (
             <div
