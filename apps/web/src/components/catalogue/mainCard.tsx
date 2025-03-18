@@ -15,6 +15,7 @@ import speedDialContent from "../dashboard/speedDialContent";
 import ContactToPurchase from "./contactToPurchase";
 import noImages from "@/assets/noImage";
 import { ProductSamples } from "@/data/samples/productSamples";
+import { CldImage } from "next-cloudinary";
 
 export function MainCard({
   product,
@@ -40,18 +41,25 @@ export function MainCard({
         floated={false}
         className="m-0 md:max-w-[45%] lg:w-1/2 shrink-0 rounded-r-xl md:rounded-r-none"
       >
-        <Image
-          src={
-            product.image.slice(0, 3) === "AVT"
-              ? "../../../../api/src/public/images/" + product.image
-              : noImages[0]
-          }
-          width={500}
-          height={800}
-          alt="main-product-image"
-          className="h-full w-full object-cover"
-          priority
-        />
+        {noImages.includes(product.image) ? (
+          <Image
+            src={noImages[0]}
+            width={500}
+            height={800}
+            alt={"Main product: " + product.name}
+            className="h-full w-full object-cover"
+            priority
+          />
+        ) : (
+          <CldImage
+            src={product.image}
+            width={500}
+            height={800}
+            alt={"Main product: " + product.name}
+            className="h-full w-full object-cover"
+            priority
+          />
+        )}
       </CardHeader>
       <CardBody className="w-full">
         <Typography

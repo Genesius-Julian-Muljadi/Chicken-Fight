@@ -15,6 +15,8 @@ import speedDialContent from "../dashboard/speedDialContent";
 import ContactToPurchase from "./contactToPurchase";
 import { ProductSamples } from "@/data/samples/productSamples";
 import { CldImage } from "next-cloudinary";
+import noImages from "@/assets/noImage";
+import Image from "next/image";
 
 export function ProductCard({
   product,
@@ -40,14 +42,25 @@ export function ProductCard({
         floated={false}
         className="m-auto w-full rounded-b-none"
       >
-        <CldImage
-          src={product.image}
-          width={500}
-          height={800}
-          alt={product.name}
-          className="h-full w-full object-cover"
-          priority
-        />
+        {noImages.includes(product.image) ? (
+          <Image
+            src={noImages[0]}
+            width={500}
+            height={800}
+            alt={"Main product: " + product.name}
+            className="h-full w-full object-cover"
+            priority
+          />
+        ) : (
+          <CldImage
+            src={product.image}
+            width={500}
+            height={800}
+            alt={"Main product: " + product.name}
+            className="h-full w-full object-cover"
+            priority
+          />
+        )}
       </CardHeader>
       <CardBody>
         <div className="mb-2 flex items-center justify-between">
