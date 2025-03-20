@@ -32,7 +32,11 @@ export default function TestimonialTypography({
           </span>
         </span>
         <span
-          aria-label={dateDisplay}
+          aria-label={Intl.DateTimeFormat(siteMetadata.locale, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }).format(new Date(dateCreated))}
           className="text-nowrap text-right"
         >{`${dateDisplay}`}</span>
       </span>

@@ -128,6 +128,7 @@ export default function EditProduct({ product }: { product: Product }) {
       {(props: FormikProps<ProductForm>) => {
         const {
           values,
+          errors,
           handleSubmit,
           setFieldValue,
           resetForm,
@@ -219,9 +220,12 @@ export default function EditProduct({ product }: { product: Product }) {
                         <div className="flex flex-col gap-2">
                           <Button
                             variant="text"
-                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
                             ripple={true}
                             onClick={() => open()}
+                            aria-label="Upload image"
+                            aria-invalid={errors.image !== undefined}
+                            aria-describedby={String(errors.image)}
+                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
                           >
                             {createElement(CloudArrowUpIcon, {
                               className: "w-5 h-5 -ml-1",
@@ -280,6 +284,9 @@ export default function EditProduct({ product }: { product: Product }) {
                             darkInput.value = e.target.value;
                           }}
                           disabled={submitted}
+                          aria-label="Product name"
+                          aria-invalid={errors.name !== undefined}
+                          aria-describedby={String(errors.name)}
                           className="uppercase"
                           id="name-input-edit-light"
                         />
@@ -301,6 +308,9 @@ export default function EditProduct({ product }: { product: Product }) {
                             lightInput.value = e.target.value;
                           }}
                           disabled={submitted}
+                          aria-label="Product name"
+                          aria-invalid={errors.name !== undefined}
+                          aria-describedby={String(errors.name)}
                           className="text-blue-gray-50 uppercase"
                           id="name-input-edit-dark"
                         />
@@ -337,6 +347,11 @@ export default function EditProduct({ product }: { product: Product }) {
                   </div>
                   <Typography
                     color="blue-gray"
+                    aria-label={Intl.DateTimeFormat(siteMetadata.locale, {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }).format(new Date())}
                     className="font-semibold dark:text-blue-gray-50 text-nowrap w-fit"
                   >
                     {Intl.DateTimeFormat(siteMetadata.locale, {
@@ -363,6 +378,9 @@ export default function EditProduct({ product }: { product: Product }) {
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Product overview"
+                        aria-invalid={errors.overview !== undefined}
+                        aria-describedby={String(errors.overview)}
                         className="normal-case"
                         id="overview-input-edit-light"
                       />
@@ -382,6 +400,9 @@ export default function EditProduct({ product }: { product: Product }) {
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Product overview"
+                        aria-invalid={errors.overview !== undefined}
+                        aria-describedby={String(errors.overview)}
                         className="normal-case"
                         id="overview-input-edit-dark"
                       />
@@ -423,6 +444,9 @@ export default function EditProduct({ product }: { product: Product }) {
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Product description"
+                        aria-invalid={errors.desc !== undefined}
+                        aria-describedby={String(errors.desc)}
                         className="normal-case"
                         id="desc-input-edit-light"
                       />
@@ -442,6 +466,9 @@ export default function EditProduct({ product }: { product: Product }) {
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Product description"
+                        aria-invalid={errors.desc !== undefined}
+                        aria-describedby={String(errors.desc)}
                         className="normal-case"
                         id="desc-input-edit-dark"
                       />

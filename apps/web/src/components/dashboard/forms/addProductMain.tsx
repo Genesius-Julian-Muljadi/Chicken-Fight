@@ -110,6 +110,7 @@ export default function AddProductMain() {
       {(props: FormikProps<ProductForm>) => {
         const {
           values,
+          errors,
           handleSubmit,
           setFieldValue,
           resetForm,
@@ -186,7 +187,10 @@ export default function AddProductMain() {
             <Field type="hidden" name="overview" />
             <Field type="hidden" name="desc" />
             <Card className="relative mx-auto w-full max-w-[56rem] flex-col md:flex-row bg-productCard-light dark:bg-productCard-dark dark:shadow-gray-800">
-              <div className="absolute bottom-4 right-4 rounded-full">
+              <div
+                aria-label="Main product speed dial"
+                className="absolute bottom-4 right-4 rounded-full"
+              >
                 <DashboardSpeedDial contents={speedDialContents} />
               </div>
               <CardHeader
@@ -217,9 +221,12 @@ export default function AddProductMain() {
                         <div className="flex flex-col gap-2 m-auto">
                           <Button
                             variant="text"
-                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
                             ripple={true}
                             onClick={() => open()}
+                            aria-label="Upload image"
+                            aria-invalid={errors.image !== undefined}
+                            aria-describedby={String(errors.image)}
+                            className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
                           >
                             {createElement(CloudArrowUpIcon, {
                               className: "w-5 h-5 -ml-1",
@@ -261,7 +268,7 @@ export default function AddProductMain() {
                         variant="standard"
                         type="text"
                         color="blue-gray"
-                        label="Product name"
+                        label="Main product name"
                         crossOrigin={undefined}
                         onChange={(e: any) => {
                           setFieldValue("name", e.target.value);
@@ -272,6 +279,9 @@ export default function AddProductMain() {
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Main product name"
+                        aria-invalid={errors.name !== undefined}
+                        aria-describedby={String(errors.name)}
                         className="uppercase"
                         id="main-name-input-light"
                       />
@@ -281,7 +291,7 @@ export default function AddProductMain() {
                         variant="standard"
                         type="text"
                         color="white"
-                        label="Product name"
+                        label="Main product name"
                         crossOrigin={undefined}
                         onChange={(e: any) => {
                           setFieldValue("name", e.target.value);
@@ -292,6 +302,9 @@ export default function AddProductMain() {
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Main product name"
+                        aria-invalid={errors.name !== undefined}
+                        aria-describedby={String(errors.name)}
                         className="text-blue-gray-50 uppercase"
                         id="main-name-input-dark"
                       />
@@ -342,6 +355,9 @@ export default function AddProductMain() {
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Main product overview"
+                        aria-invalid={errors.overview !== undefined}
+                        aria-describedby={String(errors.overview)}
                         className="normal-case"
                         id="main-overview-input-light"
                       />
@@ -360,6 +376,9 @@ export default function AddProductMain() {
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Main product overview"
+                        aria-invalid={errors.overview !== undefined}
+                        aria-describedby={String(errors.overview)}
                         className="normal-case"
                         id="main-overview-input-dark"
                       />
@@ -400,6 +419,9 @@ export default function AddProductMain() {
                           darkInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Main product description"
+                        aria-invalid={errors.desc !== undefined}
+                        aria-describedby={String(errors.desc)}
                         className="normal-case"
                         id="main-desc-input-light"
                       />
@@ -418,6 +440,9 @@ export default function AddProductMain() {
                           lightInput.value = e.target.value;
                         }}
                         disabled={submitted}
+                        aria-label="Main product description"
+                        aria-invalid={errors.desc !== undefined}
+                        aria-describedby={String(errors.desc)}
                         className="normal-case"
                         id="main-desc-input-dark"
                       />
@@ -426,6 +451,11 @@ export default function AddProductMain() {
                 </div>
                 <Typography
                   color="blue-gray"
+                  aria-label={Intl.DateTimeFormat(siteMetadata.locale, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }).format(new Date())}
                   className="font-medium text-right mt-4 dark:text-blue-gray-50"
                 >
                   {Intl.DateTimeFormat(siteMetadata.locale, {
