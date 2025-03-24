@@ -15,7 +15,7 @@ export default async function Home() {
     );
     testimonials = testimonialsRaw.data.data;
   } catch (err) {
-    console.log(err);
+    console.log(err); 
   }
 
   return (

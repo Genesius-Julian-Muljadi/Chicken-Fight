@@ -161,19 +161,6 @@ export default function TestimonialForm() {
                 <Button
                   type="submit"
                   aria-label="Submit"
-                  aria-invalid={
-                    errors.testimony !== undefined ||
-                    errors.testifier !== undefined
-                  }
-                  aria-describedby={
-                    String(
-                      errors.testimony === undefined ? "" : errors.testimony
-                    ) +
-                    ". " +
-                    String(
-                      errors.testifier === undefined ? "" : errors.testifier
-                    )
-                  }
                   className="mt-6 mx-auto w-full bg-blue-gray-800 dark:bg-blue-gray-200"
                   ripple={true}
                   disabled={submitted}

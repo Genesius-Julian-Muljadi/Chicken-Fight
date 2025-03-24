@@ -224,8 +224,6 @@ export default function AddProductMain() {
                             ripple={true}
                             onClick={() => open()}
                             aria-label="Upload image"
-                            aria-invalid={errors.image !== undefined}
-                            aria-describedby={String(errors.image)}
                             className="flex items-center gap-3 dark:text-gray-100 bg-backtheme-300 dark:bg-backtheme-600 shadow-sm shadow-backtheme-800 dark:shadow-sm dark:shadow-backtheme-800/30 hover:bg-backtheme-200 active:bg-backtheme-100 dark:hover:bg-backtheme-700 dark:active:bg-backtheme-800"
                           >
                             {createElement(CloudArrowUpIcon, {

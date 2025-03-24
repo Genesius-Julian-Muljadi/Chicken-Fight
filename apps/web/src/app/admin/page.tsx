@@ -130,17 +130,6 @@ function AdminLogin() {
                   type="submit"
                   className="mx-auto flex h-12 items-center justify-center rounded-lg uppercase bg-blue-400 dark:bg-blue-600 px-6 text-sm font-semibold text-black dark:text-blue-gray-100 shadow-sm shadow-slate-400 hover:bg-blue-700 sm:w-64"
                   aria-label="Log in"
-                  aria-invalid={errors.regkey !== undefined || errors.password !== undefined}
-                  
-                  aria-describedby={
-                    String(
-                      errors.regkey === undefined ? "" : errors.regkey
-                    ) +
-                    ". " +
-                    String(
-                      errors.password === undefined ? "" : errors.password
-                    )
-                  }
                 >
                   Log in
                 </button>
