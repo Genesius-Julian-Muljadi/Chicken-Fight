@@ -1,6 +1,6 @@
 # Basic Multi-page App Template
 
-Originally meant for a specific "Chicken-Fight" project, this repository was developed into a template instead, with all the data and variables easily editable through apps/web/src/data and apps/web/tailwind.ts .
+Originally meant for a specific "Chicken-Fight" project, this repository was developed into a template instead, with all the data and variables easily editable through apps/web/src/data and apps/web/tailwind.config.ts .
 
 The app has a functioning database ORM with Supabase, JWT Login, and Cloudinary management.
 
