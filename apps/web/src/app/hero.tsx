@@ -76,7 +76,7 @@ function Hero() {
               width={homeData.homeImageWidth || 470}
               height={homeData.homeImageHeight || 576}
               alt={homeData.homeHeader1 + "Img"}
-              className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
+              className="col-span-1 my-20 h-full max-h-[23rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
             />
           ) : (
             <span className="text-black dark:text-white">
@@ -91,7 +91,7 @@ function Hero() {
             variant="h3"
             color="blue-gray"
             aria-label={homeData.homeHeader3 || "homeHeader3"}
-            className="mb-3 dark:text-white"
+            className="mb-3 dark:text-white text-lg sm:text-xl md:text-2xl"
           >
             {homeData.homeHeader3 || "homeHeader3"}
           </Typography>

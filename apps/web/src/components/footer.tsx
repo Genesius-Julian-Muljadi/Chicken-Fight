@@ -34,7 +34,7 @@ export function Footer() {
             </Typography>
           </a>
 
-          <div className="flex gap-3 sm:gap-6">
+          <div className="flex gap-3 sm:gap-6 ml-auto">
             <Typography
               color="blue-gray"
               className="text-center font-semibold opacity-75 m-auto dark:text-white text-sm sm:text-base"
