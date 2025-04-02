@@ -1,6 +1,5 @@
 "use client";
 
-import siteMetadata from "@/data/siteMetadata";
 import headerData from "@/data/headerData";
 import headerNavLinks from "@/data/headerNavLinks";
 import Link from "./Link";
@@ -56,7 +55,7 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
           isScrolling
             ? " bg-gradient-to-t from-white via-white to-95% to-[#fffcf0] dark:bg-gradient-to-t dark:from-gray-950 dark:to-gray-950 shadow-lg dark:shadow-md dark:shadow-gray-800"
             : " bg-transparent hover:bg-gradient-to-t hover:from-white hover:via-white to-95% hover:to-[#fffcf0] hover:dark:bg-gradient-to-t hover:dark:from-gray-950 hover:dark:to-gray-950 hover:shadow-lg hover:dark:shadow-md hover:dark:shadow-gray-800"
-        } py-4 px-4 sm:px-6 xl:px-8 rounded-b-lg${
+        } py-1 px-4 sm:px-6 xl:px-8 rounded-b-lg${
           headerData.stickyNav ? " sticky top-0 z-50" : ""
         }`}
         id="global-header"
@@ -77,10 +76,10 @@ const Header = ({ token }: { token: AccessTokenUser | null }) => {
                 {headerData.headerLogo ? (
                   <Image
                     src={headerData.headerLogo || noImages[0]}
-                    width={headerData.headerLogoWidth || 32}
-                    height={headerData.headerLogoHeight || 32}
+                    width={headerData.headerLogoWidth || 100}
+                    height={headerData.headerLogoHeight || 100}
                     alt={headerData.headerTitle}
-                    className="h-full w-full object-cover"
+                    className="h-14 w-14"
                     priority
                   />
                 ) : (
