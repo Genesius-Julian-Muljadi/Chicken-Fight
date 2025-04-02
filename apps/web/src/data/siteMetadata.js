@@ -1,9 +1,5 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  headerLogo: "",
-  headerLogoWidth: null,
-  headerLogoHeight: null,
-  headerTitle: "",
   homeTitle: "",
   homeMetaDescription: "",
   homeHeader1: "",
@@ -22,7 +18,6 @@ const siteMetadata = {
   maxMainProducts: 1, // Must be at least 1 or things will break
   theme: "system", // system, dark or light
   // Set to true if you want a navbar fixed to the top
-  stickyNav: true,
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
