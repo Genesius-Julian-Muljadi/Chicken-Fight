@@ -15,7 +15,7 @@ function Hero() {
               aria-label={`${homeData.homeHeader1 || "homeHeader1"}\n${
                 homeData.homeHeader2 || "homeHeader2"
               }`}
-              className="mb-4 text-black dark:text-white text-nowrap"
+              className="mb-4 text-black dark:text-white text-wrap md:text-nowrap"
             >
               {homeData.homeHeader1 || "homeHeader1"} <br />{" "}
               {homeData.homeHeader2 || "homeHeader2"}
