@@ -32,6 +32,8 @@ const updateDashboardProductSlice = createSlice({
       } else if (input.payload.product) {
         if (input.payload.edit) {
           state.edit = true;
+        } else {
+          state.edit = false;
         }
         state.deleteID = null;
         state.newProduct = input.payload.product;
