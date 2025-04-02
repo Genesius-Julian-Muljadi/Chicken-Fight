@@ -11,8 +11,8 @@ const homeData = {
   homeHeader3: "Temukan ayam petarung dengan spek idaman kamu",
   homeHeaderDescription2: " ",
   videoIntro: "",
-  testimonialHeader: "",
-  testimonialDescription: "",
+  testimonialHeader: "Testimonials",
+  testimonialDescription: " ",
 };
 
 module.exports = homeData;
