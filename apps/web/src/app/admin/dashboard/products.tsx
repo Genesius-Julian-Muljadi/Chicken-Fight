@@ -1,3 +1,5 @@
+"use client";
+
 import { MainCard } from "@/components/catalogue/mainCard";
 import { ProductCard } from "@/components/catalogue/productCard";
 import AddProductCard from "@/components/dashboard/addProductCard";
