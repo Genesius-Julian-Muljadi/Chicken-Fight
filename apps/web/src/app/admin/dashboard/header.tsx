@@ -77,8 +77,8 @@ export default function DashboardHeader({
                   Type select disabled. Please cancel or complete the current
                   form.
                 </span>
-                {/* {siteMetadata.whatsapp
-                  ? "WhatsApp: " + siteMetadata.whatsapp
+                {/* {footerData.whatsapp
+                  ? "WhatsApp: " + footerData.whatsapp
                   : "WhatsApp phone number"} */}
               </PopoverContent>
             </Popover>

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { Typography, IconButton, Button } from "@material-tailwind/react";
-import siteMetadata from "@/data/siteMetadata";
+import { Typography, IconButton } from "@material-tailwind/react";
+import footerData from "@/data/footerData";
 import Link from "next/link";
 
 // const LINKS = ["About Us", "Careers", "Press", "Blog", "Pricing"];
@@ -13,7 +13,7 @@ export function Footer() {
       <div className="container md:mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-y-4 gap-x-8 py-7 md:justify-between">
           <a
-            href={siteMetadata.whatsapp ? "tel:" + siteMetadata.whatsapp : "/"}
+            href={footerData.whatsapp ? "tel:" + footerData.whatsapp : "/"}
             className="flex flex-row gap-2 cursor-pointer"
           >
             <IconButton
@@ -25,11 +25,11 @@ export function Footer() {
             </IconButton>
             <Typography
               color="blue-gray"
-              aria-label={siteMetadata.whatsapp}
+              aria-label={footerData.whatsapp}
               className="text-center font-semibold opacity-75 m-auto dark:text-white text-sm sm:text-base"
             >
-              {siteMetadata.whatsapp
-                ? "WhatsApp: " + siteMetadata.whatsapp
+              {footerData.whatsapp
+                ? "WhatsApp: " + footerData.whatsapp
                 : "WhatsApp phone number"}
             </Typography>
           </a>
@@ -42,7 +42,7 @@ export function Footer() {
               Links
             </Typography>
             <Link
-              href={siteMetadata.lynk || "/"}
+              href={footerData.lynk || "/"}
               aria-label="Lynk links"
               className="bg-white cursor-pointer hover:opacity-85 active:opacity-75 w-24 rounded-md grid"
             >

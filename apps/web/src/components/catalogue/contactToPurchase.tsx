@@ -1,4 +1,4 @@
-import siteMetadata from "@/data/siteMetadata";
+import footerData from "@/data/footerData";
 import { PhoneArrowUpRightIcon } from "@heroicons/react/24/solid";
 import {
   Button,
@@ -18,16 +18,16 @@ export default function ContactToPurchase({
     <div className="grid grid-cols-1 grid-rows-1">
       <a
         href={
-          siteMetadata.whatsapp
-            ? "tel:" + siteMetadata.whatsapp
+          footerData.whatsapp
+            ? "tel:" + footerData.whatsapp
             : dashboard
             ? "/dashboard"
             : "/catalogue"
         }
         aria-label={
           "Contact to Purchase: " +
-          (siteMetadata.whatsapp
-            ? siteMetadata.whatsapp
+          (footerData.whatsapp
+            ? footerData.whatsapp
             : "WhatsApp phone number")
         }
         className="col-start-1 row-start-1 col-end-2 row-end-2 inline-block sm:hidden mt-8"
@@ -46,8 +46,8 @@ export default function ContactToPurchase({
       <div
         aria-label={
           "Contact to Purchase: " +
-          (siteMetadata.whatsapp
-            ? siteMetadata.whatsapp
+          (footerData.whatsapp
+            ? footerData.whatsapp
             : "WhatsApp phone number")
         }
         className="col-start-1 row-start-1 col-end-2 row-end-2 mt-8 hidden sm:block"
@@ -70,8 +70,8 @@ export default function ContactToPurchase({
             <IconButton variant="text" className="text-[#62c076]">
               <i className="fa-brands fa-whatsapp text-3xl not-italic opacity-75"></i>
             </IconButton>
-            {siteMetadata.whatsapp
-              ? "WhatsApp: " + siteMetadata.whatsapp
+            {footerData.whatsapp
+              ? "WhatsApp: " + footerData.whatsapp
               : "WhatsApp phone number"}
           </PopoverContent>
         </Popover>

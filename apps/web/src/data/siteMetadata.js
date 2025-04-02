@@ -13,8 +13,6 @@ const siteMetadata = {
   testimonialDescription: "",
   // language: "en-us",
   locale: "id-ID",
-  whatsapp: "",
-  lynk: "",
   maxMainProducts: 1, // Must be at least 1 or things will break
   theme: "system", // system, dark or light
   // Set to true if you want a navbar fixed to the top

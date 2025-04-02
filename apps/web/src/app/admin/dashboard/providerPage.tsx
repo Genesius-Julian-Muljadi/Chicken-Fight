@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { Product } from "@/interfaces/databaseTables";
 import DashboardHeader from "./header";
 import DashboardProducts from "./products";
-import siteMetadata from "@/data/siteMetadata";
+import footerData from "@/data/footerData";
 import { IconButton, Typography } from "@material-tailwind/react";
 import DashboardSpeedDial, {
   SpeedDialContent,
@@ -46,14 +46,14 @@ export default function ProviderAdminDashboard({
           <Typography
             color="blue-gray"
             aria-label={
-              siteMetadata.whatsapp
-                ? "WhatsApp: " + siteMetadata.whatsapp
+              footerData.whatsapp
+                ? "WhatsApp: " + footerData.whatsapp
                 : "whatsapp phone number"
             }
             className="text-center font-semibold opacity-75 m-auto dark:text-white"
           >
-            {siteMetadata.whatsapp
-              ? "WhatsApp: " + siteMetadata.whatsapp
+            {footerData.whatsapp
+              ? "WhatsApp: " + footerData.whatsapp
               : "whatsapp phone number"}
           </Typography>
           <div aria-label="WhatsApp speed dial" className="my-auto md:my-0">
