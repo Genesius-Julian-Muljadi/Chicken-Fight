@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Footer, Layout } from "@/components";
 import { ThemeProviders } from "./theme-providers";
-import siteMetadata from "@/data/siteMetadata";
+import homeData from "@/data/home/homeData";
 import CookieManager from "@/cookies/cookieManager";
 import HeaderServer from "@/components/imported/HeaderServer";
 
@@ -14,8 +14,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: siteMetadata.homeTitle || "homeTitle",
-  description: siteMetadata.homeMetaDescription || "homeMetaDescription",
+  title: homeData.homeTitle || "homeTitle",
+  description: homeData.homeMetaDescription || "homeMetaDescription",
 };
 
 export default function RootLayout({

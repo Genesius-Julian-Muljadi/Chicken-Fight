@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { IconButton } from "@material-tailwind/react";
 import { PlayIcon } from "@heroicons/react/24/outline";
-import siteMetadata from "@/data/siteMetadata";
+import homeData from "@/data/home/homeData";
 import { CldVideoPlayer } from "next-cloudinary";
 
 export function VideoIntro() {
@@ -24,8 +24,8 @@ export function VideoIntro() {
             <PlayIcon className="h-6 w-6" />
           </IconButton>
         </div> */}
-        {siteMetadata.videoIntro ? (
-          <CldVideoPlayer src={siteMetadata.videoIntro} />
+        {homeData.videoIntro ? (
+          <CldVideoPlayer src={homeData.videoIntro} />
         ) : (
           <span>insert video here</span>
         )}

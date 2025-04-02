@@ -3,7 +3,7 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { UserIcon } from "@heroicons/react/24/solid";
-import siteMetadata from "@/data/siteMetadata";
+import homeData from "@/data/home/homeData";
 import { TestimonialSamples } from "@/data/samples/testimonialSamples";
 import TestimonialTypography from "@/components/testimonial-typography";
 import { Testimonial } from "@/interfaces/databaseTables";
@@ -25,19 +25,19 @@ export function Testimonials({
           <Typography
             variant="h2"
             color="blue-gray"
-            aria-label={siteMetadata.testimonialHeader || "testimonialHeader"}
+            aria-label={homeData.testimonialHeader || "testimonialHeader"}
             className="mb-2 dark:text-white"
           >
-            {siteMetadata.testimonialHeader || "testimonialHeader"}
+            {homeData.testimonialHeader || "testimonialHeader"}
           </Typography>
           <Typography
             variant="lead"
             aria-label={
-              siteMetadata.testimonialDescription || "testimonialDescription"
+              homeData.testimonialDescription || "testimonialDescription"
             }
             className="mb-10 max-w-3xl text-center text-gray-600 dark:text-gray-200"
           >
-            {siteMetadata.testimonialDescription || "testimonialDescription"}
+            {homeData.testimonialDescription || "testimonialDescription"}
           </Typography>
         </div>
         <div className="flex flex-col gap-4 lg:px-20">

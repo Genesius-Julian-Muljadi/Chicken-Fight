@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Button, Typography } from "@material-tailwind/react";
-import siteMetadata from "@/data/siteMetadata";
+import { Typography } from "@material-tailwind/react";
+import homeData from "@/data/home/homeData";
 
 function Hero() {
   return (
@@ -12,22 +12,22 @@ function Hero() {
           <div className="col-span-1">
             <Typography
               variant="h1"
-              aria-label={`${siteMetadata.homeHeader1 || "homeHeader1"}\n${
-                siteMetadata.homeHeader2 || "homeHeader2"
+              aria-label={`${homeData.homeHeader1 || "homeHeader1"}\n${
+                homeData.homeHeader2 || "homeHeader2"
               }`}
               className="mb-4 text-black dark:text-white"
             >
-              {siteMetadata.homeHeader1 || "homeHeader1"} <br />{" "}
-              {siteMetadata.homeHeader2 || "homeHeader2"}
+              {homeData.homeHeader1 || "homeHeader1"} <br />{" "}
+              {homeData.homeHeader2 || "homeHeader2"}
             </Typography>
             <Typography
               variant="lead"
               aria-label={
-                siteMetadata.homeHeaderDescription1 || "homeHeaderDescription1"
+                homeData.homeHeaderDescription1 || "homeHeaderDescription1"
               }
               className="mb-7 text-black dark:text-white md:pr-16 xl:pr-28"
             >
-              {siteMetadata.homeHeaderDescription1 || "homeHeaderDescription1"}
+              {homeData.homeHeaderDescription1 || "homeHeaderDescription1"}
             </Typography>
             {/* <Typography className="mb-4" color="white" variant="h6">
               Get the app
@@ -70,12 +70,12 @@ function Hero() {
             alt="team work"
             className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
           /> */}
-          {siteMetadata.homeImage ? (
+          {homeData.homeImage ? (
             <Image
-              src={siteMetadata.homeImage}
+              src={homeData.homeImage}
               width={470}
               height={576}
-              alt={siteMetadata.homeHeader1 + "Img"}
+              alt={homeData.homeHeader1 + "Img"}
               className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
             />
           ) : (
@@ -90,19 +90,19 @@ function Hero() {
           <Typography
             variant="h3"
             color="blue-gray"
-            aria-label={siteMetadata.homeHeader3 || "homeHeader3"}
+            aria-label={homeData.homeHeader3 || "homeHeader3"}
             className="mb-3 dark:text-white"
           >
-            {siteMetadata.homeHeader3 || "homeHeader3"}
+            {homeData.homeHeader3 || "homeHeader3"}
           </Typography>
           <Typography
             variant="paragraph"
             aria-label={
-              siteMetadata.homeHeaderDescription2 || "homeHeaderDescription2"
+              homeData.homeHeaderDescription2 || "homeHeaderDescription2"
             }
             className="font-normal text-gray-500 lg:w-5/12 dark:text-gray-200"
           >
-            {siteMetadata.homeHeaderDescription2 || "homeHeaderDescription2"}
+            {homeData.homeHeaderDescription2 || "homeHeaderDescription2"}
           </Typography>
         </div>
       </div>
