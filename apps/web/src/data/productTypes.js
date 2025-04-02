@@ -1,3 +1,3 @@
-const productTypes = ["Male", "Female"];
+const productTypes = ["Pejantan", "Indukan"];
 
 export default productTypes;

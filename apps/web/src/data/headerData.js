@@ -1,10 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const headerData = {
   stickyNav: true,
-  headerLogo: "",
+  headerLogo: "https://i.imgur.com/fLA4Tpg.jpeg",
   headerLogoWidth: 500,
   headerLogoHeight: 500,
-  headerTitle: "",
+  headerTitle: "FM Farm Indonesia",
 };
 
 module.exports = headerData;

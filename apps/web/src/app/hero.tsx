@@ -11,11 +11,11 @@ function Hero() {
         <div className="container mx-auto mt-32 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
           <div className="col-span-1">
             <Typography
-              variant="h1"
+              variant="h2"
               aria-label={`${homeData.homeHeader1 || "homeHeader1"}\n${
                 homeData.homeHeader2 || "homeHeader2"
               }`}
-              className="mb-4 text-black dark:text-white"
+              className="mb-4 text-black dark:text-white text-nowrap"
             >
               {homeData.homeHeader1 || "homeHeader1"} <br />{" "}
               {homeData.homeHeader2 || "homeHeader2"}
@@ -25,7 +25,7 @@ function Hero() {
               aria-label={
                 homeData.homeHeaderDescription1 || "homeHeaderDescription1"
               }
-              className="mb-7 text-black dark:text-white md:pr-16 xl:pr-28"
+              className="mb-7 text-black dark:text-white md:pr-16 xl:pr-28 text-2xl"
             >
               {homeData.homeHeaderDescription1 || "homeHeaderDescription1"}
             </Typography>

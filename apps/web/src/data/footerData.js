@@ -1,6 +1,6 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const footerData = {
-  whatsapp: "",
+  whatsapp: "+62 819-1097-8899",
   lynk: "",
 };
 
