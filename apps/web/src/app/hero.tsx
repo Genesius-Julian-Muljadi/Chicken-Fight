@@ -73,8 +73,8 @@ function Hero() {
           {homeData.homeImage ? (
             <Image
               src={homeData.homeImage}
-              width={470}
-              height={576}
+              width={homeData.homeImageWidth || 470}
+              height={homeData.homeImageHeight || 576}
               alt={homeData.homeHeader1 + "Img"}
               className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
             />
