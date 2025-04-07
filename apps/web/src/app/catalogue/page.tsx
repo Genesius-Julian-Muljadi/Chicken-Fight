@@ -1,5 +1,12 @@
 import axios from "axios";
 import ProviderCatalogue from "./providerPage";
+import { Metadata } from "next";
+import catalogueData from "@/data/catalogue/catalogueData";
+
+export const metadata: Metadata = {
+  title: catalogueData.title || "catalogueTitle",
+  description: catalogueData.metaDescription || "catalogueMetaDescription",
+};
 
 export default async function Catalogue() {
   let products = undefined;
