@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="mt-10 bg-backtheme-400 dark:bg-backtheme-950 px-4 md:px-8">
       <div className="container md:mx-auto">
-        <div className="flex flex-wrap items-center justify-between gap-y-4 gap-x-8 py-7 md:justify-between">
+        <div className="flex flex-row items-center justify-between gap-y-4 gap-x-8 py-7 md:justify-between">
           <a
             href={footerData.whatsapp ? "tel:" + footerData.whatsapp : "/"}
             className="flex flex-row gap-2 cursor-pointer"
