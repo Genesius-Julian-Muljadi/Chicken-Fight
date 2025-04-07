@@ -12,22 +12,22 @@ function Hero() {
           <div className="col-span-1">
             <Typography
               variant="h2"
-              aria-label={`${homeData.homeHeader1 || "homeHeader1"}\n${
-                homeData.homeHeader2 || "homeHeader2"
+              aria-label={`${homeData.header1 || "homeHeader1"}\n${
+                homeData.header2 || "homeHeader2"
               }`}
               className="mb-4 text-black dark:text-white text-wrap md:text-nowrap"
             >
-              {homeData.homeHeader1 || "homeHeader1"} <br />{" "}
-              {homeData.homeHeader2 || "homeHeader2"}
+              {homeData.header1 || "homeHeader1"} <br />{" "}
+              {homeData.header2 || "homeHeader2"}
             </Typography>
             <Typography
               variant="lead"
               aria-label={
-                homeData.homeHeaderDescription1 || "homeHeaderDescription1"
+                homeData.headerDescription1 || "homeHeaderDescription1"
               }
               className="mb-7 text-black dark:text-white md:pr-16 xl:pr-28 text-2xl"
             >
-              {homeData.homeHeaderDescription1 || "homeHeaderDescription1"}
+              {homeData.headerDescription1 || "homeHeaderDescription1"}
             </Typography>
             {/* <Typography className="mb-4" color="white" variant="h6">
               Get the app
@@ -70,12 +70,12 @@ function Hero() {
             alt="team work"
             className="col-span-1 my-20 h-full max-h-[30rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
           /> */}
-          {homeData.homeImage ? (
+          {homeData.headerImage ? (
             <Image
-              src={homeData.homeImage}
-              width={homeData.homeImageWidth || 470}
-              height={homeData.homeImageHeight || 576}
-              alt={homeData.homeHeader1 + "Img"}
+              src={homeData.headerImage}
+              width={homeData.headerImageWidth || 470}
+              height={homeData.headerImageHeight || 576}
+              alt={homeData.header1 + "Img"}
               className="col-span-1 my-20 h-full max-h-[23rem] -translate-y-32 md:max-h-[36rem] lg:my-0 lg:ml-auto lg:max-h-[40rem] lg:translate-y-0"
             />
           ) : (
@@ -90,19 +90,19 @@ function Hero() {
           <Typography
             variant="h3"
             color="blue-gray"
-            aria-label={homeData.homeHeader3 || "homeHeader3"}
+            aria-label={homeData.header3 || "homeHeader3"}
             className="mb-3 dark:text-white text-lg sm:text-xl md:text-2xl"
           >
-            {homeData.homeHeader3 || "homeHeader3"}
+            {homeData.header3 || "homeHeader3"}
           </Typography>
           <Typography
             variant="paragraph"
             aria-label={
-              homeData.homeHeaderDescription2 || "homeHeaderDescription2"
+              homeData.headerDescription2 || "homeHeaderDescription2"
             }
             className="font-normal text-gray-500 lg:w-5/12 dark:text-gray-200"
           >
-            {homeData.homeHeaderDescription2 || "homeHeaderDescription2"}
+            {homeData.headerDescription2 || "homeHeaderDescription2"}
           </Typography>
         </div>
       </div>
