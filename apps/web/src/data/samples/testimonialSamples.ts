@@ -8,7 +8,9 @@ const TestimonialSamples: Array<Testimonial> = [
     dateCreated: new Date("2024-07-01T09:16:47.000Z"),
   },
   {
-    testimony: "This is a testimony without a testifier. Date locale set to: " + siteMetadata.locale,
+    testimony:
+      "This is a testimony without a testifier. Date locale set to: " +
+      siteMetadata.locale,
     dateCreated: new Date("2024-12-25T09:17:51.000Z"),
   },
   {

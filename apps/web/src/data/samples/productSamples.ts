@@ -37,8 +37,7 @@ const ProductSamples: Array<Product> = [
     image: noImages[0],
     name: "sample product 3",
     type: 1,
-    overview:
-      "Long product overview. Long product overview.",
+    overview: "Long product overview. Long product overview.",
     dateCreated: new Date("2024-04-14T09:18:14.000Z"),
     updated: new Date("2025-02-07T09:18:14.000Z"),
   },
@@ -55,8 +54,7 @@ const ProductSamples: Array<Product> = [
     image: noImages[0],
     name: "sample product 5",
     type: 1,
-    overview:
-      "Long sample product overview. Long sample product overview.",
+    overview: "Long sample product overview. Long sample product overview.",
     desc: "This is a sample of a product card with a very long description. This is a sample of a product card with a very long description. This is a sample of a product card with a very long description.",
     dateCreated: new Date("2024-06-16T09:18:14.000Z"),
     updated: new Date("2025-02-07T09:18:14.000Z"),
