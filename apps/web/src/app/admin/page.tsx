@@ -57,7 +57,7 @@ function AdminLogin() {
   };
 
   return (
-    <div className="flex min-h-screen h-auto w-auto flex-col items-center justify-center gap-6">
+    <div className="flex h-auto w-auto flex-col items-center justify-center gap-6">
       <h1 aria-label="Admin Access" className="text-2xl font-bold">
         Admin Access
       </h1>

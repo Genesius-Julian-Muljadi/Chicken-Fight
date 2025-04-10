@@ -21,7 +21,7 @@ export default function CatalogueProducts({
   )[0];
 
   return (
-    <div className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 min-h-[85vh] bg-gradient-to-b from-primary-100 via-primary-50 to-primary-50 dark:from-backtheme-900 dark:via-backtheme-950 dark:to-backtheme-950 rounded-xl rounded-tl-none shadow-md shadow-gray-700 dark:shadow-white/5 px-6 py-4">
+    <div className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 bg-gradient-to-b from-primary-100 via-primary-50 to-primary-50 dark:from-backtheme-900 dark:via-backtheme-950 dark:to-backtheme-950 rounded-xl rounded-tl-none shadow-md shadow-gray-700 dark:shadow-white/5 px-6 py-4">
       <div className="flex flex-col gap-8">
         <div className={`${products && !PRODUCTMAIN ? "hidden " : ""}`}>
           <MainCard product={PRODUCTMAIN || ProductSamples[0]} />

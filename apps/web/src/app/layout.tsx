@@ -40,7 +40,7 @@ export default function RootLayout({
           <Layout>
             <CookieManager />
             <HeaderServer />
-            <div className="-mt-20">{children}</div>
+            <div className="-mt-20 pb-44">{children}</div>
             <Footer />
           </Layout>
         </ThemeProviders>
