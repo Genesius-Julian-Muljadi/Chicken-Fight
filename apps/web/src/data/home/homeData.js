@@ -10,7 +10,6 @@ const homeData = {
   headerImageHeight: 2000,
   header3: "Temukan ayam petarung dengan spek idaman kamu",
   headerDescription2: " ",
-  videoIntro: "",
   testimonialHeader: "Testimonials",
   testimonialDescription: " ",
 };
